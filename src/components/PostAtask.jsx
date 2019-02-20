@@ -1,7 +1,8 @@
 import React, {useState,useContext}from 'react'
-import {TaskList} from '../middleware/context'
+import {SignInStatus, TaskList} from '../middleware/context'
 import taskListAction from '../middleware/actions/taskListAction'
 const PostAtask = ()=>{
+    const [signInStatus,] = useContext(SignInStatus)
     const [input,setInput] = useState({
         price:'',
         what:'',
@@ -18,6 +19,11 @@ const PostAtask = ()=>{
     }
     const [taskList,taskListDispatch] = useContext(TaskList) 
     const handleSubmit = ()=>{
+        for (let i in input){
+            if(input[i] === ''){
+                return false
+            }
+        }
         const newItem = {
             ...input,
             time:new Date().toLocaleString()

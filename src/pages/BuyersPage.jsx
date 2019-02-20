@@ -6,4 +6,7 @@ const Buyers = ()=>{
         </div>
     )
 }
+
+
 export default Buyers
+  

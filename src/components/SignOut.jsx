@@ -1,7 +1,7 @@
 import React,{useContext} from 'react'
 import { SignInStatus } from '../middleware/context';
 import {signOutAction} from '../middleware/actions/signInAction'
-const SignOut = ()=>{
+const SignOut = (props)=>{
     const [signInStatus,dispatch] = useContext(SignInStatus)
     return (
         <>
