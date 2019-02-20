@@ -16,13 +16,13 @@ const Routes = ()=>{
             <Route exact path = '/home' component={Home} />
             <Route exact path = '/tasks' component={TasksList} />
             <Route exact path = '/tasks/:id' component={TaskDetail} />
-            {/* <Route exact path = '/buyers' component={BuyersList} /> */}
-            <Route exact path = '/buyers/:id' component={BuyerDetail} />
-            <Route exact path = '/profile' component={Profile} />
             <Route exact path = '/signin' component={SignIn} />
             <Route exact path = '/signup' component={SignUp} />
-            <Route exact path = '/profile/:name' component={Profile} />
             <PrivateRoute path="/buyers" component={BuyersList} />
+            <PrivateRoute exact path = '/buyers/:id' component={BuyerDetail} />
+            <PrivateRoute exact path = '/profile/:name' component={Profile} />
+            <PrivateRoute path="/profile" component={Profile} />
+
         </Switch>
     )
 }
