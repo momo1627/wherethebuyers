@@ -1,0 +1,17 @@
+{
+    "tasks":[{
+        "id":1,
+        "price":1,
+        "what":"buy a pepsi coke 2L",
+        "where":"zetland",
+        "when":"in30min"
+    }],
+    "buyers":[{
+        "username":"daniel"
+        
+
+        
+        
+    }],
+    "profile":[]
+}
