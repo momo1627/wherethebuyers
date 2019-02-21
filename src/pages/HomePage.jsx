@@ -17,7 +17,7 @@ const Home = ()=>{
                 <Link to='/Signin'>Signin</Link>
                 <Link to='/SignUp'>SignUp</Link>
                 </>}  
-            </div>
+        </div>
         </>
     )
 }

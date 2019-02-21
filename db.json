@@ -1,17 +1,15 @@
 {
-    "tasks":[{
-        "id":1,
-        "price":1,
-        "what":"buy a pepsi coke 2L",
-        "where":"zetland",
-        "when":"in30min"
-    }],
-    "buyers":[{
-        "username":"daniel"
-        
-
-        
-        
-    }],
-    "profile":[]
+  "tasks": [
+    {
+      "id": "1550730768428",
+      "poster": "daniel",
+      "time": "21/02/2019, 17:32:48",
+      "price": "5",
+      "what": "3 bottles of pepsi max 2l",
+      "where": "zetland",
+      "when": "9pm",
+      "status": "Finding"
+    }
+  ],
+  "profile": []
 }

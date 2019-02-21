@@ -1,13 +1,14 @@
 import React, {useState,useContext}from 'react'
-import {SignInStatus, TaskList} from '../middleware/context'
-import taskListAction from '../middleware/actions/taskListAction'
+import axios from 'axios'
+import {SignInStatus} from '../middleware/context'
+
 const PostAtask = ()=>{
     const [signInStatus,] = useContext(SignInStatus)
     const [input,setInput] = useState({
         price:'',
         what:'',
         where:'',
-        when:''
+        when:'',
     })
     const handleChange = (e)=>{
         const name = e.target.name;
@@ -17,18 +18,20 @@ const PostAtask = ()=>{
         }
         setInput((prevState)=>{return {...prevState,...newState }})
     }
-    const [taskList,taskListDispatch] = useContext(TaskList) 
-    const handleSubmit = ()=>{
+    const handleSubmit = async ()=>{
         for (let i in input){
             if(input[i] === ''){
                 return false
             }
         }
-        const newItem = {
+        const task = {
+            id:new Date().getTime().toString(),
+            poster:signInStatus.username,
+            time:new Date().toLocaleString(),
             ...input,
-            time:new Date().toLocaleString()
+            status:'Finding'
         }
-        taskListDispatch(taskListAction(newItem))
+        axios.post('http://localhost:4000/tasks', task)
         setInput({
             price:'',
             what:'',

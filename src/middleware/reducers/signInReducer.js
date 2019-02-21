@@ -3,7 +3,7 @@ const signInReducer=(state,action)=>{
         case 'signIn':
             return {isSignIn:true,username:action.text}
         case 'signOut':
-            return {isSignIn:false}
+            return {isSignIn:false,username:''}
         default:
             return new Error()
     }
