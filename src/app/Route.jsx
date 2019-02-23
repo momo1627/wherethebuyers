@@ -11,19 +11,23 @@ import SignUp from '../pages/SignUpPage'
 import PrivateRoute from '../components/PrivateRoute'
 const Routes = ()=>{
     return (
-        <Switch>
+        <div className='bg-light'>
+        <div className='container py-3'>
+        <Switch >
             <Redirect exact path='/' to='/home' />
             <Route exact path = '/home' component={Home} />
             <Route exact path = '/tasks' component={TasksList} />
-            <Route exact path = '/tasks/:id' component={TaskDetail} />
+            <Route exact path = '/tasks/:id' component={TasksList} />
+            <Route exact path = '/tasks/detail/:id' component={TaskDetail} />
             <Route exact path = '/signin' component={SignIn} />
             <Route exact path = '/signup' component={SignUp} />
             <PrivateRoute path="/buyers" component={BuyersList} />
             <PrivateRoute exact path = '/buyers/:id' component={BuyerDetail} />
-            <PrivateRoute exact path = '/profile/:name' component={Profile} />
-            <PrivateRoute path="/profile" component={Profile} />
-
+            <PrivateRoute exact path = '/profile/:id' component={Profile} />
+            <PrivateRoute exact path="/profile" component={Profile} />
         </Switch>
+        </div>
+        </div>
     )
 }
 export default Routes

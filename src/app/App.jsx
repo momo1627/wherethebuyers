@@ -1,23 +1,22 @@
 import React,{useReducer} from 'react'
 import {BrowserRouter as Router} from 'react-router-dom'
-import Nav from './Nav'
+
 import Header from './/Header'
 import Routes from './Route'
-import {SignInStatus,TaskList} from '../middleware/context'
+import {SignInStatus,Update} from '../middleware/context'
 import signInReducer from '../middleware/reducers/signInReducer';
-import taskListReducer from '../middleware/reducers/taskListReducer';
+import updateReducer from '../middleware/reducers/updateReducer';
 const App = ()=>{
     const [signInStatus,signInDispatch] = useReducer(signInReducer,{isSignIn:false})
-    const [taskList,taskListDispatch] = useReducer(taskListReducer,[])
+    const [update,UpdateDispatch] = useReducer(updateReducer,false)
     return(
         <Router>
             <React.Fragment>
             <SignInStatus.Provider value={[signInStatus,signInDispatch]}>
-                <Header />
-                <Nav />
-                <TaskList.Provider value={[taskList,taskListDispatch]}>
+                <Header/>
+                <Update.Provider value={[update,UpdateDispatch]}>
                     <Routes />
-                </TaskList.Provider>              
+                </Update.Provider>              
             </SignInStatus.Provider>
             </React.Fragment>
         </Router>

@@ -1,24 +1,29 @@
 import React,{useState,useContext,useEffect} from 'react'
-import {TaskList} from '../middleware/context'
-import {getTaskList} from '../middleware/requestApi/index'
-import axios from 'axios'
+import { BrowserRouter as Router, Route, Link,Redirect } from "react-router-dom";
 import TaskLabel from '../components/TaskLabel'
+import TaskDetailsPage from './TaskDetailsPage'
+import {startUpdate,endUpdate} from '../middleware/actions/updateAction'
+import useGetData from '../middleware/customHooks/useGetData'
 const Task = ()=>{
-    const [data, setData] = useState([]);
-    const getData = async()=>{
-        const result = await axios(
-            'http://localhost:4000/tasks',
-          );
-          setData(result.data);
+    const [data,dispatch] = useGetData([],'http://localhost:5000/tasks')
+    const handleClick = ()=>{
+        dispatch(startUpdate)
     }
-    useEffect(()=>{getData()},[])
     return (
-        <div>
-            <h1>a list of task </h1>
-            {data.map(item => (
-                <TaskLabel key={item.id} {...item} />
-            ))}
-        </div>
+        <Router>
+            <div className='row' style={{"height":"82vh"}}>
+                    <div className='col-4'>
+                            {data.map(item => (
+                                <Link  key={item.id}  className="text-dark text-decoration-none" to={`/tasks/${item.id}`} onClick={()=>{handleClick(item.id)}}>
+                                    <TaskLabel  {...item} click={handleClick} />
+                                </Link>
+                        ))}
+                    </div>
+                    <div className='col-8'>
+                        <Route exact path='/tasks/:id' component={TaskDetailsPage}/>
+                </div>
+            </div>
+        </Router>
     )
 }
 export default Task

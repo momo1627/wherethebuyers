@@ -1,24 +1,19 @@
 import React, {useState,useContext}from 'react'
 import axios from 'axios'
 import {SignInStatus} from '../middleware/context'
-
+import FormGroup from '../components/FormGroup'
+import Button from '../components/Button'
+import useChangeInput from '../middleware/customHooks/useChangeInput'
 const PostAtask = ()=>{
     const [signInStatus,] = useContext(SignInStatus)
-    const [input,setInput] = useState({
+    const [input,handleChange,setInput] = useChangeInput({
         price:'',
         what:'',
         where:'',
         when:'',
     })
-    const handleChange = (e)=>{
-        const name = e.target.name;
-        const value = e.target.value;
-        const newState = {
-            [name]:value
-        }
-        setInput((prevState)=>{return {...prevState,...newState }})
-    }
-    const handleSubmit = async ()=>{
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
         for (let i in input){
             if(input[i] === ''){
                 return false
@@ -29,9 +24,10 @@ const PostAtask = ()=>{
             poster:signInStatus.username,
             time:new Date().toLocaleString(),
             ...input,
-            status:'Finding'
+            status:'OPEN',
+            assignTo:'not assigned'
         }
-        axios.post('http://localhost:4000/tasks', task)
+        axios.post('http://localhost:5000/tasks', task)
         setInput({
             price:'',
             what:'',
@@ -42,17 +38,12 @@ const PostAtask = ()=>{
     }
     return(
         <div>
-            <h3>Post A task</h3>
         <form action="">
-            <label htmlFor="price">Price for Task</label>
-            <input type="text" name='price' value={input.price} onChange={handleChange}/><br/>
-            <label htmlFor="what">What to Buy</label>
-            <input type="text" name='what' value={input.what} onChange={handleChange}/><br/>
-            <label htmlFor="where">where to deliver</label>
-            <input type="text" name='where' value={input.where} onChange={handleChange}/><br/>
-            <label htmlFor="when">due time</label>
-            <input type="text" name='when' value={input.when} onChange={handleChange}/><br/>
-            <input type="button" value='Post' onClick={handleSubmit}/>
+            <FormGroup type='text' change={handleChange} content='what' input={input.what}>What do you want to buy</FormGroup>
+            <FormGroup type='text' change={handleChange} content='price' input={input.price}>How much do you pay</FormGroup>
+            <FormGroup type='text' change={handleChange} content='where' input={input.where}>Where are you</FormGroup>
+            <FormGroup type='text' change={handleChange} content='when' input={input.when}>When do you need to deliver</FormGroup>
+            <Button type='submit' buttonStyle='btn btn-primary' click={handleSubmit}>Post A Task</Button>
         </form>
         </div>
         

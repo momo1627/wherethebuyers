@@ -5,20 +5,21 @@ import {SignInStatus} from '../middleware/context'
 const Home = ()=>{
     const [signInStatus] = useContext(SignInStatus)
     return (
-        <>
+        <div className='container'>
         <div>
-            Home Page 
+            {signInStatus.isSignIn?
+                <div className='h4'>{`Post a Task`}</div>:'Please Sign In first or Sign Up'}
         </div>
         <div>
-            {signInStatus.isSignIn?`welcome,${signInStatus.username},you can post a task`:'Please signIn first or signUp'}
+            {signInStatus.isSignIn? 
+            <PostATask /> : 
+                <div className="btn-group py-2">
+                  <Link className='btn btn-secondary' to='/Signin'>Sign In</Link>
+                  <Link className='btn btn-secondary' to='/SignUp'>Sign Up</Link>
+                </div>
+            }  
         </div>
-        <div>
-            {signInStatus.isSignIn? <PostATask /> : <>
-                <Link to='/Signin'>Signin</Link>
-                <Link to='/SignUp'>SignUp</Link>
-                </>}  
         </div>
-        </>
     )
 }
 export default Home
