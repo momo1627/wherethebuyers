@@ -1,22 +1,22 @@
 import React from 'react'
+import {NavLink} from 'react-router-dom' 
+import TaskLabel from '../components/TaskLabel'
+import useGetData from '../middleware/customHooks/useGetData'
+import {startUpdate,endUpdate} from '../middleware/actions/updateAction'
+
+
 const TaskList = (props)=>{
-    const handleClick =()=>{ props.click(props.id)}
+    const [data,dispatch] = useGetData([],'http://localhost:5000/tasks')
+    const handleClick = ()=>{
+        dispatch(startUpdate)
+    }
     return(
-        <div className='small bg-white border border-primary rounded'>
-            <div className='row'>
-                <div className='col-12 col-sm-6'>id:{props.id}</div>
-                <div className='col-12 col-sm-6'>{props.status}</div>
-                <div className='col-12 col-sm-6'>{props.poster}</div>
-                <div className='col-12 col-sm-6'>{props.assignTo}</div>
-            </div>
-            <div className='row'>
-                <div className='col-12 col-sm-6'>{props.what}</div>
-                <div className='col-12 col-sm-6'>{props.price}</div>
-                <div className='col-12 col-sm-6'>{props.where}</div>
-                <div className='col-12 col-sm-6'>{props.when}</div>
-                <div className='col-12 col-sm-6'>{props.time}</div>
-            </div>
-            {props.click?<button className='btn btn-primary' onClick={handleClick}>Done</button>:''}
+        <div className='task-list'>
+            {data.map(item => (
+                <NavLink  key={item.id}  activeClassName="task-link-active" className="text-dark text-decoration-none" to={`/tasks/${item.id}`} onClick={()=>{handleClick(item.id)}}>
+                    <TaskLabel  {...item} click={handleClick} />
+                </NavLink>
+            ))}
         </div>
     )
 }

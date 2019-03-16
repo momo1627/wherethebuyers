@@ -22,7 +22,7 @@ const Profile = (props)=>{
             {signInStatus.isSignIn?`welcome,${signInStatus.username},you can view your detail`:'Please signIn first or signUp'}
         </div>
         <div className='row'>
-        <div className='col-6'>
+        {/* <div className='col-6'>
             <h4>Posted Tasks</h4>        
             {postedTask.map((data)=>{
                 return (
@@ -30,8 +30,8 @@ const Profile = (props)=>{
                     <TaskList {...data}   />
                 </div>)
             })}
-        </div>
-        <div className='col-6'>
+        </div> */}
+        {/* <div className='col-6'>
             <h4>Assigned Tasks</h4>        
             {assignedTask.map((data)=>{
                 return (
@@ -39,7 +39,7 @@ const Profile = (props)=>{
                     <TaskList {...data} click={handleComplete}/>
                 </div>)
             })} 
-        </div>
+        </div> */}
         </div>
         
         <div>

@@ -1,7 +1,7 @@
 import React,{useContext} from 'react'
 import {Link} from 'react-router-dom'
-import PostATask from '../components/PostAtask'
 import {SignInStatus} from '../middleware/context'
+import ModalButton from '../components/PostButton'
 const Home = ()=>{
     const [signInStatus] = useContext(SignInStatus)
     return (
@@ -11,11 +11,11 @@ const Home = ()=>{
                 <div className='h4'>{`Post a Task`}</div>:'Please Sign In first or Sign Up'}
         </div>
         <div>
-            {signInStatus.isSignIn? 
-            <PostATask /> : 
+            {signInStatus.isSignIn ? 
+                <ModalButton target="postATask">Post A Task</ModalButton> :
                 <div className="btn-group py-2">
-                  <Link className='btn btn-secondary' to='/Signin'>Sign In</Link>
-                  <Link className='btn btn-secondary' to='/SignUp'>Sign Up</Link>
+                  <ModalButton target="signIn">Sign In</ModalButton>
+                  <ModalButton target="signUp">Sign Up</ModalButton>
                 </div>
             }  
         </div>
