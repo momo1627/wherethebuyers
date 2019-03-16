@@ -3,7 +3,6 @@ import React from "react";
 import axios from 'axios'
 import PropTypes from "prop-types";
 
-const API_KEY = "AIzaSyC0W_7Xof88qi51CnXgWEJVSOxyJFeKzME ";
 
 class GoogleMap extends React.PureComponent {
   constructor(){
