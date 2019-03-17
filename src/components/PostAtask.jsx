@@ -33,7 +33,7 @@ const PostAtask = ()=>{
             assignTo:'not assigned'
         }
         if(update) {updateDispatch(endUpdate)}
-        axios.post('http://localhost:5000/tasks', task)
+        await axios.post('http://localhost:5000/tasks', task)
         setInput({
             price:'',
             what:'',
