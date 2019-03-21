@@ -1,10 +1,10 @@
-import React,{useContext} from 'react'
+import * as React from 'react'
 import SignOut from '../components/SignOut'
 import { SignInStatus, ToggleModal } from '../middleware/context';
 import Nav from './Nav'
 import ModalButton from '../components/PostButton'
 const Header = ()=>{
-    const [signInStatus] = useContext(SignInStatus)
+    const {signInStatus} = React.useContext(SignInStatus)
     return(
         <div className="bg-dark py-1 app-header">
             <div className='container'>

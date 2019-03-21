@@ -1,9 +1,9 @@
-import React,{useContext} from 'react'
+import * as React from 'react'
 import {Link} from 'react-router-dom'
 import {SignInStatus} from '../middleware/context'
 import ModalButton from '../components/PostButton'
 const Home = ()=>{
-    const [signInStatus] = useContext(SignInStatus)
+    const [signInStatus] = React.useContext(SignInStatus)
     return (
         <div className='container'>
         <div>

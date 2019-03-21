@@ -1,15 +1,18 @@
-import React,{useState,useContext} from 'react'
+import * as React from 'react'
 import axios from 'axios'
 import {SignInStatus,ToggleModal} from '../middleware/context'
 import {signInAction} from '../middleware/actions/signInAction';
 import {showModal,hideModal} from '../middleware/actions/showModalAction'
-import FormGroup from '../components/FormGroup'
+import FormGroup from './FormGroup'
 import useChangeInput from '../middleware/customHooks/useChangeInput'
 import ModalButton from './PostButton'
-
+type AccontInput = {
+    username:string;
+    password:string;
+}
 const UserAccount =(props)=>{
-    const [signInStatus,signInDispatch] = useContext(SignInStatus);
-    const [modalStatus,modalDispatch] = useContext(ToggleModal)
+    const [signInStatus,signInDispatch] = React.useContext(SignInStatus);
+    const [modalStatus,modalDispatch] = React.useContext(ToggleModal)
     const handleSignIn = (e)=>{
         e.preventDefault();
         for (let i in input){
@@ -48,7 +51,7 @@ const UserAccount =(props)=>{
                 })
           })
     }
-    const [input,handleChange] = useChangeInput({
+    const [input,handleChange] = useChangeInput<AccontInput>({
         username:'',
         password:'',
     });

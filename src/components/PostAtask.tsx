@@ -1,22 +1,29 @@
-import React, {useState,useContext}from 'react'
+import * as React from 'react'
 import axios from 'axios'
 import {SignInStatus, ToggleModal} from '../middleware/context'
-import FormGroup from '../components/FormGroup'
+import FormGroup from './FormGroup'
 import useChangeInput from '../middleware/customHooks/useChangeInput'
 import {hideModal} from '../middleware/actions/showModalAction'
 import {startUpdate,endUpdate} from '../middleware/actions/updateAction'
 import {Update} from '../middleware/context'
+type TaskInput = {
+    price:string;
+    what:string;
+    where:string;
+    when:string;
+}
 const PostAtask = ()=>{
-    const [signInStatus,] = useContext(SignInStatus)
-    const [modalStatus,modalDispatch] = useContext(ToggleModal)
-    const [update,updateDispatch] = useContext(Update)
-
-    const [input,handleChange,setInput] = useChangeInput({
+    const defaultInput = {
         price:'',
         what:'',
         where:'',
         when:'',
-    })
+    }
+    const {signInStatus,} = React.useContext(SignInStatus)
+    const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
+    const {update,updateDispatch} = React.useContext(Update)
+
+    const [input,handleChange,setInput] = useChangeInput<TaskInput>(defaultInput)
     const handleSubmit = async (e)=>{
         e.preventDefault();
         for (let i in input){
@@ -34,12 +41,7 @@ const PostAtask = ()=>{
         }
         if(update) {updateDispatch(endUpdate)}
         axios.post('http://localhost:5000/tasks', task)
-        setInput({
-            price:'',
-            what:'',
-            where:'',
-            when:''
-        })
+        setInput(defaultInput)
         modalDispatch(hideModal)
         updateDispatch(startUpdate)
     }

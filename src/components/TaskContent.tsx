@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 const TaskContent = (props)=>{
     return (
     <div className='py-1 border-bottom border-muted'>

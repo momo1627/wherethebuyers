@@ -1,8 +1,8 @@
-import React,{useContext} from 'react'
+import * as React from 'react'
 import {Link} from 'react-router-dom'
 import {SignInStatus} from '../middleware/context'
 const Nav = ()=>{
-    const [signInStatus] = useContext(SignInStatus)
+    const {signInStatus} = React.useContext(SignInStatus)
     return (
         <nav className="p-0 navbar navbar-dark navbar-expand-sm col-12 col-md-6 ">
             <Link className='navbar-brand' to='/'>WITB</Link>

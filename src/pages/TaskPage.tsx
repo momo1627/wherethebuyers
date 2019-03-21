@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { BrowserRouter as Router, Route, Link,Redirect } from "react-router-dom";
 import TaskDetailsPage from './TaskDetailsPage'
 import TasksOnMap from './TaskOnMap'

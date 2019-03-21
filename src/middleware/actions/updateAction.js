@@ -1,5 +1,5 @@
 const startUpdate = {
-        type:'start'
+    type:'start'
 }
 const endUpdate = {
     type:'end'

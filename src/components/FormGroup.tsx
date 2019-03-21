@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 const FormGroup = (props)=>{
     return (
     <div className="form-group mb-1">

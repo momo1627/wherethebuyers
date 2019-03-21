@@ -1,4 +1,4 @@
-import React,{useContext,useEffect,useState} from 'react'
+import * as React from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import {SignInStatus,Update} from '../middleware/context'
@@ -6,7 +6,7 @@ import useGetData from '../middleware/customHooks/useGetData'
 import {startUpdate,endUpdate} from '../middleware/actions/updateAction'
 import TaskList from '../components/TaskList'
 const Profile = (props)=>{
-    const [signInStatus] = useContext(SignInStatus);
+    const [signInStatus] = React.useContext(SignInStatus);
     const [postedTask,dispatch] = useGetData([],`http://localhost:5000/tasks?poster=${props.match.params.id}`);
     const [assignedTask] = useGetData([],`http://localhost:5000/tasks?assignTo=${props.match.params.id}`)
 

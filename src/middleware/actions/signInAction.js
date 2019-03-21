@@ -1,6 +1,3 @@
-// const signInAction = {
-//     type:'signIn',
-// }
 function signInAction(text){
     return {
         type:'signIn',
