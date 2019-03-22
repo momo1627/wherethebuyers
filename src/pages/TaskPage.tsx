@@ -8,7 +8,7 @@ const Task = ()=>{
         <Router>
             <div className="app-task-screen">
                     <div className='task-right'>
-                        <Route exact path='/tasks' component={TasksOnMap} />
+                        {/* <Route exact path='/tasks' component={TasksOnMap} /> */}
                         <Route exact path='/tasks/:id' component={TaskDetailsPage}/>
                     </div>
                     <TaskList />

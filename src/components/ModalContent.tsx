@@ -2,8 +2,8 @@ import * as React from 'react'
 import PostAtask from './PostAtask'
 import UserAccount from './UserAccount'
 import {ToggleModal} from '../middleware/context'
-const ModalContent = ()=>{
-    const [modalStatus,modalDispatch] = React.useContext(ToggleModal)
+const ModalContent:React.FunctionComponent = ()=>{
+    const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
     return (
         <div className="">
             {modalStatus.modal === 'postATask' && <PostAtask />}

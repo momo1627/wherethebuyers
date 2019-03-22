@@ -5,6 +5,7 @@ function signInAction(text){
     }
 }
 const signOutAction ={
-    type:'signOut'
+    type:'signOut',
+    text:''
 }
 export {signInAction,signOutAction} 

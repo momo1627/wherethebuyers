@@ -12,7 +12,8 @@ type TaskInput = {
     where:string;
     when:string;
 }
-const PostAtask = ()=>{
+
+const PostAtask:React.FunctionComponent = ()=>{
     const defaultInput = {
         price:'',
         what:'',
@@ -24,10 +25,10 @@ const PostAtask = ()=>{
     const {update,updateDispatch} = React.useContext(Update)
 
     const [input,handleChange,setInput] = useChangeInput<TaskInput>(defaultInput)
-    const handleSubmit = async (e)=>{
+    const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
         for (let i in input){
-            if(input[i] === ''){
+            if(i === ''){
                 return false
             }
         }
@@ -42,7 +43,7 @@ const PostAtask = ()=>{
         if(update) {updateDispatch(endUpdate)}
         axios.post('http://localhost:5000/tasks', task)
         setInput(defaultInput)
-        modalDispatch(hideModal)
+        modalDispatch(hideModal())
         updateDispatch(startUpdate)
     }
     return(

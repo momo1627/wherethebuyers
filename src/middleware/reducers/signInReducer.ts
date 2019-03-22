@@ -2,11 +2,17 @@ type  SignInStatusState= {
     username:string;
     isSignIn:boolean;
 }
-type SignInAction = {
+export type SignInAction = {
     type:string
     text:string
 }
-const signInReducer=(state:SignInStatusState,action:SignInAction):SignInStatusState=>{
+export type SignOutAction = {
+    type:string
+    text:''
+}
+
+
+const signInReducer:React.Reducer<SignInStatusState,SignOutAction|SignInAction>= (state,action)=>{
     switch(action.type){
         case 'signIn':
             return {isSignIn:true,username:action.text}

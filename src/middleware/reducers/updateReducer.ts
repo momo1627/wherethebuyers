@@ -1,8 +1,8 @@
 type  UpdateState = boolean
-type UpdateAction = {
+export type UpdateAction = {
     type:string
 }
-const updateReducer=(state:UpdateState,action:UpdateAction):UpdateState=>{
+const updateReducer:React.Reducer<UpdateState,UpdateAction>=(state,action)=>{
     switch(action.type){
         case 'start':
             return true

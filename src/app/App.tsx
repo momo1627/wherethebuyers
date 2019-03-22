@@ -6,18 +6,17 @@ import {ToggleModal,SignInStatus,Update} from '../middleware/context'
 import signInReducer from '../middleware/reducers/signInReducer';
 import updateReducer from '../middleware/reducers/updateReducer';
 
-
-
 const App = ()=>{
-    const [update,UpdateDispatch] = React.useReducer(updateReducer,false);
+    const [update,updateDispatch] = React.useReducer(updateReducer,false);
     const [modalStatus,modalDispatch] = React.useReducer(showModalReducer,{status:false,modal:''});
     const [signInStatus,signInDispatch] = React.useReducer(signInReducer,{username:'',isSignIn:false});
+    
 
     return (
         <>  
             <ToggleModal.Provider value={{modalStatus,modalDispatch}}>
                 <SignInStatus.Provider value={{signInStatus,signInDispatch}}>
-                    <Update.Provider value={{update,UpdateDispatch}}>
+                    <Update.Provider value={{update,updateDispatch}}>
                         <Main />
                         {modalStatus.status && <ModalWrapper />}
                     </Update.Provider>

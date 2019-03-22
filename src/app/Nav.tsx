@@ -11,7 +11,6 @@ const Nav = ()=>{
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <div className="navbar-nav">
-            <Link className="nav-item nav-link text-white" to='/buyers'>Buyers</Link>
             <Link className="nav-item nav-link text-white" to='/tasks'>Tasks</Link>
             <Link className="nav-item nav-link text-white" to={signInStatus.isSignIn?`/profile/${signInStatus.username}`:'/profile'}>Profile</Link>
             </div>

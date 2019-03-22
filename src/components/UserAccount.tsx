@@ -10,13 +10,21 @@ type AccontInput = {
     username:string;
     password:string;
 }
-const UserAccount =(props)=>{
-    const [signInStatus,signInDispatch] = React.useContext(SignInStatus);
-    const [modalStatus,modalDispatch] = React.useContext(ToggleModal)
-    const handleSignIn = (e)=>{
+type Props = {
+    target:string;
+    title:string;
+}
+const UserAccount:React.FunctionComponent<Props> =(props)=>{
+    const {signInStatus,signInDispatch} = React.useContext(SignInStatus);
+    const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
+    const [input,handleChange] = useChangeInput<AccontInput>({
+        username:'',
+        password:'',
+    });
+    const handleSignIn = (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
         for (let i in input){
-            if(input[i] === ''){
+            if(i === ''){
                 return false
             }
         }
@@ -29,32 +37,29 @@ const UserAccount =(props)=>{
               } 
         })
     }
-    const handleSignUp = (e)=>{
+    const handleSignUp = (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault()
         for (let i in input){
-            if(input[i] === ''){
+            if(i === ''){
                 return false
             }
         }
-        const newUser = {id:input.username,...input}
+        const newUser = input
         axios.get(
-            `http://localhost:5000/profile/${newUser.id}`,
+            `http://localhost:5000/profile/${newUser.username}`,
           ).then(()=>{
-                signInDispatch(signInAction(input.id));
+                signInDispatch(signInAction(input.username));
                 modalDispatch(hideModal(props.target))})
           .catch(()=>{
             axios.post(
                 `http://localhost:5000/profile`,newUser
               ).then(()=>{
-                signInDispatch(signInAction(newUser.id));
+                signInDispatch(signInAction(newUser.username));
                 modalDispatch(hideModal(props.target))
                 })
           })
     }
-    const [input,handleChange] = useChangeInput<AccontInput>({
-        username:'',
-        password:'',
-    });
+    
     return (
         <div className="post-task-content mx-auto bg-white p-3">
             <h3 className="text-center">{props.title}</h3>

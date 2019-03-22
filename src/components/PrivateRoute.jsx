@@ -3,7 +3,7 @@ import {Route,Redirect} from 'react-router-dom'
 import {SignInStatus} from '../middleware/context'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const [signInStatus] = React.useContext(SignInStatus);
+    const {signInStatus} = React.useContext(SignInStatus);
     return(
     <Route
       {...rest}

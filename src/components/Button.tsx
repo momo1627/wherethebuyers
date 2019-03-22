@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { ReactNode } from 'react';
 type Props = {
     type:string;
     style:React.CSSProperties;

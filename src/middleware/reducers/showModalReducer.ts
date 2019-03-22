@@ -2,7 +2,7 @@ type ToggleModalState = {
     status:boolean;
     modal:string;
 }
-type ToggleModalAction = {
+export type ToggleModalAction = {
     type:string;
     text:string;
 }
