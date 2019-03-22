@@ -41,9 +41,20 @@ const PostAtask:React.FunctionComponent = ()=>{
             assignTo:'not assigned'
         }
         if(update) {updateDispatch(endUpdate)}
+<<<<<<< HEAD:src/components/PostAtask.tsx
         axios.post('http://localhost:5000/tasks', task)
         setInput(defaultInput)
         modalDispatch(hideModal())
+=======
+        await axios.post('http://localhost:5000/tasks', task)
+        setInput({
+            price:'',
+            what:'',
+            where:'',
+            when:''
+        })
+        modalDispatch(hideModal)
+>>>>>>> 9d167765d16a6ecbb97bb1dcd31ef8e2ff9aeb43:src/components/PostAtask.jsx
         updateDispatch(startUpdate)
     }
     return(

@@ -41,8 +41,8 @@
       "what": "opal card",
       "where": "burwood",
       "when": "9pm",
-      "status": "OPEN",
-      "assignTo": "not assigned"
+      "status": "ASSIGNED",
+      "assignTo": "daniel"
     },
     {
       "id": "1552303396688",
@@ -52,8 +52,8 @@
       "what": "apple card",
       "where": "ashfield",
       "when": "10am",
-      "status": "OPEN",
-      "assignTo": "not assigned"
+      "status": "ASSIGNED",
+      "assignTo": "daniel"
     },
     {
       "id": "1552303429032",
@@ -74,6 +74,39 @@
       "where": "waterloo",
       "when": "5pm",
       "status": "ASSIGNED",
+      "assignTo": "not assigned"
+    },
+    {
+      "id": "1552786076934",
+      "poster": "daniel",
+      "time": "17/03/2019, 12:27:56",
+      "price": "3",
+      "what": "umbrella",
+      "where": "zetland",
+      "when": "2pm",
+      "status": "OPEN",
+      "assignTo": "not assigned"
+    },
+    {
+      "id": "1552786181287",
+      "poster": "daniel",
+      "time": "17/03/2019, 12:29:41",
+      "price": "3",
+      "what": "2 2l pepsi max",
+      "where": "haymarket",
+      "when": "6pm",
+      "status": "OPEN",
+      "assignTo": "not assigned"
+    },
+    {
+      "id": "1552786253731",
+      "poster": "daniel",
+      "time": "17/03/2019, 12:30:53",
+      "price": "3",
+      "what": "2 pack of ham",
+      "where": "burwood",
+      "when": "3pm",
+      "status": "OPEN",
       "assignTo": "not assigned"
     }
   ],
