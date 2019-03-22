@@ -1,5 +1,6 @@
 import * as React from 'react'
 import axios from 'axios'
+import * as yup from 'yup'
 import {SignInStatus,ToggleModal} from '../middleware/context'
 import {signInAction} from '../middleware/actions/signInAction';
 import {showModal,hideModal} from '../middleware/actions/showModalAction'
@@ -14,7 +15,11 @@ type Props = {
     target:string;
     title:string;
 }
-const UserAccount:React.FunctionComponent<Props> =(props)=>{
+let schema = yup.object().shape({
+    username:yup.string().min(8).email().required().label("username is email address"),
+    password:yup.string().min(8).required().label("password at least 8 length")
+})
+const UserAccount =(props:Props)=>{
     const {signInStatus,signInDispatch} = React.useContext(SignInStatus);
     const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
     const [input,handleChange] = useChangeInput<AccontInput>({
@@ -23,41 +28,46 @@ const UserAccount:React.FunctionComponent<Props> =(props)=>{
     });
     const handleSignIn = (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
-        for (let i in input){
-            if(i === ''){
-                return false
-            }
-        }
-        axios.get(
-            `http://localhost:5000/profile/${input.username}`,
-          ).then((response)=>{
-              if(response.status === 200){
-                signInDispatch(signInAction(input.username));
-                modalDispatch(hideModal(props.target))
-              } 
+        schema.validate(input).then(()=>{
+            axios.get(
+                `http://localhost:5000/profile/${input.username}`,
+              ).then((response)=>{
+                  if(response.status === 200){
+                    signInDispatch(signInAction(input.username));
+                    modalDispatch(hideModal(props.target))
+                  } 
+            })
+        },err=>{
+            err.name;
+            err.errors
+            window.alert('error');
+            return 
         })
+        
     }
     const handleSignUp = (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault()
-        for (let i in input){
-            if(i === ''){
-                return false
-            }
-        }
-        const newUser = input
-        axios.get(
-            `http://localhost:5000/profile/${newUser.username}`,
-          ).then(()=>{
-                signInDispatch(signInAction(input.username));
-                modalDispatch(hideModal(props.target))})
-          .catch(()=>{
-            axios.post(
-                `http://localhost:5000/profile`,newUser
-              ).then(()=>{
-                signInDispatch(signInAction(newUser.username));
-                modalDispatch(hideModal(props.target))
-                })
-          })
+        schema.validate(input).then(()=>{
+            const newUser = input
+            axios.get(`http://localhost:5000/profile/${newUser.username}`,)
+            .then(()=>{
+                    signInDispatch(signInAction(input.username));
+                    modalDispatch(hideModal(props.target))})
+            .catch(()=>{
+                axios.post(
+                    `http://localhost:5000/profile`,newUser
+                ).then(()=>{
+                    signInDispatch(signInAction(newUser.username));
+                    modalDispatch(hideModal(props.target))
+                    })
+            })
+        },err=>{
+            err.name;
+            err.errors
+            window.alert('error');
+            return 
+        })
+        
     }
     
     return (
