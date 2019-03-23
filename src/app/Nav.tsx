@@ -1,8 +1,8 @@
-import React,{useContext} from 'react'
+import * as React from 'react'
 import {Link} from 'react-router-dom'
 import {SignInStatus} from '../middleware/context'
 const Nav = ()=>{
-    const [signInStatus] = useContext(SignInStatus)
+    const {signInStatus} = React.useContext(SignInStatus)
     return (
         <nav className="p-0 navbar navbar-dark navbar-expand-sm col-12 col-md-6 ">
             <Link className='navbar-brand' to='/'>WITB</Link>
@@ -11,7 +11,6 @@ const Nav = ()=>{
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <div className="navbar-nav">
-            <Link className="nav-item nav-link text-white" to='/buyers'>Buyers</Link>
             <Link className="nav-item nav-link text-white" to='/tasks'>Tasks</Link>
             <Link className="nav-item nav-link text-white" to={signInStatus.isSignIn?`/profile/${signInStatus.username}`:'/profile'}>Profile</Link>
             </div>

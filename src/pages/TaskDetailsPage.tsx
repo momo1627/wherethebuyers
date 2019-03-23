@@ -1,20 +1,40 @@
-import React,{useEffect,useState,useContext} from 'react'
+import * as React from 'react'
 import axios from 'axios'
 import TaskContent from '../components/TaskContent'
 import ModalButton from '../components/PostButton'
 import {SignInStatus,Update} from '../middleware/context'
 import {startUpdate,endUpdate} from '../middleware/actions/updateAction'
 import useGetData from '../middleware/customHooks/useGetData'
-const TaskDetail = (props)=>{
-    const [signInStatus] = useContext(SignInStatus)
-    const [data,dispatch] = useGetData({},`http://localhost:5000/tasks/${props.match.params.id}`)
+type Props = {
+    status:string;
+    match:{
+        params:
+        {
+            id:string|number
+        }
+    }
+}
+const initialVale = {
+    poster:'',
+    what:'',
+    where:'',
+    when:'',
+    price:'',
+    time:'',
+    detail:'',
+    status:'',
+    assignTo:'',
+    id:'',
+} 
+const TaskDetail:React.FunctionComponent<Props> = (props)=>{
+    const {signInStatus} = React.useContext(SignInStatus)
+    const [data,fetchStatus,dispatch] = useGetData(initialVale,`http://localhost:5000/tasks/${props.match.params.id}`)
     const handleSubmit = async()=>{
         const input = {assignTo:signInStatus.username,status:'ASSIGNED'}
         await axios.patch(`http://localhost:5000/tasks/${props.match.params.id}`,input)
         dispatch(startUpdate)
     }
-    let status
-    switch(props.status){
+    switch(data.status){
         case 'DONE':
             status = 'text-muted'
             break 

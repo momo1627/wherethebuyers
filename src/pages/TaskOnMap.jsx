@@ -1,8 +1,14 @@
 /* eslint-disable no-undef */
-import React from "react";
+import * as React from 'react'
 import axios from 'axios'
+<<<<<<< HEAD
+
+const API_KEY = "AIzaSyC0W_7Xof88qi51CnXgWEJVSOxyJFeKzME ";
+
+=======
 import PropTypes from "prop-types";
 import API_KEY from '../middleware/api'
+>>>>>>> 9d167765d16a6ecbb97bb1dcd31ef8e2ff9aeb43
 class GoogleMap extends React.PureComponent {
   constructor(){
     super();

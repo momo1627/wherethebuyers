@@ -1,5 +1,13 @@
-import React from 'react'
-const FormGroup = (props)=>{
+import * as React from 'react'
+type Props = {
+    content:string;
+    type:string;
+    input:string;
+    size?:string;
+    change:React.ChangeEventHandler
+
+}
+const FormGroup:React.FunctionComponent<Props> = (props)=>{
     return (
     <div className="form-group mb-1">
         <label className='m-0 p-0' htmlFor={props.content}>{props.content}</label>

@@ -1,6 +1,3 @@
-// const signInAction = {
-//     type:'signIn',
-// }
 function signInAction(text){
     return {
         type:'signIn',
@@ -8,6 +5,7 @@ function signInAction(text){
     }
 }
 const signOutAction ={
-    type:'signOut'
+    type:'signOut',
+    text:''
 }
 export {signInAction,signOutAction} 

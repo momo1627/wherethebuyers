@@ -1,5 +1,13 @@
-import React from 'react'
-const TaskLabel = (props)=>{
+import * as React from 'react'
+type Props = {
+    what:string;
+    id:string;
+    where:string;
+    when:string;
+    price:string;
+    status:string;
+}
+const TaskLabel:React.FunctionComponent<Props> = (props)=>{
     let status
     switch(props.status){
         case 'DONE':

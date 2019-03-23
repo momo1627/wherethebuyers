@@ -1,26 +1,34 @@
-import React, {useState,useContext}from 'react'
+import * as React from 'react'
 import axios from 'axios'
 import {SignInStatus, ToggleModal} from '../middleware/context'
-import FormGroup from '../components/FormGroup'
+import FormGroup from './FormGroup'
 import useChangeInput from '../middleware/customHooks/useChangeInput'
 import {hideModal} from '../middleware/actions/showModalAction'
 import {startUpdate,endUpdate} from '../middleware/actions/updateAction'
 import {Update} from '../middleware/context'
-const PostAtask = ()=>{
-    const [signInStatus,] = useContext(SignInStatus)
-    const [modalStatus,modalDispatch] = useContext(ToggleModal)
-    const [update,updateDispatch] = useContext(Update)
+type TaskInput = {
+    price:string;
+    what:string;
+    where:string;
+    when:string;
+}
 
-    const [input,handleChange,setInput] = useChangeInput({
+const PostAtask:React.FunctionComponent = ()=>{
+    const defaultInput = {
         price:'',
         what:'',
         where:'',
         when:'',
-    })
-    const handleSubmit = async (e)=>{
+    }
+    const {signInStatus,} = React.useContext(SignInStatus)
+    const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
+    const {update,updateDispatch} = React.useContext(Update)
+
+    const [input,handleChange,setInput] = useChangeInput<TaskInput>(defaultInput)
+    const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
         for (let i in input){
-            if(input[i] === ''){
+            if(i === ''){
                 return false
             }
         }
@@ -33,6 +41,11 @@ const PostAtask = ()=>{
             assignTo:'not assigned'
         }
         if(update) {updateDispatch(endUpdate)}
+<<<<<<< HEAD:src/components/PostAtask.tsx
+        axios.post('http://localhost:5000/tasks', task)
+        setInput(defaultInput)
+        modalDispatch(hideModal())
+=======
         await axios.post('http://localhost:5000/tasks', task)
         setInput({
             price:'',
@@ -41,6 +54,7 @@ const PostAtask = ()=>{
             when:''
         })
         modalDispatch(hideModal)
+>>>>>>> 9d167765d16a6ecbb97bb1dcd31ef8e2ff9aeb43:src/components/PostAtask.jsx
         updateDispatch(startUpdate)
     }
     return(

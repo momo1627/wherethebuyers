@@ -1,17 +1,30 @@
-import React,{useContext,useEffect,useState} from 'react'
+import * as React from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
 import {SignInStatus,Update} from '../middleware/context'
 import useGetData from '../middleware/customHooks/useGetData'
 import {startUpdate,endUpdate} from '../middleware/actions/updateAction'
+<<<<<<< HEAD:src/pages/ProfilePage.tsx
+type Props = {
+    match:{
+        params:
+        {id:string}
+    }
+}
+const Profile:React.FunctionComponent<Props> = (props)=>{
+    const {signInStatus} = React.useContext(SignInStatus);
+    // const [postedTask,fetchStatus,dispatch] = useGetData(`http://localhost:5000/tasks?poster=${props.match.params.id}`);
+    // const [assignedTask] = useGetData(`http://localhost:5000/tasks?assignTo=${props.match.params.id}`)
+=======
 const Profile = (props)=>{
     const [signInStatus] = useContext(SignInStatus);
     const [postedTask,dispatch] = useGetData([],`http://localhost:5000/tasks?poster=${props.match.params.id}`);
     const [assignedTask] = useGetData([],`http://localhost:5000/tasks?assignTo=${props.match.params.id}`)
+>>>>>>> 9d167765d16a6ecbb97bb1dcd31ef8e2ff9aeb43:src/pages/ProfilePage.jsx
 
-    const handleComplete = async(input)=>{
+    const handleComplete = async(input:string)=>{
        await axios.patch(`http://localhost:5000/tasks/${input}`,{status:`DONE`})
-       dispatch(startUpdate)
+    //    dispatch(startUpdate)
     }
 
     return (
