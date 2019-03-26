@@ -8,14 +8,13 @@ const Header = ()=>{
     return(
         <div className="bg-dark py-1 app-header">
             <div className='container'>
-                <div className="d-lg-flex justify-content-between align-items-center mx-auto">
+                <div className="row justify-content-between align-items-center mx-auto">
                     <Nav />
-                    <ModalButton target={signInStatus.isSignIn?"postATask":"signIn"}>Post A Task</ModalButton>
                     {
                         signInStatus.isSignIn
                         ? <SignOut />
                         : 
-                        <div style={{"maxWidth":"240px"}} className="btn-group px-1">
+                        <div style={{"maxWidth":"240px"}} className="d-none d-md-block btn-group px-1">
                         <ModalButton target="signIn">Sign In</ModalButton>
                         <ModalButton target="signUp">Sign Up</ModalButton>
                         </div>

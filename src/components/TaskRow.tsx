@@ -1,36 +1,21 @@
 import * as React from 'react';
-import useGetData from '../middleware/customHooks/useGetData'
-import { SignInStatus} from '../middleware/context'
-interface ITaskItem {
-    role:string;
-    filter:string;
+type Row = {
+    td1:string,
+    td2:string,
+    td3:string,
+    td4:string,
+    td5:string
 }
-const initialVale = {
-    postedBy:'',
-    postedTime:'',
-    what:'',
-    where:'',
-    when:'',
-    price:'',
-    time:'',
-    detail:'',
-    status:'',
-    assignedTo:'',
-    assignedTime:'',
-    id:'',
-} 
-type Task = typeof initialVale
-
-const TaskItem = ({role,filter}:ITaskItem)=>{
-    const { signInStatus } = React.useContext(SignInStatus);
-    const username = signInStatus.username;
-    const url = role === 'poster' ? `http://localhost:5000/tasks?postedBy=${username}&?status=${filter}` : `http://localhost:5000/tasks?assignedTo=${username}?status=${filter}`
-    const [data,fetchStatus,updateDispatch] = useGetData([initialVale],url);
-    const element = data.map(d=>{return <tr key={d.id}><td>{d.id}</td></tr>}) 
+const TaskRow = (props:Row)=>{
+    
     return (
-        <>
-            {fetchStatus ? element : "data is loading"}
-        </>
+        <tr className=''>
+            <td className="">{props.td1}</td>
+            <td className="">{props.td2}</td>
+            <td className="">{props.td3}</td>
+            <td className="">{props.td4}</td>
+            <td className="">{props.td5}</td>
+        </tr>
     )
 }
-export default TaskItem
+export default TaskRow

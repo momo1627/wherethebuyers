@@ -2,79 +2,82 @@ import * as React from 'react'
 import axios from 'axios'
 import TaskContent from '../components/TaskContent'
 import ModalButton from '../components/PostButton'
-import {SignInStatus,Update} from '../middleware/context'
-import {startUpdate,endUpdate} from '../middleware/actions/updateAction'
+import { SignInStatus, Update } from '../middleware/context'
+import { startUpdate, endUpdate } from '../middleware/actions/updateAction'
 import useGetData from '../middleware/customHooks/useGetData'
 type Props = {
-    status:string;
-    match:{
+    status: string;
+    match: {
         params:
         {
-            id:string|number
+            id: string | number
         }
     }
 }
+export type Data = typeof initialVale
 const initialVale = {
-    postedBy:'',
-    postedTime:'',
-    what:'',
-    where:'',
-    when:'',
-    price:'',
-    time:'',
-    detail:'',
-    status:'',
-    assignedTo:'',
-    assignedTime:'',
-    id:'',
-} 
-const TaskDetail:React.FunctionComponent<Props> = (props)=>{
-    const {signInStatus} = React.useContext(SignInStatus)
-    const [data,fetchStatus,dispatch] = useGetData(initialVale,`http://localhost:5000/tasks/${props.match.params.id}`)
-    const handleSubmit = async()=>{
-        const input = {assignTo:signInStatus.username,status:'ASSIGNED',assignedTime:new Date().toLocaleString()}
-        await axios.patch(`http://localhost:5000/tasks/${props.match.params.id}`,input)
+    postedBy: '',
+    postedTime: '',
+    what: '',
+    where: '',
+    when: '',
+    price: '',
+    detail: '',
+    status: '',
+    assignedTo: '',
+    assignedTime: '',
+    id: '',
+    completedTime: ''
+}
+const TaskDetail: React.FunctionComponent<Props> = (props) => {
+    const { signInStatus } = React.useContext(SignInStatus)
+    const [data, fetchStatus, dispatch] = useGetData<Data>(undefined, `http://localhost:5000/tasks/${props.match.params.id}`)
+    const handleSubmit = async () => {
+        if (signInStatus.username === '') { return }
+        const input = { assignedTo: signInStatus.username, status: 'ASSIGNED', assignedTime: new Date().toLocaleString() }
+        await axios.patch(`http://localhost:5000/tasks/${props.match.params.id}`, input)
         dispatch(startUpdate)
     }
-    switch(data.status){
-        case 'COMPLETED':
-            status = 'text-muted'
-            break 
-        case 'ASSIGNED':
-            status = 'text-danger'
-            break
-        default:
-            status = 'text-success'
-    }
     return (
-        <div>
-            <div className='task-right-content d-flex px-2 py-3 bg-white'> 
-            <div className="col-8">
-                <div className='row justify-content-around'>
-                    <div className={data.status==='OPEN' ? 'bg-success px-2 border rounded text-white':'bg-secondary px-2 border rounded text-white'  }>OPEN</div>
-                    <div className={data.status==='ASSIGNED' ? 'bg-warning px-2 border rounded text-white':'bg-secondary px-2 border rounded text-white'  }>ASSIGNED</div>
-                    <div className={data.status==='COMPLETED' ? 'bg-danger px-2 border rounded text-white':'bg-secondary px-2 border rounded text-white'  }>DONE</div>
-                </div>
-                <div className="py-3 h3 font-weight-normal">{data.what}</div>
-                <TaskContent content={data.postedBy}>Posted by</TaskContent>
-                <TaskContent content={data.where}>Location</TaskContent>
-                <TaskContent content={data.when}>Due</TaskContent>
-                <TaskContent content={data.time}>Post Time</TaskContent>
-                <TaskContent content={data.detail}>Detail</TaskContent>
+        <>
+            {
+                !fetchStatus ? 'isLoading' :
+                    (data &&
+                        <div className='task-right-content px-2 pt-4'>
+                            <div className='w-75 mx-auto row justify-content-around '>
+                                <div className={data.status === 'OPEN' ? 'bg-success px-2 border shadow-sm rounded text-white' : 'bg-muted px-2 border shadow-sm rounded text-dark bg-white'}>OPEN</div>
+                                <div className={data.status === 'ASSIGNED' ? 'bg-warning px-2 border shadow-sm rounded text-white' : 'bg-muted px-2 border shadow-sm rounded text-dark bg-white'}>ASSIGNED</div>
+                                <div className={data.status === 'PENDING' ? 'bg-danger px-2 border shadow-sm rounded text-white' : 'bg-muted px-2 border shadow-sm rounded text-dark bg-white'}>PENDING</div>
+                                <div className={data.status === 'COMPLETED' ? 'bg-dark px-2 border shadow-sm rounded text-white' : 'bg-muted px-2 border shadow-sm rounded text-dark bg-white'}>COMPLETED</div>
+                            </div>
 
-            </div>
-            <div className="col-4 py-2 text-center  border border-muted rounded align-self-start">
-                <h6 className='py-1'>Task Budget</h6>
-                <div className='h2'>${data.price}</div>
-                {signInStatus.isSignIn ? <button className='btn btn-success' onClick={handleSubmit} disabled={data.status==='ASSIGNED'}>Take the Task</button> : 
-                <ModalButton target="signIn">Take the Task</ModalButton>
+                        
+                            <div className="w-75 my-4 py-2 d-flex justify-content-around mx-auto text-center  border border-muted shadow-sm rounded bg-white">
+                                <div>
+                                    <h6 className='py-1'>Task Budget</h6>
+                                    <div className='h2'>${data.price}</div>
+                                </div>
+                                <div className="align-self-center">
+                                    {signInStatus.isSignIn ? <button className='btn btn-success' onClick={handleSubmit} disabled={data.status !== "OPEN" || data.postedBy === signInStatus.username}>Take the Task</button> :
+                                        <ModalButton target="signIn">Take the Task</ModalButton>
+                                    }
+                                </div>
+                                <div className="align-self-center">
+                                    <h6>Assigned To</h6>
+                                    <div className='h6'>{data.status !== 'OPEN' ? data.assignedTo : ''}</div>
+                                </div>
+                            </div>
+                            <div className='w-75 mx-auto bg-white shadow rounded p-5'>
+                                <div className="mb-4 h3 font-weight-normal">{data.what}</div>
+                                <TaskContent content={data.postedBy}>Posted By</TaskContent>
+                                <TaskContent content={data.postedTime}>Posted Time</TaskContent>
+                                <TaskContent content={data.where}>Location</TaskContent>
+                                <TaskContent content={data.when}>Due</TaskContent>
+                                </div>
+
+                        </div>)
             }
-                
-                <TaskContent content={data.status==='ASSIGNED'?data.assignedTo:''}>Assigned To</TaskContent>
-            </div>
-            </div>
-
-        </div>
+        </>
 
     )
 }

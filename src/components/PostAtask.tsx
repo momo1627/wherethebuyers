@@ -6,13 +6,13 @@ import useChangeInput from '../middleware/customHooks/useChangeInput'
 import {hideModal} from '../middleware/actions/showModalAction'
 import {startUpdate,endUpdate} from '../middleware/actions/updateAction'
 import {Update} from '../middleware/context'
-type TaskInput = {
+import {Data} from '../pages/TaskDetailsPage'
+interface ITaskInput  {
     price:string;
     what:string;
     where:string;
     when:string;
 }
-
 const PostAtask:React.FunctionComponent = ()=>{
     const defaultInput = {
         price:'',
@@ -24,7 +24,7 @@ const PostAtask:React.FunctionComponent = ()=>{
     const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
     const {update,updateDispatch} = React.useContext(Update)
 
-    const [input,handleChange,setInput] = useChangeInput<TaskInput>(defaultInput)
+    const [input,handleChange,setInput] = useChangeInput<ITaskInput>(defaultInput)
     const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
         for (let i in input){
@@ -35,13 +35,13 @@ const PostAtask:React.FunctionComponent = ()=>{
         const task = {
             id:new Date().getTime().toString(),
             postedBy:signInStatus.username,
-            postTime:new Date().toLocaleString(),
+            postedTime:new Date().toLocaleString(),
             ...input,
             status:'OPEN',
             assignedTo:'not assigned'
         }
         if(update) {updateDispatch(endUpdate)}
-        axios.post('http://localhost:5000/tasks', task)
+        axios.post<Data>('http://localhost:5000/tasks', task)
         setInput(defaultInput)
         modalDispatch(hideModal())
         updateDispatch(startUpdate)

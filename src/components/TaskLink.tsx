@@ -11,10 +11,13 @@ const TaskLabel:React.FunctionComponent<Props> = (props)=>{
     let status
     switch(props.status){
         case 'COMPLETED':
-            status = 'text-danger'
+            status = 'text-dark'
             break 
         case 'ASSIGNED':
             status = 'text-warning'
+            break
+        case 'PENDING':
+            status = 'text-danger'
             break
         default:
             status = 'text-success'

@@ -6,7 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #eeeeee;
+  background-color: #f6f8fd;
 
 }
 
@@ -28,7 +28,7 @@ body {
   overflow: hidden;
 }
 .app-content{
-  margin-top:50px;
+  margin-top:60px;
 }
 .post-task-container{
   position: fixed;
@@ -92,8 +92,42 @@ body {
 }
 .task-right{
   width:70%;
+  overflow-y: scroll;
+  overflow-x: hidden;
   height: calc(100vh - 60px);
 }
-.task-right-content{
-  height: 100vh
+/* .task-right-content{
+  height: calc(100vh - 50px)
+} */
+/* table,td,th{
+  border:1px solid black
+}
+th,td{
+  text-align: center
+} */
+.task-table{
+  overflow-x: scroll;
+  overflow-y:scroll;
+  height: calc(100vh - 65px);
+}
+.mytasks {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+}
+
+.mytasks td, .mytasks th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.mytasks tr:nth-child(even){background-color: #f2f2f2;}
+
+.mytasks tr:hover {background-color: #ddd;}
+
+.mytasks th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #007bff;
+  color: white;
 }

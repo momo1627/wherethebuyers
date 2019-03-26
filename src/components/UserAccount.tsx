@@ -44,7 +44,7 @@ const UserAccount:React.FunctionComponent<Props> =(props)=>{
                 return false
             }
         }
-        const newUser = input
+        const newUser = {...input,signUpTime:new Date().toLocaleString()}
         // axios.get(
         //     `http://localhost:5000/profile/${newUser.username}`,
         //   ).then(()=>{
