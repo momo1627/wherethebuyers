@@ -2,7 +2,7 @@ import * as React from 'react'
 import { BrowserRouter as Router, Route, Link,Redirect } from "react-router-dom";
 import TaskDetailsPage from './TaskDetailsPage'
 import TasksOnMap from './TaskOnMap'
-import TaskList from '../components/TaskList'
+import TaskNav from '../components/TaskNav'
 const Task = ()=>{
     return (
         <Router>
@@ -11,7 +11,7 @@ const Task = ()=>{
                         {/* <Route exact path='/tasks' component={TasksOnMap} /> */}
                         <Route exact path='/tasks/:id' component={TaskDetailsPage}/>
                     </div>
-                    <TaskList />
+                    <TaskNav />
             </div>
 
         </Router>

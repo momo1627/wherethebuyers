@@ -34,11 +34,11 @@ const PostAtask:React.FunctionComponent = ()=>{
         }
         const task = {
             id:new Date().getTime().toString(),
-            poster:signInStatus.username,
-            time:new Date().toLocaleString(),
+            postedBy:signInStatus.username,
+            postTime:new Date().toLocaleString(),
             ...input,
             status:'OPEN',
-            assignTo:'not assigned'
+            assignedTo:'not assigned'
         }
         if(update) {updateDispatch(endUpdate)}
         axios.post('http://localhost:5000/tasks', task)

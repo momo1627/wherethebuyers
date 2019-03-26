@@ -10,7 +10,7 @@ type Props = {
 const TaskLabel:React.FunctionComponent<Props> = (props)=>{
     let status
     switch(props.status){
-        case 'DONE':
+        case 'COMPLETED':
             status = 'text-danger'
             break 
         case 'ASSIGNED':

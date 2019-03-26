@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-      "baseUrl": ".",
-      "paths": { "*": ["types/*"] },
     "target": "es6",
     "jsx": "preserve",
     "module": "esnext",
@@ -20,7 +18,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "noImplicitAny": true,
+    "noImplicitAny": true
   },
   "exclude": [
     "node_modules"

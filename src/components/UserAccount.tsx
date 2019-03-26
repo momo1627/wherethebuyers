@@ -45,19 +45,25 @@ const UserAccount:React.FunctionComponent<Props> =(props)=>{
             }
         }
         const newUser = input
-        axios.get(
-            `http://localhost:5000/profile/${newUser.username}`,
+        // axios.get(
+        //     `http://localhost:5000/profile/${newUser.username}`,
+        //   ).then(()=>{
+        //         signInDispatch(signInAction(input.username));
+        //         modalDispatch(hideModal(props.target))})
+        //   .catch(()=>{
+        //     axios.post(
+        //         `http://localhost:5000/profile`,newUser
+        //       ).then(()=>{
+        //         signInDispatch(signInAction(newUser.username));
+        //         modalDispatch(hideModal(props.target))
+        //         })
+        //   })
+        axios.post(
+            `http://localhost:5000/profile`,newUser
           ).then(()=>{
-                signInDispatch(signInAction(input.username));
-                modalDispatch(hideModal(props.target))})
-          .catch(()=>{
-            axios.post(
-                `http://localhost:5000/profile`,newUser
-              ).then(()=>{
-                signInDispatch(signInAction(newUser.username));
-                modalDispatch(hideModal(props.target))
-                })
-          })
+            signInDispatch(signInAction(newUser.username));
+            modalDispatch(hideModal(props.target))
+            })
     }
     
     return (

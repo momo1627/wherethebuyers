@@ -10,9 +10,11 @@ const Nav = ()=>{
                 <span className="navbar-toggler-icon"></span>
             </button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <div className="navbar-nav">
-            <Link className="nav-item nav-link text-white" to='/tasks'>Tasks</Link>
-            <Link className="nav-item nav-link text-white" to={signInStatus.isSignIn?`/profile/${signInStatus.username}`:'/profile'}>Profile</Link>
+            <div className="navbar-nav nav-pills">
+            <Link className="nav-item nav-link text-white  btn-outline-primary mr-2"  to='/tasks'>Tasks</Link>
+            <Link className="nav-item nav-link text-white  btn-outline-primary" to='/mytasks'>MyTasks</Link>
+            
+            {/* <Link className="nav-item nav-link text-white" to={signInStatus.isSignIn?`/profile/${signInStatus.username}`:'/profile'}>Profile</Link> */}
             </div>
             </div>
         </nav>

@@ -15,7 +15,8 @@ type Props = {
     }
 }
 const initialVale = {
-    poster:'',
+    postedBy:'',
+    postedTime:'',
     what:'',
     where:'',
     when:'',
@@ -23,19 +24,20 @@ const initialVale = {
     time:'',
     detail:'',
     status:'',
-    assignTo:'',
+    assignedTo:'',
+    assignedTime:'',
     id:'',
 } 
 const TaskDetail:React.FunctionComponent<Props> = (props)=>{
     const {signInStatus} = React.useContext(SignInStatus)
     const [data,fetchStatus,dispatch] = useGetData(initialVale,`http://localhost:5000/tasks/${props.match.params.id}`)
     const handleSubmit = async()=>{
-        const input = {assignTo:signInStatus.username,status:'ASSIGNED'}
+        const input = {assignTo:signInStatus.username,status:'ASSIGNED',assignedTime:new Date().toLocaleString()}
         await axios.patch(`http://localhost:5000/tasks/${props.match.params.id}`,input)
         dispatch(startUpdate)
     }
     switch(data.status){
-        case 'DONE':
+        case 'COMPLETED':
             status = 'text-muted'
             break 
         case 'ASSIGNED':
@@ -51,10 +53,10 @@ const TaskDetail:React.FunctionComponent<Props> = (props)=>{
                 <div className='row justify-content-around'>
                     <div className={data.status==='OPEN' ? 'bg-success px-2 border rounded text-white':'bg-secondary px-2 border rounded text-white'  }>OPEN</div>
                     <div className={data.status==='ASSIGNED' ? 'bg-warning px-2 border rounded text-white':'bg-secondary px-2 border rounded text-white'  }>ASSIGNED</div>
-                    <div className={data.status==='DONE' ? 'bg-danger px-2 border rounded text-white':'bg-secondary px-2 border rounded text-white'  }>DONE</div>
+                    <div className={data.status==='COMPLETED' ? 'bg-danger px-2 border rounded text-white':'bg-secondary px-2 border rounded text-white'  }>DONE</div>
                 </div>
                 <div className="py-3 h3 font-weight-normal">{data.what}</div>
-                <TaskContent content={data.poster}>Posted by</TaskContent>
+                <TaskContent content={data.postedBy}>Posted by</TaskContent>
                 <TaskContent content={data.where}>Location</TaskContent>
                 <TaskContent content={data.when}>Due</TaskContent>
                 <TaskContent content={data.time}>Post Time</TaskContent>
@@ -68,7 +70,7 @@ const TaskDetail:React.FunctionComponent<Props> = (props)=>{
                 <ModalButton target="signIn">Take the Task</ModalButton>
             }
                 
-                <TaskContent content={data.status==='ASSIGNED'?data.assignTo:''}>Assigned To</TaskContent>
+                <TaskContent content={data.status==='ASSIGNED'?data.assignedTo:''}>Assigned To</TaskContent>
             </div>
             </div>
 

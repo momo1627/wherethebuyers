@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {NavLink} from 'react-router-dom' 
-import TaskLabel from './TaskLabel'
+import TaskLink from './TaskLink'
 import useGetData from '../middleware/customHooks/useGetData'
 import {startUpdate,endUpdate} from '../middleware/actions/updateAction'
 type dataList = typeof initialValue [];
@@ -20,7 +20,7 @@ const TaskList = ()=>{
     const element = (<div className='task-list'>
     {(data as dataList).map((item) => (
         <NavLink  key={item.id}  activeClassName="task-link-active" className="text-dark text-decoration-none" to={`/tasks/${item.id}`} onClick={()=>{handleClick()}}>
-            <TaskLabel {...item}  />
+            <TaskLink {...item}  />
         </NavLink>
     ))}
     </div>) 
