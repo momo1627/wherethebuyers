@@ -12,31 +12,39 @@ const TaskTable = ({role,filter}:ITaskItem)=>{
     const { signInStatus } = React.useContext(SignInStatus);
     const username = signInStatus.username;
     const url = filter === 'all'? `http://localhost:5000/mytasks?${role}=${username}` : `http://localhost:5000/mytasks?${role}=${username}&status=${filter}` 
-    const [data,fetchStatus,updateDispatch] = useGetData<Data[]>(undefined,url);
-    const posterElement = (data && data.map((d)=>{return <TaskRow td1={d.id} td2={d.what} td3={d.when} td4={d.where} td5={d.completedTime} />}))
-    const taskerElement = (data && data.map((d)=>{return <TaskRow td1={d.id} td2={d.postedTime} td3={d.assignedTo} td4={d.assignedTime} td5={d.completedTime} />}))
+    const [response,fetchStatus,updateDispatch] = useGetData<Data>(url);
+    const posterElement = (response.data.map((d)=>{return <TaskRow key={d.id} td1={d.id} td2={d.what} td3={d.when} td4={d.where} td5={d.completedTime} />}) )
+    const taskerElement = (response.data.map((d)=>{return <TaskRow key={d.id} td1={d.id} td2={d.postedTime} td3={d.assignedTo} td4={d.assignedTime} td5={d.completedTime} />}) )
     return(
-        <table className="mx-auto mt-3">
+        <>
+        {fetchStatus ? <table className="mx-auto mt-3">
                 <tbody className="mytasks">
                     {role === 'postedBy'
-                        ? <tr className="mx-auto">
+                        ? <>
+                        <tr className="mx-auto">
                             <th className="">Task Id</th>
                             <th className="">PostedTime</th>
                             <th className="">AssignedTo</th>
                             <th className="">AssignedTime</th>
                             <th className="">CompletedTime</th>
                         </tr>
-                        : <tr className="">
+                        {posterElement}
+                        </>
+                        : <>
+                        <tr className="">
                             <th className="">Task Id</th>
                             <th className="">What</th>
                             <th className="">When</th>
                             <th className="">Where</th>
                             <th className="">CompletedTime</th>
                         </tr>
+                        {taskerElement}
+                        </>
                     }
-                    {role ==='postedBy' ? posterElement : taskerElement}
                 </tbody>
-            </table>
+            </table> : <div>data is Loading</div>}
+        {response.status !== 0 && <div className='text-center h3 mt-3'>{response.message}</div>  }
+        </>
     )
 }
 export default TaskTable

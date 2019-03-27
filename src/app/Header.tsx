@@ -2,7 +2,7 @@ import * as React from 'react'
 import SignOut from '../components/SignOut'
 import { SignInStatus, ToggleModal } from '../middleware/context';
 import Nav from './Nav'
-import ModalButton from '../components/PostButton'
+import ModalButton from '../components/ModalButton'
 const Header = ()=>{
     const {signInStatus} = React.useContext(SignInStatus)
     return(

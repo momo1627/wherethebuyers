@@ -9,6 +9,7 @@ const ModalContent:React.FunctionComponent = ()=>{
             {modalStatus.modal === 'postATask' && <PostAtask />}
             {modalStatus.modal === 'signIn' &&  <UserAccount title="Sign In" target="signIn"></UserAccount>}
             {modalStatus.modal === 'signUp' &&  <UserAccount title="Sign Up" target="signUp"></UserAccount>}
+            
         </div>
     )
 }

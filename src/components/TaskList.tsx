@@ -1,7 +1,7 @@
 import * as React from 'react';
 import TaskTable from './TaskTable'
 import { SignInStatus, Update } from '../middleware/context'
-import ModalButton from '../components/PostButton'
+import ModalButton from './ModalButton'
 
 interface ITaskList {
     role: string;
@@ -31,8 +31,17 @@ const TaskList = ({ role }: ITaskList) => {
                     <a className="nav-link" id="completed-tab" data-toggle="tab" href="#completed" role="tab" aria-controls="completed" aria-selected="false" onClick={(e) => { e.preventDefault(); setFilter('COMPLETED') }}>Completed Tasks</a>
                 </li>
             </ul>
-            {/* {!signInStatus.isSignIn && 'Please Sign In to view your Tasks'} */}
-            <TaskTable role={role} filter={filter} />
+            {!signInStatus.isSignIn ?
+            <div className="text-center">
+                <h3>Please Sign In to view your Tasks</h3>
+                <div className="btn-group py-2">
+                <ModalButton target="signIn">Sign In</ModalButton>
+                <ModalButton target="signUp">Sign Up</ModalButton>
+              </div>
+            </div>
+                :
+                <TaskTable role={role} filter={filter} />
+            }
 
         </div>
 

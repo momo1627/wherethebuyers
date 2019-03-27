@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 import TaskLink from './TaskLink'
 import useGetData from '../middleware/customHooks/useGetData'
 import { startUpdate, endUpdate } from '../middleware/actions/updateAction'
-type dataList = typeof initialValue[];
+type dataList = typeof initialValue;
 const initialValue = {
     what: '',
     id: '',
@@ -13,23 +13,23 @@ const initialValue = {
     status: '',
 }
 const TaskList = () => {
-    const [data, fetchStatus, dispatch] = useGetData<dataList>(undefined, 'http://localhost:5000/tasks')
+    const [response, fetchStatus, dispatch] = useGetData<dataList>('http://localhost:5000/tasks')
     const handleClick = () => {
         dispatch(startUpdate)
     }
     const element = (
         <div className='task-list'>
             {
-                data && data.map((item) => (
+                response.data ? response.data.map((item) => (
                     <NavLink key={item.id} activeClassName="task-link-active" className="text-dark text-decoration-none" to={`/tasks/${item.id}`} onClick={() => { handleClick() }}>
                         <TaskLink {...item} />
-                    </NavLink>))
+                    </NavLink>)) : 
+                <div>{response.message}</div>
             }
         </div>)
     return (
         <div className="task-left">
-            {!fetchStatus && !data && <span className="p-2">no Tasks, you can post the first class</span>}
-            {fetchStatus && data && element}
+            {fetchStatus ? element : <div>data is fetching</div> }
         </div>
     )
 }

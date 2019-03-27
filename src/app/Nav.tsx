@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {Link} from 'react-router-dom'
-import ModalButton from '../components/PostButton'
+import PostButton from '../components/ModalButton'
 import {SignInStatus} from '../middleware/context'
 const Nav = ()=>{
     const {signInStatus} = React.useContext(SignInStatus)
@@ -9,7 +9,7 @@ const Nav = ()=>{
             <div className="nav nav-pills nav-fill flex">
             <Link className="mr-2 nav-item nav-link text-white  btn-outline-primary"  to='/tasks'>Tasks</Link>
             <Link className="mr-2 nav-item nav-link text-white  btn-outline-primary" to='/mytasks'>MyTasks</Link>
-            <ModalButton target={signInStatus.isSignIn?"postATask":"signIn"}>Post A Task</ModalButton>
+            <PostButton target={signInStatus.isSignIn?"postATask":"signIn"}>Post A Task</PostButton>
             
             {/* <Link className="nav-item nav-link text-white" to={signInStatus.isSignIn?`/profile/${signInStatus.username}`:'/profile'}>Profile</Link> */}
             </div>

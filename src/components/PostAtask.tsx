@@ -7,6 +7,7 @@ import {hideModal} from '../middleware/actions/showModalAction'
 import {startUpdate,endUpdate} from '../middleware/actions/updateAction'
 import {Update} from '../middleware/context'
 import {Data} from '../pages/TaskDetailsPage'
+import FormModal from './FormModel'
 interface ITaskInput  {
     price:string;
     what:string;
@@ -20,18 +21,13 @@ const PostAtask:React.FunctionComponent = ()=>{
         where:'',
         when:'',
     }
+    const [alert,setAlert] = React.useState({status:2,message:''})
     const {signInStatus,} = React.useContext(SignInStatus)
     const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
     const {update,updateDispatch} = React.useContext(Update)
-
     const [input,handleChange,setInput] = useChangeInput<ITaskInput>(defaultInput)
     const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
-        for (let i in input){
-            if(i === ''){
-                return false
-            }
-        }
         const task = {
             id:new Date().getTime().toString(),
             postedBy:signInStatus.username,
@@ -41,9 +37,16 @@ const PostAtask:React.FunctionComponent = ()=>{
             assignedTo:'not assigned'
         }
         if(update) {updateDispatch(endUpdate)}
-        axios.post<Data>('http://localhost:5000/tasks', task)
-        setInput(defaultInput)
-        modalDispatch(hideModal())
+        axios.post('http://localhost:5000/tasks', task).then((res)=>{return res.data}).then(response=>{
+            if(response.status === 0 ){
+                setAlert({status:response.status,message:response.message})
+                // modalDispatch(hideModal(props.target))
+            } else{
+                setAlert({status:response.status,message:response.message})
+            }
+          })
+        //   setInput(defaultInput)
+        // modalDispatch(hideModal())
         updateDispatch(startUpdate)
     }
     return(
@@ -59,7 +62,9 @@ const PostAtask:React.FunctionComponent = ()=>{
                 <button className='btn btn-danger' type="button" onClick={()=>{modalDispatch(hideModal('postATask'))}}>Cancel</button>
             </div>  
             </form>
-            
+            {alert.status === 0 && <FormModal message={alert.message} cancel={()=>{setAlert({status:0,message:''});modalDispatch(hideModal('postATask'))}}/>}
+            {alert.status === 1 && <FormModal message={alert.message} cancel={()=>{setAlert({status:0,message:''});setInput(defaultInput)}}/>}
+       
         </div>
         
     )

@@ -3,9 +3,11 @@ import axios from 'axios'
 import {SignInStatus,ToggleModal} from '../middleware/context'
 import {signInAction} from '../middleware/actions/signInAction';
 import {showModal,hideModal} from '../middleware/actions/showModalAction'
+import useGetData from '../middleware/customHooks/useGetData'
 import FormGroup from './FormGroup'
 import useChangeInput from '../middleware/customHooks/useChangeInput'
-import ModalButton from './PostButton'
+import ModalButton from './ModalButton'
+import FormModal from './FormModel'
 type AccontInput = {
     username:string;
     password:string;
@@ -17,53 +19,43 @@ type Props = {
 const UserAccount:React.FunctionComponent<Props> =(props)=>{
     const {signInStatus,signInDispatch} = React.useContext(SignInStatus);
     const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
-    const [input,handleChange] = useChangeInput<AccontInput>({
+    const [alert,setAlert] = React.useState({status:2,message:''})
+    const [input,handleChange,setInput] = useChangeInput<AccontInput>({
         username:'',
         password:'',
     });
     const handleSignIn = (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
-        for (let i in input){
-            if(i === ''){
-                return false
+        axios.post(
+            `http://localhost:5000/sign-in`,input
+          ).then((res)=>{return res.data}).then(response=>{
+            if(response.status === 0 ){
+                const username = response.data.username
+                signInDispatch(signInAction(username as string));
+                setAlert({status:response.status,message:`welcome ${username}`})
+                // modalDispatch(hideModal(props.target))
+            } else{
+                setAlert({status:response.status,message:response.message})
+                return
             }
-        }
-        axios.get(
-            `http://localhost:5000/profile/${input.username}`,
-          ).then((response)=>{
-              if(response.status === 200){
-                signInDispatch(signInAction(input.username));
-                modalDispatch(hideModal(props.target))
-              } 
-        })
+          })
+        
     }
     const handleSignUp = (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault()
-        for (let i in input){
-            if(i === ''){
-                return false
-            }
-        }
         const newUser = {...input,signUpTime:new Date().toLocaleString()}
-        // axios.get(
-        //     `http://localhost:5000/profile/${newUser.username}`,
-        //   ).then(()=>{
-        //         signInDispatch(signInAction(input.username));
-        //         modalDispatch(hideModal(props.target))})
-        //   .catch(()=>{
-        //     axios.post(
-        //         `http://localhost:5000/profile`,newUser
-        //       ).then(()=>{
-        //         signInDispatch(signInAction(newUser.username));
-        //         modalDispatch(hideModal(props.target))
-        //         })
-        //   })
         axios.post(
-            `http://localhost:5000/profile`,newUser
-          ).then(()=>{
-            signInDispatch(signInAction(newUser.username));
-            modalDispatch(hideModal(props.target))
-            })
+            `http://localhost:5000/sign-up`,newUser
+          ).then((res)=>{return res.data}).then(response=>{
+            if(response.status === 0 ){
+                const username = response.data.username
+                signInDispatch(signInAction(username as string));
+                setAlert({status:response.status,message:`welcome ${username}`})
+                // modalDispatch(hideModal(props.target))
+            } else{
+                setAlert({status:response.status,message:response.message})
+            }
+          })
     }
     
     return (
@@ -82,6 +74,8 @@ const UserAccount:React.FunctionComponent<Props> =(props)=>{
                     <ModalButton target={props.target === 'signIn' ? "signUp" : "signIn"}>{props.target === 'signIn' ? "Sign Up" : "Sign In"}</ModalButton>
                 </div>
             </form>
+            {alert.status === 0 && <FormModal message={alert.message} cancel={()=>{setAlert({status:0,message:''});modalDispatch(hideModal(props.target))}}/>}
+            {alert.status === 1 && <FormModal message={alert.message} cancel={()=>{setAlert({status:0,message:''});setInput({username:'',password:''})}}/>}
         </div>
         
     )
