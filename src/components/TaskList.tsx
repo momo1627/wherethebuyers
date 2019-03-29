@@ -12,8 +12,8 @@ const TaskList = ({ role }: ITaskList) => {
     const [filter, setFilter] = React.useState<Filter>('all')
     const { signInStatus } = React.useContext(SignInStatus);
     return (
-        <div className="py-3">
-            <ul className="nav nav-pills  py-0 flex-column flex-lg-row justify-content-center" id="myTab" role="tablist">
+        <div >
+            <ul className="nav nav-pills bg-light py-2 flex-column flex-lg-row justify-content-center" id="myTab" role="tablist">
                 <li className="nav-item">
                     <a className="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true" onClick={(e) => { e.preventDefault(); setFilter('all') }}>All Tasks</a>
                 </li>
@@ -32,15 +32,16 @@ const TaskList = ({ role }: ITaskList) => {
                 </li>
             </ul>
             {!signInStatus.isSignIn ?
-            <div className="text-center">
-                <h3>Please Sign In to view your Tasks</h3>
-                <div className="btn-group py-2">
-                <ModalButton target="signIn">Sign In</ModalButton>
-                <ModalButton target="signUp">Sign Up</ModalButton>
-              </div>
-            </div>
-                :
-                <TaskTable role={role} filter={filter} />
+                <div className="text-center mt-3">
+                    <h3>Please Sign In to view your Tasks</h3>
+                    <div className="btn-group">
+                        <ModalButton target="signIn">Sign In</ModalButton>
+                        <ModalButton target="signUp">Sign Up</ModalButton>
+                    </div>
+                </div>
+                : <div className="mx-auto alert-secondary border border-white rounded shadow  task-table">
+                    <TaskTable role={role} filter={filter} />
+                </div>
             }
 
         </div>

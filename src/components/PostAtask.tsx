@@ -6,8 +6,8 @@ import useChangeInput from '../middleware/customHooks/useChangeInput'
 import {hideModal} from '../middleware/actions/showModalAction'
 import {startUpdate,endUpdate} from '../middleware/actions/updateAction'
 import {Update} from '../middleware/context'
-import {Data} from '../pages/TaskDetailsPage'
 import FormModal from './FormModel'
+import usePostData from '../middleware/customHooks/usePostData'
 interface ITaskInput  {
     price:string;
     what:string;
@@ -21,7 +21,7 @@ const PostAtask:React.FunctionComponent = ()=>{
         where:'',
         when:'',
     }
-    const [alert,setAlert] = React.useState({status:2,message:''})
+    const [response,resetResponse,setTrigger] = usePostData()
     const {signInStatus,} = React.useContext(SignInStatus)
     const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
     const {update,updateDispatch} = React.useContext(Update)
@@ -37,20 +37,11 @@ const PostAtask:React.FunctionComponent = ()=>{
             assignedTo:'not assigned'
         }
         if(update) {updateDispatch(endUpdate)}
-        axios.post('http://localhost:5000/tasks', task).then((res)=>{return res.data}).then(response=>{
-            if(response.status === 0 ){
-                setAlert({status:response.status,message:response.message})
-                // modalDispatch(hideModal(props.target))
-            } else{
-                setAlert({status:response.status,message:response.message})
-            }
-          })
-        //   setInput(defaultInput)
-        // modalDispatch(hideModal())
+        setTrigger('http://localhost:5000/tasks',{method:'post',body: JSON.stringify(task), headers: { 'Content-Type': 'application/json' }})
         updateDispatch(startUpdate)
     }
     return(
-        <div className='post-task-content mx-auto bg-white p-3'>
+        <div className='post-content mx-auto bg-white p-3'>
             <h5 className="text-center">Post A Task</h5>
             <form action="" className='px-3' >
             <FormGroup type='text' size="small" change={handleChange} content='what' input={input.what}>What do you want to buy</FormGroup>
@@ -62,8 +53,12 @@ const PostAtask:React.FunctionComponent = ()=>{
                 <button className='btn btn-danger' type="button" onClick={()=>{modalDispatch(hideModal('postATask'))}}>Cancel</button>
             </div>  
             </form>
-            {alert.status === 0 && <FormModal message={alert.message} cancel={()=>{setAlert({status:0,message:''});modalDispatch(hideModal('postATask'))}}/>}
-            {alert.status === 1 && <FormModal message={alert.message} cancel={()=>{setAlert({status:0,message:''});setInput(defaultInput)}}/>}
+            {response.status === 0 && <FormModal message={response.message} cancel={() => {
+                resetResponse();
+                modalDispatch(hideModal('postATask'))
+            }} />}
+            {response.status === 1 && <FormModal message={response.message} cancel={() => { resetResponse(); setInput(defaultInput) }} />}
+            {response.status === 2 && <FormModal message={response.message} cancel={() => { resetResponse(); setInput(defaultInput); modalDispatch(hideModal('postATask')) }} />}
        
         </div>
         

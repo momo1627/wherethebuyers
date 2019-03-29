@@ -1,10 +1,12 @@
 import * as React from 'react'
-import axios from 'axios'
+import {ToggleModal} from '../middleware/context'
+import {hideModal,showModal} from '../middleware/actions/showModalAction'
 import TaskContent from '../components/TaskContent'
 import ModalButton from '../components/ModalButton'
 import { SignInStatus, Update } from '../middleware/context'
 import { startUpdate, endUpdate } from '../middleware/actions/updateAction'
-import useGetData from '../middleware/customHooks/useGetData'
+import useFetchData from '../middleware/customHooks/useFetchData'
+import ConfirmModal from '../components/ConfirmModal' 
 type Props = {
     status: string;
     match: {
@@ -30,15 +32,21 @@ const initialVale = {
     completedTime: ''
 }
 const TaskDetail: React.FunctionComponent<Props> = (props) => {
+    const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
     const { signInStatus } = React.useContext(SignInStatus)
-    const [response, fetchStatus, dispatch] = useGetData<Data>(`http://localhost:5000/tasks/${props.match.params.id}`)
-    const handleSubmit = async () => {
-        if (signInStatus.username === '') { return }
-        const input = { assignedTo: signInStatus.username, status: 'ASSIGNED', assignedTime: new Date().toLocaleString() }
-        await axios.patch(`http://localhost:5000/tasks/${props.match.params.id}`, input)
+    const [confirm,setConfirm] = React.useState(false)
+    const [response, fetchStatus, dispatch] = useFetchData<Data>(`http://localhost:5000/tasks/${props.match.params.id}`,{method:'get'})
+    const input = {method:'put', body:JSON.stringify({assignedTo: signInStatus.username, status: 'ASSIGNED', assignedTime: new Date().toLocaleString()}),headers: { 'Content-Type': 'application/json' }}
+    const click = () => {
         dispatch(startUpdate)
+        setConfirm(false)
+        modalDispatch(hideModal())
     }
-    const profile = response.data[0]
+    const cancel = ()=>{
+        setConfirm(false)
+        modalDispatch(hideModal())
+    }
+    const profile = response.data as Data
     return (
         <>
             {
@@ -59,8 +67,10 @@ const TaskDetail: React.FunctionComponent<Props> = (props) => {
                                     <div className='h2'>${profile.price}</div>
                                 </div>
                                 <div className="align-self-center">
-                                    {signInStatus.isSignIn ? <button className='btn btn-success' onClick={handleSubmit} disabled={profile.status !== "OPEN" || profile.postedBy === signInStatus.username}>Take the Task</button> :
-                                        <ModalButton target="signIn">Take the Task</ModalButton>
+                                    {signInStatus.isSignIn ? 
+                                    // <button className='btn btn-success' onClick={handleSubmit} disabled={profile.status !== "OPEN" || profile.postedBy === signInStatus.username}>Take the Task</button> 
+                                        <button className='btn btn-success' disabled={profile.status !== "OPEN" || profile.postedBy === signInStatus.username} onClick={()=>{setConfirm(true);modalDispatch(showModal())}}>Take the Task</button>
+                                       : <ModalButton target="signIn">Take the Task</ModalButton>
                                     }
                                 </div>
                                 <div className="align-self-center">
@@ -79,6 +89,7 @@ const TaskDetail: React.FunctionComponent<Props> = (props) => {
                         </div> : <div>{response.message}</div>
                         )
             }
+            {confirm && <ConfirmModal url={`http://localhost:5000/tasks/${props.match.params.id}`} input={input} title='take the task' click={click} cancel={cancel}/>}
         </>
 
     )

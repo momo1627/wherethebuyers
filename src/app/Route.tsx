@@ -2,7 +2,7 @@ import * as React from 'react'
 import {Switch,Route} from 'react-router-dom'
 import Home from '../pages/HomePage'
 import TasksList from '../pages/TaskPage'
-import Profile from '../pages/ProfilePage'
+// import Profile from '../pages/ProfilePage'
 import MyTasks from '../pages/MyTasks'
 import PrivateRoute from '../components/PrivateRoute'
 const Routes:React.FunctionComponent = ()=>{
@@ -14,8 +14,8 @@ const Routes:React.FunctionComponent = ()=>{
                     <Route exact path = '/tasks' component={TasksList} />
                     <Route exact path = '/tasks/:id' component={TasksList} />
                     <Route exact path = '/mytasks' component={MyTasks} />
-                    <PrivateRoute exact path = '/profile/:id' component={Profile} />
-                    <PrivateRoute exact path="/profile" component={Profile} />
+                    {/* <PrivateRoute exact path = '/profile/:id' component={Profile} />
+                    <PrivateRoute exact path="/profile" component={Profile} /> */}
                 </Switch>
                 </div>
         </div>

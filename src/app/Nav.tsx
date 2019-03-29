@@ -10,8 +10,6 @@ const Nav = ()=>{
             <Link className="mr-2 nav-item nav-link text-white  btn-outline-primary"  to='/tasks'>Tasks</Link>
             <Link className="mr-2 nav-item nav-link text-white  btn-outline-primary" to='/mytasks'>MyTasks</Link>
             <PostButton target={signInStatus.isSignIn?"postATask":"signIn"}>Post A Task</PostButton>
-            
-            {/* <Link className="nav-item nav-link text-white" to={signInStatus.isSignIn?`/profile/${signInStatus.username}`:'/profile'}>Profile</Link> */}
             </div>
         </nav>
     )

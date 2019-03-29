@@ -1,6 +1,6 @@
 import * as React from 'react'
 import SignOut from '../components/SignOut'
-import { SignInStatus, ToggleModal } from '../middleware/context';
+import { SignInStatus } from '../middleware/context';
 import Nav from './Nav'
 import ModalButton from '../components/ModalButton'
 const Header = ()=>{

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { NavLink } from 'react-router-dom'
 import TaskLink from './TaskLink'
-import useGetData from '../middleware/customHooks/useGetData'
+import useFetchData from '../middleware/customHooks/useFetchData'
 import { startUpdate, endUpdate } from '../middleware/actions/updateAction'
 type dataList = typeof initialValue;
 const initialValue = {
@@ -13,15 +13,12 @@ const initialValue = {
     status: '',
 }
 const TaskList = () => {
-    const [response, fetchStatus, dispatch] = useGetData<dataList>('http://localhost:5000/tasks')
-    const handleClick = () => {
-        dispatch(startUpdate)
-    }
+    const [response, fetchStatus] = useFetchData<dataList>('http://localhost:5000/tasks',{method:'get'})
     const element = (
         <div className='task-list'>
             {
-                response.data ? response.data.map((item) => (
-                    <NavLink key={item.id} activeClassName="task-link-active" className="text-dark text-decoration-none" to={`/tasks/${item.id}`} onClick={() => { handleClick() }}>
+                response.status === 0 ? (response.data as dataList[]).map((item) => (
+                    <NavLink key={item.id} activeClassName="task-link-active" className="text-dark text-decoration-none" to={`/tasks/${item.id}`} >
                         <TaskLink {...item} />
                     </NavLink>)) : 
                 <div>{response.message}</div>

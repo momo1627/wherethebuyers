@@ -6,8 +6,8 @@ const Mytasks = () => {
     const [role, setRole] = React.useState<Role>('postedBy')
 
     return (
-        <main className="pt-5 bg-light task-table font-weight-bold">
-                <ul className="w-100 justify-content-center px-3 text-center nav nav-pills  " id="myTab1" role="tablist">
+        <main className="pt-3 font-weight-bold">
+                <ul className="justify-content-center text-center nav nav-pills  " id="myTab1" role="tablist">
                     <li className="nav-item">
                         <a className="nav-link active" id="posted-tab" data-toggle="tab" href="#posted" role="tab" aria-controls="posted" aria-selected="true" onClick={(e) => { e.preventDefault; setRole('postedBy'); }}>As Poster</a>
                     </li>

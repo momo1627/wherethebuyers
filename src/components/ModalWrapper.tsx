@@ -2,7 +2,7 @@ import * as React from 'react'
 import ModalContent from './ModalContent'
 const ModalWrapper = ()=>{
     return (
-        <div className='post-task-container'>
+        <div className='modal-container'>
             <ModalContent />
         </div>
     )
