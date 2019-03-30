@@ -10,7 +10,7 @@ const ErrorModal = (props:IProps)=>{
     return (
         <div>
             <h3 className="text-center">{props.title}</h3>
-            <div className='d-flex justify-content-between p-0'>
+            <div className='p-0'>
                 <button className='btn btn-danger btn-sm' type="button" onClick={()=>{modalDispatch(hideModal(props.target))}}>OK</button>
             </div>
         </div>

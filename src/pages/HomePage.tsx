@@ -10,12 +10,13 @@ const Home:React.FunctionComponent = ()=>{
                 <div className='h4'>{`Post a Task`}</div>:'Please Sign In first or Sign Up'}
         </div>
         <div>
-            {signInStatus.isSignIn ? 
-                <ModalButton target="postATask">Post A Task</ModalButton> :
+            {/* {signInStatus.isSignIn ?  */}
+                <ModalButton target="postATask">Post A Task</ModalButton> 
+                {/* :
                 <div className="btn-group py-2">
                   <ModalButton target="signIn">Sign In</ModalButton>
                   <ModalButton target="signUp">Sign Up</ModalButton>
-                </div>
+                </div> */}
             }  
         </div>
         </div>
