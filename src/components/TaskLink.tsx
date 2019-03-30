@@ -10,20 +10,23 @@ type Props = {
 const TaskLabel:React.FunctionComponent<Props> = (props)=>{
     let status
     switch(props.status){
-        case 'DONE':
-            status = 'text-danger'
+        case 'COMPLETED':
+            status = 'text-dark'
             break 
         case 'ASSIGNED':
             status = 'text-warning'
+            break
+        case 'PENDING':
+            status = 'text-danger'
             break
         default:
             status = 'text-success'
     }
     return (
         <div className='task-list-item-active task-list-item bg-white m-2 px-2'  key={props.id}> 
-            <div className="large">Buy {props.what}</div>
+            <div className="large font-weight-bold">Buy {props.what}</div>
             <div className='d-flex  align-items-center justify-content-between'>          
-                <div className='text-muted'>
+                <div className='pl-2 small'>
                     <div className=''>{props.where}</div>
                     <div className=''>{props.when}</div>
                 </div>

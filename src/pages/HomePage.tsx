@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {SignInStatus} from '../middleware/context'
-import ModalButton from '../components/PostButton'
+import ModalButton from '../components/ModalButton'
 const Home:React.FunctionComponent = ()=>{
     const {signInStatus} = React.useContext(SignInStatus)
     return (
