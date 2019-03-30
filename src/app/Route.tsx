@@ -10,7 +10,7 @@ const Routes:React.FunctionComponent = ()=>{
         <div className='app-content'>
             <div className='container'>
                 <Switch >
-                    <Route exact path = '/' component={Home} />
+                    <Route exact path = '/' component={TasksList} />
                     <Route exact path = '/tasks' component={TasksList} />
                     <Route exact path = '/tasks/:id' component={TasksList} />
                     <Route exact path = '/mytasks' component={MyTasks} />
