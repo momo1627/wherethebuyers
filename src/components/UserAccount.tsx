@@ -15,33 +15,39 @@ type Props = {
     target:string;
     title:string;
 }
+const initialInput = {
+    username:'',
+    password:'',
+}
 let schema = yup.object().shape({
-    username:yup.string().min(8).email().required().label("username is email address"),
-    password:yup.string().min(8).required().label("password at least 8 length")
+    username:yup.string().email().required().min(8).label("username"),
+    password:yup.string().required().min(8).label("password")
 })
 const UserAccount =(props:Props)=>{
     const {signInStatus,signInDispatch} = React.useContext(SignInStatus);
     const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
-    const [input,handleChange] = useChangeInput<AccontInput>({
-        username:'',
-        password:'',
-    });
+    const [input,handleChange,setInput] = useChangeInput<AccontInput>(initialInput);
     const handleSignIn = (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
-        schema.validate(input).then(()=>{
+        schema.validate(input,{abortEarly: false}).then(()=>{
             axios.get(
                 `http://localhost:5000/profile/${input.username}`,
               ).then((response)=>{
-                  if(response.status === 200){
+                //   if(response.status === 200){
                     signInDispatch(signInAction(input.username));
                     modalDispatch(hideModal(props.target))
-                  } 
-            })
+                //   }
+            },(response)=>{
+                window.alert(response)
+            }
+            )
         },err=>{
             err.name;
             err.errors
-            window.alert('error');
-            return 
+            console.log(err)
+            window.alert(err.name)
+            window.alert(err.errors);
+            setInput(initialInput)
         })
         
     }
@@ -64,8 +70,8 @@ const UserAccount =(props:Props)=>{
         },err=>{
             err.name;
             err.errors
-            window.alert('error');
-            return 
+            window.alert(err);
+            setInput(initialInput)
         })
         
     }
