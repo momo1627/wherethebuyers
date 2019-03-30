@@ -24,11 +24,11 @@ body {
   position: relative;
   display: flex;
   flex-direction: row-reverse;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 4.5rem);
   overflow: hidden;
 }
 .app-content{
-  margin-top:60px;
+  margin-top:4.5rem;
 }
 .modal-container{
   position: fixed;
@@ -69,7 +69,7 @@ body {
   width: 100%;
   overflow-x: hidden;
   overflow-y:scroll;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 4.5rem);
 }
 .task-list-item{
   box-shadow: 0 1px rgba(187,194,220,.6);
@@ -94,12 +94,12 @@ body {
   width:70%;
   overflow-y: scroll;
   overflow-x: hidden;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 4.5rem);
 }
 .task-table{
   overflow-y:scroll;
   width:90%;
-  height: calc(100vh - 250px);
+  height: calc(100vh - 15rem);
   min-height: 50vh
 }
 .mytasks {
