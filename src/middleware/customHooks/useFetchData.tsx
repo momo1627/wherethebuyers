@@ -23,7 +23,7 @@ export default function useFetchData<I>(url: string, option: IOption): [IRespons
     const getData = async () => {
         if (update) { updateDispatch(endUpdate) }
         try {
-            const result = await fetch(url, option)
+            const result = await fetch(url, {...option,credentials:"include"})
             const response = await result.json()
             setResponse(response)
             setFetchStatus(true)

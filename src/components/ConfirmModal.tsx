@@ -24,9 +24,7 @@ const ConfirmActionModal = (props: IProps) => {
             </div>
             {alert.status &&
                 <div className='alert-container'>
-                    <div className='alert-content bg-success text-center text-white'>
-                        <button className='btn btn-sm btn-primary' onClick={() => { click(); setAlert({ status: false, message: '' }); }}>{alert.message}</button>
-                    </div>
+                        <button className='alert-content btn btn-success text-center text-white' onClick={() => { click(); setAlert({ status: false, message: '' }); }}>{alert.message}</button>
                 </div>}
         </>
     )

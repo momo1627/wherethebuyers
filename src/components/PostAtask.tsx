@@ -65,10 +65,10 @@ const PostAtask: React.FunctionComponent = () => {
         <div className='post-content mx-auto bg-white px-2'>
             <h5 className="text-center py-1">Post A Task</h5>
             <form action="" className='px-3' >
-                <FormGroup type='text' size="small" change={handleChange} content={'what'} input={input.what}>What do you want to buy</FormGroup>
-                <FormGroup type='text' size="small" change={handleChange} content={'price'} input={input.price}>How much do you pay</FormGroup>
-                <FormGroup type='text' size="small" change={handleChange} content={'where'} input={input.where}>Where are you</FormGroup>
-                <FormGroup type='text' size="small" change={handleChange} content={'when'} input={input.when}>When do you need to deliver</FormGroup>
+                <FormGroup type='text' size="small" change={handleChange} content={'what'} input={input.what} title="What">What do you want to buy</FormGroup>
+                <FormGroup type='text' size="small" change={handleChange} content={'price'} input={input.price} title="How Much">How much do you pay</FormGroup>
+                <FormGroup type='text' size="small" change={handleChange} content={'where'} input={input.where} title="Where">Where are you</FormGroup>
+                <FormGroup type='text' size="small" change={handleChange} content={'when'} input={input.when} title="When">When do you need to deliver</FormGroup>
                 <div className='d-flex justify-content-between py-1'>
                     <button className='btn btn-sm btn-primary' type="submit" onClick={handleSubmit}>Submit</button>
                     <button className='btn btn-sm btn-danger' type="button" onClick={handleCancel}>Cancel</button>
