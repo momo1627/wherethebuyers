@@ -14,7 +14,7 @@ const Header = ()=>{
                         signInStatus.isSignIn
                         ? <SignOut />
                         : 
-                        <div style={{"maxWidth":"240px"}} className="d-none d-md-block btn-group px-1">
+                        <div style={{"maxWidth":"240px"}} className="mx-auto btn-group px-1">
                         <ModalButton target="signIn">Sign In</ModalButton>
                         <ModalButton target="signUp">Sign Up</ModalButton>
                         </div>

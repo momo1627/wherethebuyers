@@ -21,7 +21,7 @@ export default function usePostData():[IResponse,()=>void,(url:string,option:obj
     const [response, setResponse] = React.useState<IResponse>(initialResponse as IResponse)
     const postData = async (url:string,option:{}) => {
         try {
-            const result = await fetch(url, option)
+            const result = await fetch(url, {credentials:"include",...option})
             const response = await result.json()
             setResponse(response)
         } catch (error) {

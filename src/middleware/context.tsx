@@ -6,7 +6,8 @@ const signInStatus = {
     username:'',
     isSignIn:false
 }
-const signInDispatch:React.Dispatch<SignInAction> = ()=>{} 
+const signInDispatch:React.Dispatch<SignInAction> = ()=>{}  
+const SignInStatus = React.createContext({signInStatus,signInDispatch })
 const updateDispatch:React.Dispatch<UpdateAction> = ()=>{}
 const modalDispatch:React.Dispatch<ToggleModalAction> = ()=>{}
 const update = false
@@ -14,7 +15,8 @@ const modalStatus = {
     status:false,
     modal:''
 }
-const SignInStatus = React.createContext({signInStatus,signInDispatch })
 const Update = React.createContext({update,updateDispatch})
 const ToggleModal = React.createContext({modalStatus,modalDispatch})
 export {SignInStatus,Update,ToggleModal}
+// export {Update,ToggleModal}
+

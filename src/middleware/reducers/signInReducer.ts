@@ -1,4 +1,4 @@
-type  SignInStatusState= {
+interface  SignInStatusState  {
     username:string;
     isSignIn:boolean;
 }
