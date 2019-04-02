@@ -4,6 +4,7 @@ import { SignInStatus, Update } from '../middleware/context'
 import { hideModal, showModal } from '../middleware/actions/showModalAction'
 import { ToggleModal } from '../middleware/context'
 import ConfirmModal from './ConfirmModal'
+import API_Url from '../middleware/api'
 interface IRow {
     id: string,
     td2: string,
@@ -46,7 +47,7 @@ const TaskRow = (props: IRow) => {
                 <button className='btn btn-danger btn-sm text-center mx-auto' disabled={!(props.role === 'assignedTo' && props.filter === 'ASSIGNED' || props.role === 'postedBy' && props.filter === 'PENDING')} onClick={()=>{setConfirm(true);modalDispatch(showModal())}}>COMPLETE</button>
             }</td>
         </tr>
-        {confirm && <ConfirmModal url={`http://localhost:5000/${props.id}`} input={input} title='Complete the task' click={click} cancel={cancel}/>}
+        {confirm && <ConfirmModal url={`${API_Url}/${props.id}`} input={input} title='Complete the task' click={click} cancel={cancel}/>}
         </>
     )
 }
