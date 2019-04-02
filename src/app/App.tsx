@@ -15,7 +15,7 @@ const App = () => {
         if (update) {
 
         }
-        const result = await fetch('http://localhost:5000/', { method: 'get', credentials: 'include' })
+        const result = await fetch('http://ec2-3-89-33-101.compute-1.amazonaws.com/', { method: 'get', credentials: 'include' })
         const response = await result.json();
         const data = response.data
         if (data.status) {
