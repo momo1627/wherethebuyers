@@ -31,11 +31,11 @@ const UserAccount: React.FunctionComponent<Props> = (props) => {
     });
     const [validation,validate,setValidation] = useValidation(input,schema)
     const handleSignIn = async () => {
-        setTrigger(`http://ec2-3-89-33-101.compute-1.amazonaws.com/sign-in`,{ method: 'post', body: JSON.stringify(input), headers: { 'Content-Type': 'application/json' } })
+        setTrigger(`http://localhost:5000/sign-in`,{ method: 'post', body: JSON.stringify(input), headers: { 'Content-Type': 'application/json' } })
     }
     const handleSignUp = () => {
         const newUser = { ...input, signUpTime: new Date().toLocaleString() }
-        setTrigger(`http://ec2-3-89-33-101.compute-1.amazonaws.com/sign-up`,{ method: 'post', body: JSON.stringify(newUser), headers: { 'Content-Type': 'application/json' } })
+        setTrigger(`http://localhost:5000/sign-up`,{ method: 'post', body: JSON.stringify(newUser), headers: { 'Content-Type': 'application/json' } })
     }
     const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();

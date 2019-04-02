@@ -46,7 +46,7 @@ const TaskRow = (props: IRow) => {
                 <button className='btn btn-danger btn-sm text-center mx-auto' disabled={!(props.role === 'assignedTo' && props.filter === 'ASSIGNED' || props.role === 'postedBy' && props.filter === 'PENDING')} onClick={()=>{setConfirm(true);modalDispatch(showModal())}}>COMPLETE</button>
             }</td>
         </tr>
-        {confirm && <ConfirmModal url={`http://ec2-3-89-33-101.compute-1.amazonaws.com/${props.id}`} input={input} title='Complete the task' click={click} cancel={cancel}/>}
+        {confirm && <ConfirmModal url={`http://localhost:5000/${props.id}`} input={input} title='Complete the task' click={click} cancel={cancel}/>}
         </>
     )
 }
