@@ -13,7 +13,7 @@ const initialValue = {
     status: '',
 }
 const TaskList = () => {
-    const [response, fetchStatus] = useFetchData<dataList>('http://localhost:5000/tasks',{method:'get'})
+    const [response, fetchStatus] = useFetchData<dataList>('http://ec2-3-89-33-101.compute-1.amazonaws.com/tasks',{method:'get'})
     const element = (
         <div className='task-list'>
             {

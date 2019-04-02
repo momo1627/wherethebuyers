@@ -48,7 +48,7 @@ const PostAtask: React.FunctionComponent = () => {
             assignedTo: 'not assigned'
         }
         if (update) { updateDispatch(endUpdate) }
-        setTrigger('http://localhost:5000/tasks', { method: 'post', body: JSON.stringify(task), headers: { 'Content-Type': 'application/json' } })
+        setTrigger('http://ec2-3-89-33-101.compute-1.amazonaws.com/tasks', { method: 'post', body: JSON.stringify(task), headers: { 'Content-Type': 'application/json' } })
         updateDispatch(startUpdate)
     }
     const handleCancel = ()=>{
