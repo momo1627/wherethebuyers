@@ -12,12 +12,7 @@ const App = () => {
     const [modalStatus, modalDispatch] = React.useReducer(showModalReducer, { status: false, modal: '' });
     const [signInStatus, signInDispatch] = React.useReducer(signInReducer, { username: '', isSignIn: false });
     const checkSign = async () => {
-        if (update) {
-
-        }
-        // const result = await fetch('http://ec2-3-89-33-101.compute-1.amazonaws.com/validation', { method: 'get', credentials: 'include' })
         const result = await fetch('http://localhost:5000/validation', { method: 'get', credentials: 'include' })
-
         const response = await result.json();
         const data = response.data
         if (data.status) {
