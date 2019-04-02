@@ -15,7 +15,11 @@ const App = () => {
         if (update) {
 
         }
+<<<<<<< HEAD
         const result = await fetch('http://localhost:5000/', { method: 'get', credentials: 'include' })
+=======
+        const result = await fetch('http://ec2-3-89-33-101.compute-1.amazonaws.com/validation', { method: 'get', credentials: 'include' })
+>>>>>>> bdaf4f1a805d21247ee5e34b2030a41424cca87c
         const response = await result.json();
         const data = response.data
         if (data.status) {
