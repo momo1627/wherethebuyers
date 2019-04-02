@@ -7,6 +7,7 @@ import { SignInStatus, Update } from '../middleware/context'
 import { startUpdate, endUpdate } from '../middleware/actions/updateAction'
 import useFetchData from '../middleware/customHooks/useFetchData'
 import ConfirmModal from '../components/ConfirmModal' 
+import API_Url from '../middleware/api'
 type Props = {
     status: string;
     match: {
@@ -35,7 +36,7 @@ const TaskDetail: React.FunctionComponent<Props> = (props) => {
     const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
     const { signInStatus } = React.useContext(SignInStatus)
     const [confirm,setConfirm] = React.useState(false)
-    const [response, fetchStatus, dispatch] = useFetchData<Data>(`http://ec2-3-89-33-101.compute-1.amazonaws.com/tasks/${props.match.params.id}`,{method:'get'})
+    const [response, fetchStatus, dispatch] = useFetchData<Data>(`${API_Url}/tasks/${props.match.params.id}`,{method:'get'})
     const input = {method:'put', body:JSON.stringify({assignedTo: signInStatus.username, status: 'ASSIGNED', assignedTime: new Date().toLocaleString()}),headers: { 'Content-Type': 'application/json' }}
     const click = () => {
         dispatch(startUpdate)

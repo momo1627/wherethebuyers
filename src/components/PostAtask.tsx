@@ -9,6 +9,7 @@ import { Update } from '../middleware/context'
 import FormModal from './FormModel'
 import usePostData from '../middleware/customHooks/usePostData'
 import useValidation from '../middleware/customHooks/useValidation'
+import API_Url from '../middleware/api'
 const schema = yup.object().shape({
     what: yup.string().required(),
     price: yup.string().required(),
@@ -48,7 +49,7 @@ const PostAtask: React.FunctionComponent = () => {
             assignedTo: 'not assigned'
         }
         if (update) { updateDispatch(endUpdate) }
-        setTrigger('http://ec2-3-89-33-101.compute-1.amazonaws.com/tasks', { method: 'post', body: JSON.stringify(task), headers: { 'Content-Type': 'application/json' } })
+        setTrigger(`${API_Url}/tasks`, { method: 'post', body: JSON.stringify(task), headers: { 'Content-Type': 'application/json' } })
         updateDispatch(startUpdate)
     }
     const handleCancel = ()=>{

@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom'
 import TaskLink from './TaskLink'
 import useFetchData from '../middleware/customHooks/useFetchData'
 import { startUpdate, endUpdate } from '../middleware/actions/updateAction'
+import API_Url from '../middleware/api'
+
 type dataList = typeof initialValue;
 const initialValue = {
     what: '',
@@ -13,7 +15,7 @@ const initialValue = {
     status: '',
 }
 const TaskList = () => {
-    const [response, fetchStatus] = useFetchData<dataList>('http://ec2-3-89-33-101.compute-1.amazonaws.com/tasks',{method:'get'})
+    const [response, fetchStatus] = useFetchData<dataList>(`${API_Url}/tasks`,{method:'get'})
     const element = (
         <div className='task-list'>
             {

@@ -9,6 +9,7 @@ import useChangeInput from '../middleware/customHooks/useChangeInput'
 import ModalButton from './ModalButton'
 import FormModal from './FormModel'
 import useValidation from '../middleware/customHooks/useValidation'
+import API_Url from '../middleware/api'
 const schema = yup.object().shape({
     username:yup.string().required().min(6),
     password:yup.string().required().min(6)
@@ -31,11 +32,11 @@ const UserAccount: React.FunctionComponent<Props> = (props) => {
     });
     const [validation,validate,setValidation] = useValidation(input,schema)
     const handleSignIn = async () => {
-        setTrigger(`http://ec2-3-89-33-101.compute-1.amazonaws.com/sign-in`,{ method: 'post', body: JSON.stringify(input), headers: { 'Content-Type': 'application/json' } })
+        setTrigger(`${API_Url}/sign-in`,{ method: 'post', body: JSON.stringify(input), headers: { 'Content-Type': 'application/json' } })
     }
     const handleSignUp = () => {
         const newUser = { ...input, signUpTime: new Date().toLocaleString() }
-        setTrigger(`http://ec2-3-89-33-101.compute-1.amazonaws.com/sign-up`,{ method: 'post', body: JSON.stringify(newUser), headers: { 'Content-Type': 'application/json' } })
+        setTrigger(`${API_Url}/sign-up`,{ method: 'post', body: JSON.stringify(newUser), headers: { 'Content-Type': 'application/json' } })
     }
     const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
