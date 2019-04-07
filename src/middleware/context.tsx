@@ -4,7 +4,8 @@ import {UpdateAction} from './reducers/updateReducer'
 import {ToggleModalAction} from './reducers/showModalReducer'
 const signInStatus = {
     username:'',
-    isSignIn:false
+    isSignIn:false,
+    userId:''
 }
 const signInDispatch:React.Dispatch<SignInAction> = ()=>{}  
 const SignInStatus = React.createContext({signInStatus,signInDispatch })

@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { SignInStatus, ToggleModal } from '../middleware/context'
 import { signInAction } from '../middleware/actions/signInAction';
 import { showModal, hideModal } from '../middleware/actions/showModalAction'
-import usePostData from '../middleware/customHooks/usePostData'
+import useUserAdmin from '../middleware/customHooks/useUserAdmin'
 import FormGroup from './FormGroup'
 import useChangeInput from '../middleware/customHooks/useChangeInput'
 import ModalButton from './ModalButton'
@@ -25,7 +25,7 @@ type Props = {
 const UserAccount: React.FunctionComponent<Props> = (props) => {
     const { signInStatus, signInDispatch } = React.useContext(SignInStatus);
     const { modalStatus, modalDispatch } = React.useContext(ToggleModal)
-    const [response,resetResponse,setTrigger] = usePostData()
+    const [response,resetResponse,setTrigger] = useUserAdmin()
     const [input, handleChange, setInput] = useChangeInput<AccontInput>({
         username: '',
         password: '',
@@ -35,8 +35,8 @@ const UserAccount: React.FunctionComponent<Props> = (props) => {
         setTrigger(`${API_Url}/sign-in`,{ method: 'post', body: JSON.stringify(input), headers: { 'Content-Type': 'application/json' } })
     }
     const handleSignUp = () => {
-        const newUser = { ...input, signUpTime: new Date().toLocaleString() }
-        setTrigger(`${API_Url}/sign-up`,{ method: 'post', body: JSON.stringify(newUser), headers: { 'Content-Type': 'application/json' } })
+        // const newUser = { ...input, signUpTime: new Date().toLocaleString() }
+        setTrigger(`${API_Url}/sign-up`,{ method: 'post', body: JSON.stringify(input), headers: { 'Content-Type': 'application/json' } })
     }
     const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>)=>{
         e.preventDefault();
@@ -47,7 +47,11 @@ const UserAccount: React.FunctionComponent<Props> = (props) => {
         modalDispatch(hideModal())
     }
     const handleResponse = ()=>{
-        if(response.status === 0 ){signInDispatch(signInAction(input.username as string));}
+        if(response.status === 0 ){
+            if(response.data){
+                signInDispatch(signInAction(response.data.username,response.data.userId))
+            }
+        ;}
         resetResponse();
         setInput({ username: '', password: '' })
         if(response.status === 1 ){return}

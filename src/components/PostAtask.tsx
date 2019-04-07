@@ -41,9 +41,9 @@ const PostAtask: React.FunctionComponent = () => {
         const result = await validate();
         if(! result){return }
         const task = {
-            id: new Date().getTime().toString(),
+            // id: new Date().getTime().toString(),
             postedBy: signInStatus.username,
-            postedTime: new Date().toLocaleString(),
+            // postedTime: new Date().toLocaleString(),
             ...input,
             status: 'OPEN',
             assignedTo: 'not assigned'

@@ -9,13 +9,13 @@ interface ITaskList {
 type Filter = string;
 
 const TaskList = ({ role }: ITaskList) => {
-    const [filter, setFilter] = React.useState<Filter>('all')
+    const [filter, setFilter] = React.useState<Filter>('')
     const { signInStatus } = React.useContext(SignInStatus);
     return (
         <div >
             <ul className="nav nav-pills bg-light py-2 flex-column flex-lg-row justify-content-center" id="myTab" role="tablist">
                 <li className="nav-item">
-                    <a className="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true" onClick={(e) => { e.preventDefault(); setFilter('all') }}>All Tasks</a>
+                    <a className="nav-link active" id="all-tab" data-toggle="tab" href="#all" role="tab" aria-controls="all" aria-selected="true" onClick={(e) => { e.preventDefault(); setFilter('') }}>All Tasks</a>
                 </li>
                 {role === 'postedBy' && <li className="nav-item">
                     <a className="nav-link" id="open-tab" data-toggle="tab" href="#open" role="tab" aria-controls="open" aria-selected="false" onClick={(e) => { e.preventDefault(); setFilter('OPEN') }}>Open Tasks</a>

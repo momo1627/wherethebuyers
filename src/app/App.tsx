@@ -11,14 +11,14 @@ import API_Url from '../middleware/api'
 const App = () => {
     const [update, updateDispatch] = React.useReducer(updateReducer, false);
     const [modalStatus, modalDispatch] = React.useReducer(showModalReducer, { status: false, modal: '' });
-    const [signInStatus, signInDispatch] = React.useReducer(signInReducer, { username: '', isSignIn: false });
+    const [signInStatus, signInDispatch] = React.useReducer(signInReducer, { username: '',userId:'', isSignIn: false });
     const checkSign = async () => {
       
         const result = await fetch(`${API_Url}/validation`, { method: 'get', credentials: 'include' })
         const response = await result.json();
         const data = response.data
         if (data.status) {
-            signInDispatch(signInAction(data.username))
+            signInDispatch(signInAction(data.username,data.userId))
         } 
     }
     React.useEffect(() => { checkSign() }, [])
