@@ -23,7 +23,7 @@
 .app-content{
     max-width: 992px;
     width:80%;
-    margin: 64px auto 0;
+    margin: 4rem auto 0;
 }
 @media screen and (max-width:767.99px){
     .app-content{
