@@ -1,0 +1,33 @@
+.header-container{
+    max-width: 768px;
+    width:80%;
+    margin: 0 auto;
+}
+@media screen and (max-width:767.99px){
+    .header-container{
+        width:100%
+    }
+}
+.app-header{
+    transition: .4s 0ms;
+    left: 0;
+    position: fixed;
+    top: 0;
+    white-space: nowrap;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 1px 0 0 rgba(0,0,0,.1);
+    height:60px;
+  }
+
+.app-content{
+    max-width: 992px;
+    width:80%;
+    margin: 64px auto 0;
+}
+@media screen and (max-width:767.99px){
+    .app-content{
+        width:100%
+    }
+}
+
