@@ -43,10 +43,10 @@ const Mytasks = () => {
                 <nav className='d-flex justify-content-around align-items-center'>
                     <ul className="nav nav-pills bg-light py-2" id="myTab" role="tablist">
                         <li className="nav-item">
-                            <a className="nav-link active" id="poster-tab" data-toggle="tab" href="#poster" role="tab" aria-controls="poster" aria-selected="true" onClick={(e) => { e.preventDefault(); refresh(); setRole('poster') }}>Poster</a>
+                            <a className="nav-link active" id="poster-tab" data-toggle="tab" href="#poster" role="tab" aria-controls="poster" aria-selected="true" onClick={(e) => { e.preventDefault(); refresh(); setRole('poster');setFilter('ALL') }}>Poster</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" id="tasker-tab" data-toggle="tab" href="#tasker" role="tab" aria-controls="tasker" aria-selected="false" onClick={(e) => { e.preventDefault(); refresh(); setRole('tasker') }}>Tasker</a>
+                            <a className="nav-link" id="tasker-tab" data-toggle="tab" href="#tasker" role="tab" aria-controls="tasker" aria-selected="false" onClick={(e) => { e.preventDefault(); refresh(); setRole('tasker');setFilter('ALL') }}>Tasker</a>
                         </li>
                     </ul>
                     <ul className="d-none d-sm-flex nav nav-pills bg-light py-2 " id="myTab" role="tablist">
