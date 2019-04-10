@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { startUpdate, endUpdate } from '../../actions/updateAction'
 import { Update } from '../../context/context'
+import './style.css'
+
 interface IProps {
     url: string;
     input: object;

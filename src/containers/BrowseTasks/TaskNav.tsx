@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { NavLink } from 'react-router-dom'
 import TaskItem from './TaskItem'
 import Loading from '../../components/Loading'
 interface IData {
@@ -33,9 +32,9 @@ const TaskList = (props: IProps) => {
     return (
         <>
             {element}
-            <div className="tasks-loading border rounded shadow-sm bg-white font-weight-bold text-center mx-2 h4">
-                {props.isLoadingMoreData && <Loading />}
-                {!props.hasMoreTasks && <div>no more tasks</div>}
+             <div className="tasks-loading border rounded shadow-sm bg-white font-weight-bold text-center mx-2 h4">
+                {props.hasMoreTasks && props.isLoadingMoreData && <Loading />}
+                {!props.hasMoreTasks && !props.isLoadingMoreData && <div>no more tasks</div>}
             </div>
         </>
     )

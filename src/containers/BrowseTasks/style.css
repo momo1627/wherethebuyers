@@ -5,45 +5,6 @@
     margin: 0 auto;
     overflow: hidden;
 }
-
-@media screen and (max-width:767.99px){
-    .task-details{
-        position: absolute;
-        overflow-x:hidden;
-        overflow-y:visible;
-        top:0;
-        z-index:2;
-        width:100%;
-    }
-}
-.task-right{
-    position: relative;
-    transition: left .5s ease-in;
-    flex:1
-  }
-.task-details-container{
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: white;
-    z-index:2;
-    transition-delay: .1s;
-    transition: left .5s ease-out;
-    overflow-y:scroll
-}
-.empty{
-    left:100vw;
-}
-.task-details{
-    overflow: hidden
-}
-.task-details-content{
-    overflow-x:hidden;
-    overflow-y:auto
-}
 .task-item-container{
     overflow-y : scroll;
     height:calc(100vh - 92px)
@@ -62,3 +23,12 @@
     right:25px;
     z-index: 10;
 }
+.task-list-item{
+    box-shadow: 0 1px rgba(187,194,220,.6);
+    border-radius:4px;
+    box-sizing: border-box;
+    transition: box-shadow .1s ease-out;
+    cursor: pointer;
+    border:1px solid transparent;
+    border-left:2px solid rgba(2,165,209,.29)
+  }

@@ -8,8 +8,6 @@ import PostButton from '../../components/Modal/ModalButton'
 const Nav = () => {
     const { signInStatus } = React.useContext(SignInStatus)
     return (
-
-
         <nav className="fixed-top bg-dark navbar-expand-sm navbar-dark">
             <div className='header-container navbar flex-sm-row-reverse'>
                 <div className='d-sm-none'>

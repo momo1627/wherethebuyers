@@ -1,22 +1,9 @@
 import * as React from 'react'
-import { ToggleModal } from '../../context/context'
-import { hideModal, showModal } from '../../actions/showModalAction'
 import TaskContent from './TaskContent'
 import ModalButton from '../../components/Modal/ModalButton'
 import { SignInStatus, Update } from '../../context/context'
-import { startUpdate, endUpdate } from '../../actions/updateAction'
-import useFetchData from '../../hooks/useFetchData'
 import ConfirmModal from '../../components/Modal/ConfirmModal'
-import API_Url from '../../constants/api'
-// type Props = {
-//     status: string;
-//     match: {
-//         params:
-//         {
-//             id: string | number
-//         }
-//     }
-// }
+
 type IData = {
   poster: string,
   posterId: string,
@@ -34,7 +21,6 @@ type IData = {
   reviews: string
 }
 const TaskDetail: React.FunctionComponent<IData> = (props) => {
-  const { modalStatus, modalDispatch } = React.useContext(ToggleModal)
   const { signInStatus } = React.useContext(SignInStatus)
   const [confirm, setConfirm] = React.useState(false)
   const input = { method: 'put', body: JSON.stringify({tasker:signInStatus.username, taskerId:signInStatus.userId, status: 'ASSIGNED'}), headers: { 'Content-Type': 'application/json' } }

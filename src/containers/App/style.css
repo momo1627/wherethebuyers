@@ -31,3 +31,23 @@
     }
 }
 
+.modal-container{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 1035;
+    overflow: scroll;
+    animation-name: wrap-show;
+    animation-duration: 1s;
+    animation-fill-mode: forwards
+  }
+  .post-content{
+    position: relative;
+    max-width: 500px;
+    margin:70px auto;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+    border-radius: 5px;
+}

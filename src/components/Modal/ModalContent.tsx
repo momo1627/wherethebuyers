@@ -2,6 +2,8 @@ import * as React from 'react'
 import PostAtask from '../../containers/App/PostAtask'
 import UserAccount from '../UserAdmin/UserAccount'
 import {ToggleModal} from '../../context/context'
+import './style.css'
+
 const ModalContent = ()=>{
     const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
     return (

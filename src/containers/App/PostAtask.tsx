@@ -6,10 +6,11 @@ import useChangeInput from '../../hooks/useChangeInput'
 import { hideModal } from '../../actions/showModalAction'
 import { startUpdate, endUpdate } from '../../actions/updateAction'
 import { Update } from '../../context/context'
-import FormModal from '../../components/Modal/AlertModal'
+import AlertModal from '../../components/Modal/AlertModal'
 import usePostData from '../../hooks/usePostData'
 import useValidation from '../../hooks/useValidation'
 import API_Url from '../../constants/api'
+import './style.css'
 const schema = yup.object().shape({
     what: yup.string().required(),
     price: yup.string().required(),
@@ -39,43 +40,43 @@ const PostAtask: React.FunctionComponent = () => {
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         const result = await validate();
-        if(! result){return }
+        if (!result) { return }
         const task = {
             posterId: signInStatus.userId,
-            poster:signInStatus.username,
+            poster: signInStatus.username,
             ...input,
         }
         if (update) { updateDispatch(endUpdate) }
         setTrigger(`${API_Url}/tasks`, { method: 'post', body: JSON.stringify(task), headers: { 'Content-Type': 'application/json' } })
-        updateDispatch(startUpdate)
     }
-    const handleCancel = ()=>{
+    const handleCancel = () => {
         modalDispatch(hideModal('postATask'))
     }
-    const handleResponse = ()=>{
+    const handleResponse = () => {
         resetResponse();
         setInput(defaultInput)
-        if(response.status === 1) {return}
-        modalDispatch(hideModal('postATask'))
+        if (response.status === 1) { return }
+        modalDispatch(hideModal('postATask'));
+        updateDispatch(startUpdate)
     }
 
     return (
-        <div className='post-content mx-auto bg-white px-2'>
-            <h5 className="text-center py-1">Post A Task</h5>
-            <form action="" className='px-3' >
-                <FormGroup type='text' size="small" change={handleChange} content={'what'} input={input.what} title="What">What do you want to buy</FormGroup>
-                <FormGroup type='text' size="small" change={handleChange} content={'price'} input={input.price} title="How Much">How much do you pay</FormGroup>
-                <FormGroup type='text' size="small" change={handleChange} content={'where'} input={input.where} title="Where">Where are you</FormGroup>
-                <FormGroup type='text' size="small" change={handleChange} content={'when'} input={input.when} title="When">When do you need to deliver</FormGroup>
-                <div className='d-flex justify-content-between py-1'>
-                    <button className='btn btn-sm btn-primary' type="submit" onClick={handleSubmit}>Submit</button>
-                    <button className='btn btn-sm btn-danger' type="button" onClick={handleCancel}>Cancel</button>
-                </div>
-            </form>
-            {response.status !==3 && <FormModal message={response.message} cancel={handleResponse} />}
-            {validation.error && <FormModal message={validation.message[0]} cancel={() => { setValidation({error:false,message:''}); setInput(defaultInput);  }} />}
+            <div className='post-content mx-auto bg-white px-2'>
+                <h5 className="text-center py-1">Post A Task</h5>
+                <form action="" className='px-3' >
+                    <FormGroup type='text' size="small" change={handleChange} content={'what'} input={input.what} title="What">What do you want to buy</FormGroup>
+                    <FormGroup type='text' size="small" change={handleChange} content={'price'} input={input.price} title="How Much">How much do you pay</FormGroup>
+                    <FormGroup type='text' size="small" change={handleChange} content={'where'} input={input.where} title="Where">Where are you</FormGroup>
+                    <FormGroup type='text' size="small" change={handleChange} content={'when'} input={input.when} title="When">When do you need to deliver</FormGroup>
+                    <div className='d-flex justify-content-between py-1'>
+                        <button className='btn btn-sm btn-primary' type="submit" onClick={handleSubmit}>Submit</button>
+                        <button className='btn btn-sm btn-danger' type="button" onClick={handleCancel}>Cancel</button>
+                    </div>
+                </form>
+                {response.status !== 3 && <AlertModal message={response.message} cancel={handleResponse} />}
+                {validation.error && <AlertModal message={validation.message[0]} cancel={() => { setValidation({ error: false, message: '' }); setInput(defaultInput); }} />}
 
-        </div>
+            </div>
 
     )
 }
