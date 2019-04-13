@@ -1,4 +1,5 @@
 import * as React from 'react'
+import moment from 'moment'
 import TaskContent from './TaskContent'
 import ModalButton from '../../components/Modal/ModalButton'
 import { SignInStatus, Update } from '../../context/context'
@@ -75,11 +76,11 @@ const TaskDetail: React.FunctionComponent<IData> = (props) => {
         <div className=' d-lg-block col-12 col-lg-5 small row'>
           <div className='col-12 col-sm-6 col-lg-12 p-0 '>
             <TaskContent content={props.poster}>Posted By</TaskContent>
-            <TaskContent content={props.postedTime}>Posted Time</TaskContent>
+            <TaskContent content={moment(props.postedTime).format('MMMM Do YYYY, h:mm:ss a')}>Posted Time</TaskContent>
           </div>
           <div className='col-12 col-sm-6 col-lg-12 p-0 '>
             <TaskContent content={props.tasker}>Assigned To</TaskContent>
-            <TaskContent content={props.assignedTime}>Assigned Time</TaskContent>
+            <TaskContent content={props.assignedTime && moment(props.assignedTime).format('MMMM Do YYYY, h:mm:ss a')}>Assigned Time</TaskContent>
           </div>
 
         </div>

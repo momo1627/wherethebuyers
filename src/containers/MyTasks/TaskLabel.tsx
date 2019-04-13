@@ -17,8 +17,8 @@ const TaskLabel: React.FunctionComponent<Props> = (props) => {
                 <div className="ml-2 font-weight-bold" style={{"fontSize":"18px"}}>Buy {props.what}</div>
             </div>
             <div className="small text-dark d-flex justify-content-between align-items-center">
-                <div className={`$text-right font-weight-bold`}>Locaton: {props.where}</div>
-                <div className={`$ font-weight-bold`}>Due at: {props.when}</div>
+                <div className={`text-right small font-weight-bold`}>Locaton: {props.where}</div>
+                <div className={` font-weight-bold small`}>Due at: {props.when}</div>
             </div>
 
         </div>

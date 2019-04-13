@@ -73,8 +73,8 @@ const UserAccount: React.FunctionComponent<Props> = (props) => {
                     <small>{props.target === 'signIn' ? "Don't have an account?" : "Already have an account"}</small>
                     <ModalButton target={props.target === 'signIn' ? "signUp" : "signIn"}>{props.target === 'signIn' ? "Sign Up" : "Sign In"}</ModalButton>
                 </div>
-                {response.status !== 3 && <AlertModal message={response.message} cancel={handleResponse} />}
-                {validation.error && <AlertModal message={validation.message[0]} cancel={() => { setValidation({ error: false, message: '' }); setInput({ username: '', password: '' }); }} />}
+                {/* {response.status !== 3 && <AlertModal message={response.message} cancel={handleResponse} />} */}
+                {/* {validation.error && <AlertModal message={validation.message[0]} cancel={() => { setValidation({ error: false, message: '' }); setInput({ username: '', password: '' }); }} />} */}
             </div>
         </div>
 

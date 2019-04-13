@@ -1,4 +1,5 @@
 import * as React from 'react'
+import moment from 'moment'
 import TaskContent from '../BrowseTasks/TaskContent'
 import API_Url from '../../constants/api'
 interface IData {
@@ -61,12 +62,12 @@ const TaskDetail = (props: IProp) => {
 
                     <div className='mx-auto bg-white shadow rounded p-2'>
                         <TaskContent content={response.data.poster}>Posted By</TaskContent>
-                        <TaskContent content={response.data.postedTime}>Posted Time</TaskContent>
+                        <TaskContent content={moment(response.data.postedTime).format('MMMM Do YYYY, h:mm:ss a')}>Posted Time</TaskContent>
                         <TaskContent content={response.data.where}>Location</TaskContent>
                         <TaskContent content={response.data.when}>Due</TaskContent>
                         <TaskContent content={response.data.tasker}>Assigned To</TaskContent>
-                        <TaskContent content={response.data.assignedTime}>Assigned Time </TaskContent>
-                        <TaskContent content={response.data.completedTime}>Completed Time </TaskContent>
+                        <TaskContent content={moment(response.data.assignedTime).format('MMMM Do YYYY, h:mm:ss a')}>Assigned Time </TaskContent>
+                        <TaskContent content={moment(response.data.completedTime).format('MMMM Do YYYY, h:mm:ss a')}>Completed Time </TaskContent>
                     </div>
                 </div>
             }

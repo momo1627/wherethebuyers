@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom'
 import ModalButton from '../../components/Modal/ModalButton'
 import SignOut from '../../components/UserAdmin/SignOut'
 import { SignInStatus } from '../../context/context'
-import PostButton from '../../components/Modal/ModalButton'
 
 const Nav = () => {
     const { signInStatus } = React.useContext(SignInStatus)
@@ -11,7 +10,8 @@ const Nav = () => {
         <nav className="fixed-top bg-dark navbar-expand-sm navbar-dark">
             <div className='header-container navbar flex-sm-row-reverse'>
                 <div className='d-sm-none'>
-                    <PostButton target={signInStatus.isSignIn ? "postATask" : "signIn"}>Post A Task</PostButton>
+                    <ModalButton target={signInStatus.isSignIn ? "postATask" : "signIn"}>Post A Task</ModalButton>
+
                 </div>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -25,7 +25,9 @@ const Nav = () => {
                             {signInStatus.isSignIn && <NavLink activeClassName='nav-link-active' className="text-white text-decoration-none" to='/mytasks'>MyTasks</NavLink>}
                         </div>
                         <div className='d-none d-sm-block nav-item nav-link'>
-                            <PostButton target={signInStatus.isSignIn ? "postATask" : "signIn"}>Post A Task</PostButton>
+                            <ModalButton target={"postATask"}>Post A Task</ModalButton>
+
+                            {/* <ModalButton target={signInStatus.isSignIn ? "postATask" : "signIn"}>Post A Task</ModalButton> */}
                         </div>
                         <div className="nav-item nav-link" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             {

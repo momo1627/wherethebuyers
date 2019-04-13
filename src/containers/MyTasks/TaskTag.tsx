@@ -51,7 +51,7 @@ const TaskTag = (props: IProp) => {
                 {props.status === 'DONE' && props.role === 'poster' && <button className={`${status} btn btn-sm text-white font-weight-bold`} onClick={() => { setConfirm(true); }}>{action}</button>}
             </div>
             {confirm &&
-                    <ConfirmModal url={`http://localhost:5000/tasks/${props._id}`} input={input} title={`${action} the task`} click={click} cancel={cancel} />}
+                <ConfirmModal url={`http://localhost:5000/tasks/${props._id}`} input={input} title={`${action} the task`} click={click} cancel={cancel} />}
         </div>
     )
 }

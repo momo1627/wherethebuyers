@@ -1,5 +1,5 @@
 import * as React from 'react'
-import PostAtask from '../../containers/App/PostAtask'
+import PostAtask from '../../containers/PostATask/PostAtask'
 import UserAccount from '../UserAdmin/UserAccount'
 import {ToggleModal} from '../../context/context'
 import './style.css'

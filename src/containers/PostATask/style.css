@@ -1,0 +1,29 @@
+.post-content{
+    position: relative;
+    max-width: 500px;
+    margin:70px auto;
+    width: 100%;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+    border-radius: 5px;
+}
+.task-alert-container{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 1035;
+    animation-name: wrap-show;
+    animation-duration: 1s;
+    animation-fill-mode: forwards
+  }
+  .task-alert-content{
+    left: 50%;
+    top: 50%;
+    right: auto;
+    bottom: auto; 
+    transform: translate(-50%, -50%);
+    width: 100%;
+    position: absolute;
+    border-radius: 5px;
+}
