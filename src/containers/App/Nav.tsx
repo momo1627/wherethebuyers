@@ -25,9 +25,7 @@ const Nav = () => {
                             {signInStatus.isSignIn && <NavLink activeClassName='nav-link-active' className="text-white text-decoration-none" to='/mytasks'>MyTasks</NavLink>}
                         </div>
                         <div className='d-none d-sm-block nav-item nav-link'>
-                            <ModalButton target={"postATask"}>Post A Task</ModalButton>
-
-                            {/* <ModalButton target={signInStatus.isSignIn ? "postATask" : "signIn"}>Post A Task</ModalButton> */}
+                            <ModalButton target={signInStatus.isSignIn ? "postATask" : "signIn"}>Post A Task</ModalButton>
                         </div>
                         <div className="nav-item nav-link" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             {
@@ -41,10 +39,8 @@ const Nav = () => {
                             }
                         </div>
                     </ul>
-
                 </div>
             </div>
-
         </nav>
     )
 }
