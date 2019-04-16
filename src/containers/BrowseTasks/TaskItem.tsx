@@ -59,12 +59,12 @@ const TaskDetail: React.FunctionComponent<IData> = (props) => {
           <div className=" text-center font-weight-bold ml-2">Buy {props.what}</div>
         </div>
         <div className='col-6 col-lg-4 pl-2 d-flex flex-column justify-content-around '>
-          <div className='border-bottom border-muted small'>
+          <div className='border-bottom border-muted'>
             <div className='font-weight-bold'>Location &#9962;</div>
-            <div>{props.where}</div></div>
-          <div className='border-bottom border-muted small'>
+            <div className=' small'>{props.where}</div></div>
+          <div className='border-bottom border-muted'>
             <div className='font-weight-bold'>Due Time &#128359;</div>
-            <div>{moment(props.when).format('MMMM Do YYYY, h:mm:ss a')}</div></div>
+            <div className='small'>{moment(props.when).format('MMMM Do YYYY, h:mm:ss a')}</div></div>
         </div>
         <div className="col-6 col-lg-3 py-1 bg-white text-center d-flex flex-column justify-content-center">
           <div>
@@ -78,18 +78,18 @@ const TaskDetail: React.FunctionComponent<IData> = (props) => {
             }
           </div>
         </div>
-        <div className='d-lg-none d-block small w-100 d-flex justify-content-between '>
+        <div className='d-lg-none d-block  w-100 d-flex justify-content-between '>
           <div className={`btn btn-sm  btn-${status} text-white `}>{props.status}</div>
           <button className='btn btn-sm btn-info ' type='button' onClick={handleShowDetails}>Details</button>
         </div>
-        <div className={`${!isShowDetails && 'd-none'} d-lg-block col-12 col-lg-5 small row`}>
-          <div className='col-12 col-sm-6 col-lg-12 p-0 small'>
-            <TaskContent content={props.poster}>Posted By</TaskContent>
-            <TaskContent content={moment(props.postedTime).format('MMMM Do YYYY, h:mm:ss a')}>Posted Time</TaskContent>
+        <div className={`${!isShowDetails && 'd-none'} d-lg-block col-12 col-lg-5  row`}>
+          <div className='col-12 col-sm-6 col-lg-12 p-0 '>
+            <TaskContent content={props.poster}>Posted By </TaskContent>
+            <TaskContent content={moment(props.postedTime).format('MMMM Do YYYY, h:mm:ss a')}>Posted Time </TaskContent>
           </div>
-          <div className='col-12 col-sm-6 col-lg-12 p-0 small'>
-            <TaskContent content={props.tasker}>Assigned To</TaskContent>
-            <TaskContent content={props.assignedTime && moment(props.assignedTime).format('MMMM Do YYYY, h:mm:ss a')}>Assigned Time</TaskContent>
+          <div className='col-12 col-sm-6 col-lg-12 p-0 '>
+            <TaskContent content={props.tasker}>Assigned To </TaskContent>
+            <TaskContent content={props.assignedTime && moment(props.assignedTime).format('MMMM Do YYYY, h:mm:ss a')}>Assigned Time </TaskContent>
           </div>
 
         </div>

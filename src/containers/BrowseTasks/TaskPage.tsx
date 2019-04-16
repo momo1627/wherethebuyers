@@ -47,7 +47,7 @@ const Tasks = () => {
         setInitTaskList([]);
         setIsDataLoading(true);
         setIsDataLoaded(false)
-        const result = await fetch(`${API_Url}/tasks?pageSize=4${filter}`, { method: 'get' });
+        const result = await fetch(`${API_Url}/tasks?pageSize=5${filter}`, { method: 'get' });
         const json = await result.json();
         if (result.ok) {
             setInitTaskList(json.data.tasks);
