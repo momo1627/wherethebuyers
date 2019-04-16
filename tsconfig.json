@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
     "target": "es6",
     "jsx": "preserve",
     "module": "esnext",
@@ -24,6 +26,6 @@
     "node_modules"
   ],
   "include": [
-    "src"
+    "./src/**/*"
   ]
 }

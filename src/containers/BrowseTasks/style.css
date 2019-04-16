@@ -1,0 +1,26 @@
+
+.task-item-container{
+    overflow-y : scroll;
+    height:calc(100vh - 5rem)
+}
+.tasks-new{
+    position: absolute;
+    top:10px;
+    left:5%;
+    min-width: 50px;
+    z-index: 10;
+}
+.tasks-top{
+    position: absolute;
+    min-width: 50px;
+    bottom:50px;
+    right:25px;
+    z-index: 10;
+}
+.task-list-item{
+    box-shadow: 0 1px rgba(187,194,220,.6);
+    border-radius:4px;
+    box-sizing: border-box;
+    border:1px solid rgba(187,194,220,.6);
+    border-left:2px solid rgba(2,165,209,.29)
+  }

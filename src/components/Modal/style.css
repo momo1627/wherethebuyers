@@ -1,0 +1,65 @@
+.modal-container{
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 1025;
+  overflow: scroll;
+  animation-name: wrap-show;
+  animation-duration: 1s;
+  animation-fill-mode: forwards
+}
+.confirm-container{
+    position: absolute;
+      left: 50%;
+      top: 50%;
+      right: auto;
+      bottom: auto;
+      padding:30px 0;
+      transform: translate(-50%, -50%);
+      max-width: 400px;
+      min-height: 150px;
+      max-height: 90%;
+      width: 100%;
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
+      border-radius: 5px;
+      animation-name: wrap-content-show;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+      z-index: 1030;
+  }
+.alert-container{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 1035;
+    animation-name: wrap-show;
+    animation-duration: 1s;
+    animation-fill-mode: forwards
+  }
+  @keyframes wrap-show{
+    from{background:none}
+    to{background-color: rgba(0,0,0,0.5);}
+  }
+  @keyframes wrap-content-show{
+    from{top: 0}
+    to{top:50%}
+  }
+  
+.alert-content{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    right: auto;
+    bottom: auto; 
+    transform: translate(-50%, -50%);
+    width: 80%;
+    border-radius: 5px;
+    animation-name: wrap-content-show;
+    animation-duration: 1s;
+    animation-fill-mode: forwards
+  }
+

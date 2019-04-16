@@ -1,0 +1,43 @@
+.my-mytasks{
+width:100%;
+   max-width: 768px; 
+   margin:0 auto;
+}
+.mytask-list-item{
+   box-shadow: 0 1px rgba(187,194,220,.6);
+   border-radius:4px;
+   box-sizing: border-box;
+   transition: box-shadow .1s ease-out;
+   border:1px solid transparent;
+   border-left:2px solid rgba(2,165,209,.29)
+ }
+ 
+.mytask-link-active>.mytask-list-item-active {
+   border: 2px solid rgba(2,165,209,.5);
+   box-shadow: 0 0 1px 1px rgba(2,165,209,.29);
+ }
+ .mytask-list-item:hover{
+   box-shadow: 0 0 3px 3px rgba(187,194,220,.6); 
+   border:2px solid rgba(2,165,209,.5);
+ }
+ .task-review-container{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 1035;
+  animation-name: wrap-show;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+.task-review-content{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  right: auto;
+  bottom: auto; 
+  transform: translate(-50%, -50%);
+  width: 100%;
+  border-radius: 5px;
+}
