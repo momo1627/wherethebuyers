@@ -66,7 +66,7 @@ const TaskTag = (props: IProp) => {
                     <div className='confirm-container d-flex flex-column justify-content-around bg-white text-center py-2'>
                         <h4>Go to TaskDetail to Review</h4>
                         <div className='d-flex justify-content-around'>
-                            <Link className="btn btn-primary btn-sm text-center text-white text-decoration-none" to={`/task/${props._id}`} >Go</Link>
+                            <Link className="btn btn-primary btn-sm text-center text-white text-decoration-none" to={`/app/task/${props._id}`} >Go</Link>
                             <button className='btn btn-danger btn-sm text-center text-white' onClick={() => { setReview(false) }} >Cancel</button>
                         </div>
                     </div>
