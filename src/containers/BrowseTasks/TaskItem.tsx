@@ -4,7 +4,7 @@ import TaskContent from './TaskContent'
 import ModalButton from '../../components/Modal/ModalButton'
 import { SignInStatus, Update } from '../../context/context'
 import ConfirmModal from '../../components/Modal/ConfirmModal'
-
+import API_Url from '../../constants/api'
 type IData = {
   poster: string,
   posterId: string,
@@ -29,7 +29,7 @@ const TaskDetail: React.FunctionComponent<IData> = (props) => {
     setIsShowDetails((prev) => !prev)
   }
   const [confirm, setConfirm] = React.useState(false)
-  const input = { method: 'put', body: JSON.stringify({ tasker: signInStatus.username, taskerId: signInStatus.userId, status: 'ASSIGNED' }), headers: { 'Content-Type': 'application/json' },credentials: 'include' }
+  const input = { method: 'put', body: JSON.stringify({ tasker: signInStatus.username, taskerId: signInStatus.userId, status: 'ASSIGNED' }), headers: { 'Content-Type': 'application/json' }, credentials: 'include' }
   const click = () => {
     setConfirm(false)
   }
@@ -94,7 +94,7 @@ const TaskDetail: React.FunctionComponent<IData> = (props) => {
 
         </div>
       </div>
-      {confirm && <ConfirmModal url={`http://localhost:5000/task/${props._id}`} input={input} title='take the task' click={click} cancel={cancel} />}
+      {confirm && <ConfirmModal url={`${API_Url}/task/${props._id}`} input={input} title='take the task' click={click} cancel={cancel} />}
     </>
 
   )

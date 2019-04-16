@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ConfirmModal from '../../components/Modal/ConfirmModal'
 import { SignInStatus } from '../../context/context'
-import ReviewMaker from '../TaskDetail/ReviewMaker'
+import API_Url from '../../constants/api'
 import { Link } from 'react-router-dom'
 interface IProp {
     status: string;
@@ -45,7 +45,7 @@ const TaskTag = (props: IProp) => {
     }
     const [review, setReview] = React.useState(false);
     const createReview = async () => {
-        const result = await fetch(`http://localhost:5000/review`, { body: JSON.stringify({ taskId: props._id }), method: 'post', headers: { 'Content-Type': 'application/json' } })
+        const result = await fetch(`${API_Url}/review`, { body: JSON.stringify({ taskId: props._id }), method: 'post', headers: { 'Content-Type': 'application/json' } })
         await result.json();
         if (result.ok) {
             setReview(true);
@@ -72,7 +72,7 @@ const TaskTag = (props: IProp) => {
                     </div>
                 </div>}
             {confirm &&
-                <ConfirmModal url={`http://localhost:5000/task/${props._id}`} input={input} title={`${action} the task`} click={click} cancel={cancel} />}
+                <ConfirmModal url={`${API_Url}/task/${props._id}`} input={input} title={`${action} the task`} click={click} cancel={cancel} />}
         </div>
     )
 }
