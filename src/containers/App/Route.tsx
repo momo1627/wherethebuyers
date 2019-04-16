@@ -11,7 +11,7 @@ const Routes: React.FunctionComponent = () => {
         <div className='tasks-container'>
 
             <Switch >
-                <Route exact path='/app/' component={BrowseTasks} />
+                <Route exact path='/app' component={BrowseTasks} />
                 <Route exact path='/app/tasks' component={BrowseTasks} />
                 <Route exact path='/app/task/:id' component={TaskDetail} />
                 {/* <Route exact path='/mytasks' component={MyTasks} /> */}
