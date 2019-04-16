@@ -21,74 +21,14 @@ body {
 
 
 
-@keyframes wrap-show{
-  from{background:none}
-  to{background-color: rgba(0,0,0,0.5);}
-}
-@keyframes wrap-content-show{
-  from{display: none}
-  to{display: block}
-}
 
 
 
-.task-list{
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y:scroll;
-  height: calc(100vh - 4.5rem);
-}
-.task-list-item{
-  box-shadow: 0 1px rgba(187,194,220,.6);
-  border-radius:4px;
-  box-sizing: border-box;
-  transition: box-shadow .1s ease-out;
-  cursor: pointer;
-  border:1px solid transparent;
-  border-left:2px solid rgba(2,165,209,.29)
-}
-.task-link-active>.task-list-item-active {
-  border: 2px solid rgba(2,165,209,.5);
-  box-shadow: 0 0 1px 1px rgba(2,165,209,.29);
-}
-.task-list-item:hover{
-  box-shadow: 0 0 3px 3px rgba(187,194,220,.6); 
-  border:2px solid rgba(2,165,209,.5);
-}
-.task-left{
-  width:30%
-}
 
-.task-table{
-  overflow-y:scroll;
-  width:90%;
-  height: calc(100vh - 15rem);
-  min-height: 50vh
-}
+
+
 .mytasks {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   position: relative;
-}
-th{
-  position: sticky;
-  margin:0 auto;
-  top:0
-}
-.mytasks td, .mytasks th {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-.mytasks tr:nth-child(even){background-color: #fff;color:#17a2b8}
-.mytasks tr:nth-child(odd){background-color: #17a2b8;color:#fff}
-.mytasks tr:hover {background-color: #cce5ff; color:#000 }
-
-.mytasks th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #343a40;
-  color: white;
-  z-index:1003
 }

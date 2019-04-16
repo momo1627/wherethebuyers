@@ -4,19 +4,23 @@ import BrowseTasks from '../BrowseTasks/TaskPage'
 import MyTasks from '../MyTasks/MyTasks'
 import TaskDetail from '../TaskDetail/TaskDetailsPage'
 import PrivateRoute from '../../components/PrivateRoute';
-
+import ReviewMaker from '../TaskDetail/ReviewMaker'
 const Routes: React.FunctionComponent = () => {
     return (
         <div className='app-content'>
+        <div className='tasks-container'>
+
             <Switch >
                 <Route exact path='/' component={BrowseTasks} />
                 <Route exact path='/tasks' component={BrowseTasks} />
-                <Route exact path='/tasks/:id' component={TaskDetail} />
+                <Route exact path='/task/:id' component={TaskDetail} />
                 {/* <Route exact path='/mytasks' component={MyTasks} /> */}
                 <PrivateRoute exact path='/mytasks' component={MyTasks} />
-                {/* <Route exact path ='/profile/:id' component={Profile} /> */}
+                <Route exact path='/review' component = {ReviewMaker} />
             </Switch>
         </div>
+        </div>
+
     )
 }
 export default Routes

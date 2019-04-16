@@ -13,9 +13,9 @@ const App = () => {
     const [modalStatus, modalDispatch] = React.useReducer(showModalReducer, { status: false, modal: '' });
     const [signInStatus, signInDispatch] = React.useReducer(signInReducer, { username: '', userId: '', isSignIn: false });
     const checkSign = async () => {
-        const result = await fetch(`${API_Url}/user-status`, { method: 'post', credentials: 'include' })
+        const result = await fetch(`${API_Url}/user`, { method: 'post', credentials: 'include' })
         const response = await result.json();
-        if (response.status === 0) {
+        if (result.ok) {
             signInDispatch(signInAction(response.data.username, response.data.userId))
         }
     }

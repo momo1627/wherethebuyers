@@ -13,80 +13,73 @@ import { Update } from '../../context/context'
 //-- store newTaskList, newtasknumber, pass newTasknumber to notification 
 //-- 
 //2.1 if new tasks give notification and click it to render new task
-//2.1.1 if click to get load new re-render task nav pass new props, clear data here
+//2.1.1 if click to get load new re-render task nav pass new , clear data here
 //2.2 2 if not click to get new task, 
 //2.2 if no task, wait to init new tasks
 const Tasks = () => {
+    const [initTaskList, setInitTaskList] = React.useState();
+    const [response, setResponse] = React.useState({ status: false, message: '' })
+
+    const [hasMoreTask, setHasMoreTask] = React.useState();
+    const [searchAfterId, setSearchAfterId] = React.useState();
+    const [searchBeforeId, setSearchBeforeId] = React.useState();
+    const [totalTask, setTotalTask] = React.useState(0);
+
+    const [isDataLoaded, setIsDataLoaded] = React.useState(false);
+    const [isDataLoading, setIsDataLoading] = React.useState(false);
+
+    const [isScrolled, setIsScrolled] = React.useState(0);
+    const [isMoreDataLoading, setIsMoreDataLoading] = React.useState(false);
+
+    const [newTaskList, setNewTaskList] = React.useState([]);
+    const [newTaskNumber, setNewTaskNumber] = React.useState(0);
+
     const [checked, setChecked] = React.useState(false);
     const [location, setLocation] = React.useState('')
     const { update, updateDispatch } = React.useContext(Update)
-    const [isDataLoaded, setIsDataLoaded] = React.useState(false);
-    const [isDataLoading, setIsDataLoading] = React.useState(false);
-    const [isMoreDataLoading, setIsMoreDataLoading] = React.useState(false);
-    const [initTaskList, setInitTaskList] = React.useState();
-    const [response, setResponse] = React.useState({ status: 3, message: '' })
-    const [searchAfterId, setSearchAfterId] = React.useState();
-    const [searchBeforeId, setSearchBeforeId] = React.useState();
-    const [newTaskList, setNewTaskList] = React.useState([]);
-    const [newTaskNumber, setNewTaskNumber] = React.useState(0);
-    const [totalTask, setTotalTask] = React.useState(0);
-    const [hasMoreTask, setHasMoreTask] = React.useState(true);
-    const [isScrolled, setIsScrolled] = React.useState(0);
+
     let filter = '';
     if (checked) {
-        filter = 'status=OPEN&'
+        filter = '&status=OPEN&'
     }
+    //init datalist 
     const fetchData = async () => {
+        setInitTaskList([]);
         setIsDataLoading(true);
         setIsDataLoaded(false)
-        const result = await fetch(`${API_Url}/tasks?pageSize=4&${filter}`, { method: 'get' });
+        const result = await fetch(`${API_Url}/tasks?pageSize=4${filter}`, { method: 'get' });
         const json = await result.json();
-        if (json.status == 0) {
+        if (result.ok) {
             setInitTaskList(json.data.tasks);
+            setResponse({ status: result.ok, message: json.message });
             setSearchAfterId(json.data.meta.searchAfterId);
             setSearchBeforeId(json.data.meta.searchBeforeId);
+            setHasMoreTask(json.data.meta.hasNext)
             setTotalTask(json.data.length);
-            setResponse({ status: json.status, message: json.message });
             setIsDataLoaded(true);
             setIsDataLoading(false)
         } else {
             setIsDataLoaded(true);
             setIsDataLoading(false);
-            setResponse({ status: json.status, message: json.message })
+            setResponse({ status: result.ok, message: json.message })
         }
     }
+    React.useEffect(() => {
+        if (update) {
+            updateDispatch(endUpdate)
+        }
+        fetchData();
+    }, [update])
     const fetchNewData = async (searchAfterId: string) => {
         if (!searchAfterId) { return }
-        const result = await fetch(`${API_Url}/tasks?searchAfterId=${searchAfterId}&${filter}`, { method: 'get' });
+        const result = await fetch(`${API_Url}/tasks?searchAfterId=${searchAfterId}${filter}`, { method: 'get' });
         const json = await result.json();
-        if (json.status === 0) {
+        if (result.ok) {
             setNewTaskList(json.data.tasks.concat(newTaskList));
             setNewTaskNumber((s) => s + json.data.meta.total);
             setSearchAfterId(json.data.meta.searchAfterId);
         }
     }
-    const fetchMoreData = async (searchBeforeId: string) => {
-        if (!searchBeforeId) { return }
-        const result = await fetch(`${API_Url}/tasks?pageSize=2&searchBeforeId=${searchBeforeId}&${filter}&`, { method: 'get' });
-        const json = await result.json();
-        if (json.status === 0) {
-            setSearchBeforeId(json.data.meta.searchBeforeId);
-            setTotalTask(initTaskList.length);
-            setTimeout(() => {
-                setInitTaskList([...initTaskList, ...json.data.tasks]);
-                setHasMoreTask(json.data.meta.hasNext);
-                setIsMoreDataLoading(false);
-            }, 1000)
-        } else {
-            setHasMoreTask(false)
-            setIsMoreDataLoading(false);
-        }
-    }
-    React.useEffect(() => {
-        setHasMoreTask(true);
-        fetchData();
-        updateDispatch(endUpdate)
-    }, [update])
     React.useEffect(() => {
         const fresh = setInterval(() => {
             fetchNewData(searchAfterId)
@@ -102,17 +95,36 @@ const Tasks = () => {
         setNewTaskList([])
         setTotalTask(initTaskList.length)
     }
+    const fetchMoreData = async (searchBeforeId: string) => {
+        setIsMoreDataLoading(true);
+        const result = await fetch(`${API_Url}/tasks?pageSize=2&searchBeforeId=${searchBeforeId}${filter}`, { method: 'get' });
+        const json = await result.json();
+        if (result.ok) {
+            setSearchBeforeId(json.data.meta.searchBeforeId);
+            setTotalTask(initTaskList.length);
+            setTimeout(() => {
+                setInitTaskList([...initTaskList, ...json.data.tasks]);
+                setHasMoreTask(json.data.meta.hasNext);
+                setIsMoreDataLoading(false);
+            }, 1000)
+        } else {
+            setHasMoreTask(false)
+            setIsMoreDataLoading(false);
+        }
+    }
+
+
     const elem = document.getElementsByClassName('task-item-container')[0]
     const handleScroll = () => {
         setIsScrolled(elem.scrollTop);
-        if (elem.scrollTop + elem.clientHeight > elem.scrollHeight - 25) {
-            if (hasMoreTask) {
-                setIsMoreDataLoading(true);
-                fetchMoreData(searchBeforeId);
-            } else {
-                setIsMoreDataLoading(false);
+        if (!isMoreDataLoading) {
+            if (elem.scrollTop + elem.clientHeight > elem.scrollHeight - 1) {
+                if (hasMoreTask) {
+                    fetchMoreData(searchBeforeId);
+                }
             }
         }
+
     }
     const backToTop = () => {
         elem.scrollTop = 0;
@@ -124,19 +136,27 @@ const Tasks = () => {
             document.getElementsByClassName('task-item-container')[0].removeEventListener('scroll', handleScroll);
         }
     })
+    const handleFilter = () => {
+        
+        updateDispatch(startUpdate)
+    }
     return (
-        <div className='tasks-container'>
+        <>
             <div className="custom-control custom-checkbox d-flex align-items-center text-center justify-content-around">
-                <input type="checkbox" checked={checked} onChange={() => { setChecked((pre) => !pre); updateDispatch(startUpdate); setHasMoreTask(true) }} className="custom-control-input" id="customCheck1" />
+                <input type="checkbox" checked={checked} onChange={() => { setChecked((pre) => !pre); handleFilter(); }} className="custom-control-input" id="customCheck1" />
                 <label className="custom-control-label " htmlFor="customCheck1">Show OPEN Only</label>
             </div>
             {newTaskNumber > 0 && <button className='alert alert-info tasks-new' onClick={addNewTasks}>{newTaskNumber} NEW TASKS</button>}
             <div className="task-item-container" id="task-item-container">
                 {isScrolled > 0 && <button className='btn btn-sm btn-primary tasks-top' onClick={backToTop}>Top</button>}
                 {isDataLoading && !isDataLoaded && <Loading />}
-                {!isDataLoading && isDataLoaded && response.status === 0 ? <TaskNav initTasks={initTaskList} hasMoreTasks={hasMoreTask} isLoadingMoreData={isMoreDataLoading} /> : <div className='text-center h3'>{response.message}</div>}
+                {response.status && <TaskNav initTasks={initTaskList} />}
+                {isDataLoaded && <div className="tasks-loading border rounded shadow-sm bg-white font-weight-bold text-center mx-2 h6">
+                    {hasMoreTask ? <Loading /> : <div>no more tasks</div>}
+                </div>}
             </div>
-        </div>
+
+        </>
     )
 }
 export default Tasks

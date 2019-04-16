@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import { SignInStatus, ToggleModal } from '../../context/context'
 import { signInAction } from '../../actions/signInAction';
 import { showModal, hideModal } from '../../actions/showModalAction'
-import useUserAdmin from '../../hooks/useUserAdmin'
+import usePostData from '../../hooks/usePostData'
 import FormGroup from '../FormGroup'
 import useChangeInput from '../../hooks/useChangeInput'
 import ModalButton from '../Modal/ModalButton'
@@ -14,6 +14,14 @@ const schema = yup.object().shape({
     username: yup.string().required().min(6),
     password: yup.string().required().min(6)
 })
+const initialResponse = {
+    data: {
+        username: '',
+        userId: ''
+    },
+    status: false,
+    message: ''
+}
 type AccontInput = {
     username: string;
     password: string;
@@ -25,17 +33,17 @@ type Props = {
 const UserAccount: React.FunctionComponent<Props> = (props) => {
     const { signInStatus, signInDispatch } = React.useContext(SignInStatus);
     const { modalStatus, modalDispatch } = React.useContext(ToggleModal)
-    const [response, resetResponse, setTrigger] = useUserAdmin()
+    const [response, resetResponse, setTrigger] = usePostData(initialResponse)
     const [input, handleChange, setInput] = useChangeInput<AccontInput>({
         username: '',
         password: '',
     });
     const [validation, validate, setValidation] = useValidation(input, schema)
     const handleSignIn = async () => {
-        setTrigger(`${API_Url}/sign-in`, { method: 'post', body: JSON.stringify(input), headers: { 'Content-Type': 'application/json' } })
+        setTrigger(`${API_Url}/user`, {body: JSON.stringify({...input,action:'signIn'})})
     }
     const handleSignUp = () => {
-        setTrigger(`${API_Url}/sign-up`, { method: 'post', body: JSON.stringify(input), headers: { 'Content-Type': 'application/json' } })
+        setTrigger(`${API_Url}/user`, {body: JSON.stringify({...input,action:'signUp'})})
     }
     const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
@@ -46,12 +54,9 @@ const UserAccount: React.FunctionComponent<Props> = (props) => {
         modalDispatch(hideModal())
     }
     const handleResponse = () => {
-        if (response.status === 0) {
-            if (response.data) {
-                signInDispatch(signInAction(response.data.username, response.data.userId))
-                modalDispatch(hideModal(props.target))
-            }
-            ;
+        if (response.data) {
+                signInDispatch(signInAction(response.data.username, response.data.userId));
+                modalDispatch(hideModal(props.target));
         }
         resetResponse();
         setInput({ username: '', password: '' })
@@ -73,8 +78,8 @@ const UserAccount: React.FunctionComponent<Props> = (props) => {
                     <small>{props.target === 'signIn' ? "Don't have an account?" : "Already have an account"}</small>
                     <ModalButton target={props.target === 'signIn' ? "signUp" : "signIn"}>{props.target === 'signIn' ? "Sign Up" : "Sign In"}</ModalButton>
                 </div>
-                {/* {response.status !== 3 && <AlertModal message={response.message} cancel={handleResponse} />} */}
-                {/* {validation.error && <AlertModal message={validation.message[0]} cancel={() => { setValidation({ error: false, message: '' }); setInput({ username: '', password: '' }); }} />} */}
+                {response.status && <AlertModal message={response.message} confirm={handleResponse} clear={handleResponse} />}
+                {validation.error && <AlertModal message={validation.message[0]} confirm={() => { setValidation({ error: false, message: '' }); }}  clear={() => { setValidation({ error: false, message: '' }); setInput({ username: '', password: '' }); }} />}
             </div>
         </div>
 

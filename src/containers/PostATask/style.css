@@ -4,7 +4,10 @@
     margin:70px auto;
     width: 100%;
     box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
-    border-radius: 5px;
+    border-radius: 5px;    
+    animation-name: post-content-show;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
 }
 .task-alert-container{
     position: absolute;
@@ -15,15 +18,23 @@
     z-index: 1035;
     animation-name: wrap-show;
     animation-duration: 1s;
-    animation-fill-mode: forwards
+    animation-fill-mode: forwards;
   }
   .task-alert-content{
+    position: absolute;
     left: 50%;
     top: 50%;
     right: auto;
     bottom: auto; 
     transform: translate(-50%, -50%);
     width: 100%;
-    position: absolute;
     border-radius: 5px;
+}
+@keyframes wrap-show{
+  from{background:none}
+  to{background-color: rgba(0,0,0,0.5);}
+}
+@keyframes post-content-show{
+  from{margin-top: 0}
+  to{margin-top:70px}
 }

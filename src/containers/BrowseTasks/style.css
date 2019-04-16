@@ -1,13 +1,7 @@
-.tasks-container{
-    position: relative;
-    height: calc(100vh - 64px);
-    max-width: 1024px;
-    margin: 0 auto;
-    overflow: hidden;
-}
+
 .task-item-container{
     overflow-y : scroll;
-    height:calc(100vh - 92px)
+    height:calc(100vh - 5rem)
 }
 .tasks-new{
     position: absolute;
@@ -27,8 +21,6 @@
     box-shadow: 0 1px rgba(187,194,220,.6);
     border-radius:4px;
     box-sizing: border-box;
-    transition: box-shadow .1s ease-out;
-    cursor: pointer;
-    border:1px solid transparent;
+    border:1px solid rgba(187,194,220,.6);
     border-left:2px solid rgba(2,165,209,.29)
   }

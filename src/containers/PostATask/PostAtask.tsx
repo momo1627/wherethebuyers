@@ -36,7 +36,7 @@ const PostAtask: React.FunctionComponent = () => {
             {step === 1 && <WhenAndWhere when={when} where={where} handleStep={(i) => { setStep(i) }} handleWhen={(i) => { setWhen(i) }} handleWhere={(i) => { setWhere(i) }} />}
             {step === 2 && <ReviewAndSubmit task={task} handleStep={(i) => { setStep(i) }} />}
             {alert &&
-                <div className='task-alert-container '>
+                <div className='task-alert-container small'>
                     <div className='task-alert-content bg-white text-center py-2'>
                         <h4>Sorry to see you leave</h4>
                         <p>Are you sure? You almost done !</p>

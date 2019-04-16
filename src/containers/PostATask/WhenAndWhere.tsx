@@ -31,7 +31,7 @@ const WhenAndWhere = (props: IProps) => {
     const handleNext = async () => {
         const result = await validate()
         if (!result) return
-        props.handleWhen(moment(input.when).format('MMMM Do YYYY, h:mm:ss a'));
+        props.handleWhen(input.when);
         props.handleWhere(input.where)
         props.handleStep(2);
     }

@@ -21,16 +21,22 @@
   }
 
 .app-content{
-    max-width: 992px;
+    max-width: 768px;
     width:80%;
     margin: 4rem auto 0;
 }
 @media screen and (max-width:767.99px){
     .app-content{
-        width:100%
+        width:95%;
+        margin: 4rem auto 0
     }
 }
-
+.tasks-container{
+    position: relative;
+    height: calc(100vh - 4rem);
+    margin: 0 auto;
+    overflow: hidden;
+}
 .modal-container{
     position: fixed;
     top: 0px;

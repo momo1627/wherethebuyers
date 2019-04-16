@@ -6,18 +6,33 @@ import './style.css'
 import { startUpdate, endUpdate } from '../../actions/updateAction'
 import Loading from '../../components/Loading'
 import { Update } from '../../context/context'
-
+interface Pagination {
+    currentPage: string,
+    pageSize: number,
+    total: number,
+    hasNext: boolean,
+    hasPrev: boolean,
+}
+const defaultPagination = {
+    currentPage: '1',
+    pageSize: 4,
+    total: 0,
+    hasNext: false,
+    hasPrev: false,
+}
 const Mytasks = () => {
     const [isDataLoaded, setIsDataLoaded] = React.useState(false);
     const [isDataLoading, setIsDataLoading] = React.useState(false);
-    const { update, updateDispatch } = React.useContext(Update)
+    const [data, setData] = React.useState();
+    const [response, setResponse] = React.useState({ status: false, message: '' })
+    const [pagination, setPagination] = React.useState<Pagination>(defaultPagination)
+
+    const [page, setPage] = React.useState(1);
+    const [pageSize, setPageSize] = React.useState(4)
     const [role, setRole] = React.useState('poster')
     const [filter, setFilter] = React.useState('ALL')
-    const [data, setData] = React.useState();
-    const [page, setPage] = React.useState(1);
-    const [pageSize, setPageSize] = React.useState(5)
-    const [pagination, setPagination] = React.useState({ hasPrev: false, hasNext: true })
-    const [response, setResponse] = React.useState({ status: 3, message: '' })
+
+    const { update, updateDispatch } = React.useContext(Update)
 
     const fetchData = async () => {
         if (update) { updateDispatch(endUpdate) }
@@ -25,31 +40,27 @@ const Mytasks = () => {
         setIsDataLoading(true);
         const result = await fetch(`${API_Url}/profile?role=${role}&status=${filter}&page=${page}&pageSize=${pageSize}`, { method: 'get', credentials: 'include' })
         const resultJson = await result.json();
-        if (resultJson.status === 0) {
+        if (result.ok) {
             setData(resultJson.data.tasks);
-            setPagination(resultJson.data.pagination)
-            setTimeout(() => {
-                setResponse({ status: resultJson.status, message: resultJson.message })
-                setIsDataLoaded(true); setIsDataLoading(false);
-            }, 1000)
-
+            setPagination(resultJson.data.pagination);
+            setResponse({ status: result.ok, message: resultJson.message });
+            setIsDataLoaded(true);
+            setIsDataLoading(false);
         } else {
-            setIsDataLoaded(true); setIsDataLoading(false)
-            setResponse({ status: resultJson.status, message: resultJson.message })
+            setIsDataLoaded(true);
+            setIsDataLoading(false);
+            setResponse({ status: result.ok, message: resultJson.message });
         }
-
     }
     React.useEffect(
         () => { fetchData() }
         , [filter, role, page, update])
     const refresh = () => {
-        setResponse({ status: 3, message: '' })
+        setResponse({ status: false, message: '' })
         setPage(1);
-        setPagination({ hasPrev: false, hasNext: true })
     }
     return (
-        <main className="my-tasks">
-            <div>
+            <div className='task-item-container'>
                 <nav className='d-flex justify-content-around align-items-center'>
                     <ul className="nav nav-pills bg-light py-2" id="myTab" role="tablist">
                         <li className="nav-item">
@@ -59,21 +70,17 @@ const Mytasks = () => {
                             <a className="nav-link" id="tasker-tab" data-toggle="tab" href="#tasker" role="tab" aria-controls="tasker" aria-selected="false" onClick={(e) => { e.preventDefault(); refresh(); setRole('tasker'); }}>Tasker</a>
                         </li>
                     </ul>
-                    <select className=" w-50 form-control form-control-sm " value={filter} onChange={(e) => { refresh(); setFilter(e.target.value);  }}>
+                    <select className="w-50 form-control form-control-sm " value={filter} onChange={(e) => { refresh(); setFilter(e.target.value); }}>
                         <option value="ALL">All Tasks</option>
                         <option value="PENDING">Pending Tasks</option>
                         <option value="COMPLETED">Completed Tasks</option>
                     </select>
                 </nav>
+                <Pagination {...pagination} click={(i: number) => { setPage(i) }} />
                 {isDataLoading && !isDataLoaded && <Loading />}
-                {!isDataLoading && isDataLoaded && response.status === 0 ?
-                    <>
-                        <Pagination page={page} hasPrev={pagination.hasPrev} hasNext={pagination.hasNext} click={(i: number) => { setPage(i) }} />
-                        <TaskList data={data} role={role} />
-                    </> : <div className='text-center h3'>{response.message}</div>
-                }
+                {!isDataLoading && isDataLoaded && response.status && <TaskList data={data} role={role} /> }
+                {!isDataLoading && isDataLoaded && !response.status && <div>not any tasks yet</div> }
             </div>
-        </main>
     )
 }
 export default Mytasks
