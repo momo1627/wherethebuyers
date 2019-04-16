@@ -10,11 +10,11 @@ const Routes: React.FunctionComponent = () => {
         <div className='app-content'>
             <div className='tasks-container'>
                 <Switch >
-                    <Route exact path='/app/' component={BrowseTasks} />
-                    <Route exact path='/app/tasks' component={BrowseTasks} />
-                    <Route exact path='/app/task/:id' component={TaskDetail} />
-                    <PrivateRoute exact path='/app/mytasks' component={MyTasks} />
-                    <Route exact path='/app/review' component={ReviewMaker} />
+                    <Route exact path='/' component={BrowseTasks} />
+                    <Route exact path='/tasks' component={BrowseTasks} />
+                    <Route exact path='/task/:id' component={TaskDetail} />
+                    <PrivateRoute exact path='/mytasks' component={MyTasks} />
+                    <Route exact path='/review' component={ReviewMaker} />
                 </Switch>
             </div>
         </div>

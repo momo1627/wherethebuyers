@@ -19,10 +19,10 @@ const Nav = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav justify-content-between">
                         <div className="nav-item nav-link " data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <NavLink activeClassName='nav-link-active' className="text-white text-decoration-none" to='/app/tasks' >Browse Tasks</NavLink>
+                            <NavLink activeClassName='nav-link-active' className="text-white text-decoration-none" to='/tasks' >Browse Tasks</NavLink>
                         </div>
                         <div className="nav-item nav-link" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            {signInStatus.isSignIn && <NavLink activeClassName='nav-link-active' className="text-white text-decoration-none" to='/app/mytasks'>MyTasks</NavLink>}
+                            {signInStatus.isSignIn && <NavLink activeClassName='nav-link-active' className="text-white text-decoration-none" to='/mytasks'>MyTasks</NavLink>}
                         </div>
                         <div className='d-none d-sm-block nav-item nav-link'>
                             <ModalButton target={"postATask"}>Post A Task</ModalButton>

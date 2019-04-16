@@ -13,7 +13,7 @@ type Props = {
 const TaskLabel: React.FunctionComponent<Props> = (props) => {
     return (
         <div className='bg-light px-2' key={props._id}>
-            <span className='small text-left'>Task_Id: <Link to={`/app/task/${props._id}`} className='ml-2'>{props._id}</Link></span>
+            <span className='small text-left'>Task_Id: <Link to={`/task/${props._id}`} className='ml-2'>{props._id}</Link></span>
             <div className="d-flex justify-content-start align-items-center">
                 <div className="ml-2 font-weight-bold" style={{"fontSize":"18px"}}>Buy {props.what}</div>
             </div>
