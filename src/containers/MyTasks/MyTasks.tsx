@@ -60,7 +60,7 @@ const Mytasks = () => {
         setPage(1);
     }
     return (
-            <div className='task-item-container'>
+            <div className='my-tasks'>
                 <nav className='d-flex justify-content-around align-items-center'>
                     <ul className="nav nav-pills bg-light py-2" id="myTab" role="tablist">
                         <li className="nav-item">

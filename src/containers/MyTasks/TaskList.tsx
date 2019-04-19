@@ -29,7 +29,6 @@ const TaskList = (props: IProps) => {
         return (
             <div className='py-1 mt-1  mytask-list-item  bg-light border ' key={item._id}>
                 <TaskLabel  {...item} />
-                <TaskTag _id={item._id} status={item.status} role={props.role} />
             </div>
         )
     })

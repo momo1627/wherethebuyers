@@ -54,12 +54,11 @@ const TaskTag = (props: IProp) => {
 
     return (
         <div className='d-flex justify-content-between px-2'>
-            <div className={`${status} btn btn-sm text-white font-weight-bold`}>{props.status}</div>
             <div className=''>
-                {props.status === 'OPEN' && <button className={`${status} btn btn-sm text-white font-weight-bold`} onClick={() => { setConfirm(true); }}>{action}</button>}
-                {props.status === 'ASSIGNED' && props.role === 'tasker' && <button className={`${status} btn btn-sm text-white font-weight-bold`} onClick={() => { setConfirm(true); }}>{action}</button>}
-                {props.status === 'DONE' && props.role === 'poster' && <button className={`${status} btn btn-sm text-white font-weight-bold`} onClick={() => { setConfirm(true); }}>{action}</button>}
-                {props.status === 'COMPLETED' && <button className={`${status} btn btn-sm text-white font-weight-bold`} onClick={createReview}>{action}</button>}
+                {props.status === 'OPEN' && <span className={`${status} btn btn-sm text-white font-weight-bold`} onClick={() => { setConfirm(true); }}>{action}</span>}
+                {props.status === 'ASSIGNED' && props.role === 'tasker' && <span className={`${status} btn btn-sm text-white font-weight-bold`} onClick={() => { setConfirm(true); }}>{action}</span>}
+                {props.status === 'DONE' && props.role === 'poster' && <span className={`${status} btn btn-sm text-white font-weight-bold`} onClick={() => { setConfirm(true); }}>{action}</span>}
+                {props.status === 'COMPLETED' && <span className={`${status} btn btn-sm text-white font-weight-bold`} onClick={createReview}>{action}</span>}
             </div>
             {review &&
                 <div className='modal-container small'>

@@ -21,7 +21,6 @@ const App = () => {
     }
     React.useEffect(() => { checkSign() }, [])
 
-
     return (
         <>
             <ToggleModal.Provider value={{ modalStatus, modalDispatch }}>

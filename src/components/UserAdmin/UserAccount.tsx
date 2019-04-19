@@ -35,8 +35,8 @@ const UserAccount: React.FunctionComponent<Props> = (props) => {
     const { modalStatus, modalDispatch } = React.useContext(ToggleModal)
     const [response, resetResponse, setTrigger] = usePostData(initialResponse)
     const [input, handleChange, setInput] = useChangeInput<AccontInput>({
-        username: '',
-        password: '',
+        username: 'jiangren01',
+        password: '111111',
     });
     const [validation, validate, setValidation] = useValidation(input, schema)
     const handleSignIn = async () => {
@@ -57,17 +57,18 @@ const UserAccount: React.FunctionComponent<Props> = (props) => {
         if (response.data) {
                 signInDispatch(signInAction(response.data.username, response.data.userId));
                 modalDispatch(hideModal(props.target));
+                window.location.href='/mytasks'
         }
         resetResponse();
         setInput({ username: '', password: '' })
     }
     return (
-        <div className='post-content  mx-auto bg-white px-3 d-flex flex-column justify-content-around'>
+        <div className='post-content mx-auto bg-white px-3 d-flex flex-column justify-content-around'>
             <div className=''>
                 <h5 className="text-center m-0 py-1">{props.title}</h5>
                 <form action="">
-                    <FormGroup input={input.username} change={handleChange} size='sm' content="username" type='text' title='Username'>username at least 6</FormGroup>
-                    <FormGroup input={input.password} change={handleChange} size='sm' content="password" type='password' title="Password">password at least 6</FormGroup>
+                    <FormGroup input={input.username} change={handleChange}  content="username" type='text' title='Username'>username at least 6</FormGroup>
+                    <FormGroup input={input.password} change={handleChange}  content="password" type='password' title="Password">password at least 6</FormGroup>
                     <div className='d-flex justify-content-between p-1'>
                         <button className='btn btn-sm btn-primary' type="submit" onClick={handleSubmit}>Submit</button>
                         <button className='btn btn-sm btn-danger' type="button" onClick={handleCancel}>Cancel</button>

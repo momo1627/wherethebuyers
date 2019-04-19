@@ -11,22 +11,6 @@ body {
 }
 
 
-.app-task-screen{
-  position: relative;
-  display: flex;
-  flex-direction: row-reverse;
-  height: calc(100vh - 4.5rem);
-  overflow: hidden;
-}
-
-
-
-
-
-
-
-
-
 .mytasks {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   border-collapse: collapse;

@@ -5,6 +5,8 @@ import './style.css'
 import { startUpdate, endUpdate } from '../../actions/updateAction'
 import Loading from '../../components/Loading'
 import { Update } from '../../context/context'
+import { Switch, Route } from 'react-router-dom'
+import TaskDetail from '../TaskDetail/TaskDetailsPage';
 //1.initial fetch get task list and searchBeforeId searchAfterId
 //-- store tasks list, searchBeforeId searchAfterId
 //pass tasklist to taks nav to render
@@ -16,7 +18,18 @@ import { Update } from '../../context/context'
 //2.1.1 if click to get load new re-render task nav pass new , clear data here
 //2.2 2 if not click to get new task, 
 //2.2 if no task, wait to init new tasks
-const Tasks = () => {
+interface IProp {
+    match: {
+        params: {
+            id: string
+        }
+    }
+    history: {}
+    location: {
+        pathname: string
+    }
+}
+const Tasks = (props: IProp) => {
     const [initTaskList, setInitTaskList] = React.useState();
     const [response, setResponse] = React.useState({ status: false, message: '' })
 
@@ -65,11 +78,8 @@ const Tasks = () => {
         }
     }
     React.useEffect(() => {
-        if (update) {
-            updateDispatch(endUpdate)
-        }
         fetchData();
-    }, [update])
+    }, [filter])
     const fetchNewData = async (searchAfterId: string) => {
         if (!searchAfterId) { return }
         const result = await fetch(`${API_Url}/tasks?searchAfterId=${searchAfterId}${filter}`, { method: 'get' });
@@ -112,13 +122,11 @@ const Tasks = () => {
             setIsMoreDataLoading(false);
         }
     }
-
-
     const elem = document.getElementsByClassName('task-item-container')[0]
     const handleScroll = () => {
         setIsScrolled(elem.scrollTop);
         if (!isMoreDataLoading) {
-            if (elem.scrollTop + elem.clientHeight > elem.scrollHeight - 1) {
+            if (elem.scrollTop + elem.clientHeight > elem.scrollHeight - 10) {
                 if (hasMoreTask) {
                     fetchMoreData(searchBeforeId);
                 }
@@ -137,26 +145,39 @@ const Tasks = () => {
         }
     })
     const handleFilter = () => {
-        
-        updateDispatch(startUpdate)
+        history.pushState({},'','/tasks')
+        if (!isDataLoading) {
+            updateDispatch(startUpdate)
+            setIsEmpty(true)
+        }
     }
+    const [isEmpty,setIsEmpty] = React.useState(true);
     return (
-        <>
+        <div>
             <div className="custom-control custom-checkbox d-flex align-items-center text-center justify-content-around">
                 <input type="checkbox" checked={checked} onChange={() => { setChecked((pre) => !pre); handleFilter(); }} className="custom-control-input" id="customCheck1" />
                 <label className="custom-control-label " htmlFor="customCheck1">Show OPEN Only</label>
             </div>
-            {newTaskNumber > 0 && <button className='alert alert-info tasks-new' onClick={addNewTasks}>{newTaskNumber} NEW TASKS</button>}
-            <div className="task-item-container" id="task-item-container">
-                {isScrolled > 0 && <button className='btn btn-sm btn-primary tasks-top' onClick={backToTop}>Top</button>}
-                {isDataLoading && !isDataLoaded && <Loading />}
-                {response.status && <TaskNav initTasks={initTaskList} />}
-                {isDataLoaded && <div className="tasks-loading border rounded shadow-sm bg-white font-weight-bold text-center mx-2 h6">
-                    {hasMoreTask ? <Loading /> : <div>no more tasks</div>}
-                </div>}
-            </div>
+            <div className='task-container' >
+                <div className='task-right'>
+                    <div className={isEmpty ? 'task-detail-empty' : 'task-detail'}>
+                       {window.location.pathname.length > 10 && <Route exact path='/tasks/:id' component={TaskDetail} />}
+                    </div>
+                </div>
+                <div className='task-nav px-1'>
+                    {newTaskNumber > 0 && <button className='alert alert-info tasks-new' onClick={addNewTasks}>{newTaskNumber} NEW TASKS</button>}
+                    <div className="task-item-container" id="task-item-container">
+                        {isScrolled > 0 && <button className='btn btn-sm btn-primary tasks-top' onClick={backToTop}>Top</button>}
+                        {isDataLoading && !isDataLoaded && <Loading />}
+                        {response.status && <TaskNav initTasks={initTaskList} click={()=>{setIsEmpty(false);updateDispatch(startUpdate)}}/>}
+                        {isDataLoaded && <div className="tasks-loading border rounded shadow-sm bg-white font-weight-bold text-center mx-2 h6">
+                            {hasMoreTask ? <Loading /> : <div>no more tasks</div>}
+                        </div>}
+                    </div>
+                </div>
 
-        </>
+            </div>
+        </div>
     )
 }
 export default Tasks

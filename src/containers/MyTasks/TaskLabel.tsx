@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 
 type Props = {
@@ -10,16 +10,40 @@ type Props = {
     price: string;
     status: string;
 }
+
 const TaskLabel: React.FunctionComponent<Props> = (props) => {
+    let action;
+    let method;
+    let status;
+    switch (props.status) {
+        case 'OPEN':
+            action = 'CANCEL';
+            method = 'delete';
+            status = 'text-success'
+            break
+        case 'ASSIGNED':
+            action = 'DONE';
+            method = 'put';
+            status = 'text-warning';
+            break
+        case 'DONE':
+            action = 'COMPLETED';
+            method = 'put'
+            status = 'text-danger'
+            break
+        case 'COMPLETED':
+            action = 'REVIEW'
+            status = 'text-dark'
+            break
+    }
     return (
-        <div className='bg-light px-2' key={props._id}>
-            <span className='small text-left'>Task_Id: <Link to={`/task/${props._id}`} className='ml-2'>{props._id}</Link></span>
+        <div className='bg-light px-1' key={props._id}>
             <div className="d-flex justify-content-start align-items-center">
-                <div className="ml-2 font-weight-bold" style={{"fontSize":"18px"}}>Buy {props.what}</div>
+                <div className="font-weight-bold" style={{ "fontSize": "18px" }}>Buy {props.what}</div>
             </div>
-            <div className="small text-dark d-block d-sm-flex justify-content-between align-items-center">
-                <div className={`text-right small font-weight-bold`}>Locaton: {props.where}</div>
-                <div className={`text-left font-weight-bold small`}>Due at: {moment(props.when).format('MMMM Do YYYY, h:mm:ss a')}</div>
+            <div className="small text-dark  d-flex justify-content-between align-items-center">
+                <span className={`${status} small font-weight-bold`}>{props.status}</span>
+                <span className={`text-left font-weight-bold small`}>Due at: {moment(props.when).format('MMMM Do YYYY, h:mm:ss a')}</span>
             </div>
 
         </div>

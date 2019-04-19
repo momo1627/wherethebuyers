@@ -1,7 +1,6 @@
-
 .task-item-container{
     overflow-y : scroll;
-    height:calc(100vh - 5rem)
+    height:calc(100vh - 80px)
 }
 .tasks-new{
     position: absolute;
@@ -21,6 +20,64 @@
     box-shadow: 0 1px rgba(187,194,220,.6);
     border-radius:4px;
     box-sizing: border-box;
-    border:1px solid rgba(187,194,220,.6);
-    border-left:2px solid rgba(2,165,209,.29)
+    border:1px solid transparent;
+    border-left:2px solid rgba(2,165,209,.29);
+    cursor: pointer;
   }
+
+.task-link-active > .task-list-item-active{
+    border: 2px solid rgba(2,165,209,.29);
+    box-shadow: 0 0 1px 1px rgba(2,165,209,.29);
+}
+.task-list-item:hover{
+    box-shadow: 0 0 3px 3px rgba(187,194,220,.6)
+} 
+.task-container{
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+    height: calc(100vh - 80px);
+    overflow: hidden;
+}
+.task-nav{
+    position: relative;
+    width: 300px;
+}
+.task-right{
+    position: relative;
+    transition: left .5s ease-in;
+    flex: 1;
+    overflow-y : scroll;
+    height:calc(100vh - 80px)
+}
+@media screen and (max-width:767.99px){
+    .task-nav{
+        width: 100%;
+    }
+    .task-container{
+        display: block
+    }
+    .task-right{
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+    }
+}
+.task-detail{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 1002;
+    transition-delay: .1s;
+    transition: left .5s ease-out;
+}
+
+.task-detail-empty{
+    left:100vw;
+}

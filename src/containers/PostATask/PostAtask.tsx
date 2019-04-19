@@ -30,7 +30,7 @@ const PostAtask: React.FunctionComponent = () => {
                 {step === 0 && <span className='text-center flex-grow-1'>What and How Much</span>}
                 {step === 1 && <span className='text-center flex-grow-1'>When and Where</span>}
                 {step === 2 && <span className='text-center flex-grow-1'>Check and Post!</span>}
-                <a className='h2' onClick={(e) => { e.preventDefault(); setAlert(true) }}>&times;</a>
+                <button className='btn' type='button' onClick={(e) => { e.preventDefault(); setAlert(true) }}><span className='h4'>&times;</span></button>
             </div>
             {step === 0 && <WhatAndHowMuch what={what} price={price} handleStep={(i) => { setStep(i) }} handleWhat={(i) => { setWhat(i) }} handlePrice={(i) => { setPrice(i) }} />}
             {step === 1 && <WhenAndWhere when={when} where={where} handleStep={(i) => { setStep(i) }} handleWhen={(i) => { setWhen(i) }} handleWhere={(i) => { setWhere(i) }} />}

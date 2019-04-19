@@ -10,7 +10,7 @@ const ModalButton:React.FunctionComponent<Props> = (props) =>{
     const {modalStatus,modalDispatch} = React.useContext(ToggleModal)
 
     return (
-        <button type='button' className='btn btn-sm btn-primary px-1'  onClick={()=>{modalDispatch(showModal(props.target))}}>{props.children}</button>
+        <span onClick={()=>{modalDispatch(showModal(props.target))}}>{props.children}</span>
     )
 }
 export default ModalButton
