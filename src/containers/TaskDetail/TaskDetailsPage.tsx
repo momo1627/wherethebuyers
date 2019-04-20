@@ -52,10 +52,8 @@ const TaskDetail = (props: IProp) => {
         const result = await response.json();
         setData(result.data);
         setResponse(response.ok);
-        setTimeout(() => {
-            setIsDataLoaded(true);
-            setIsDataLoading(false);
-        },1000)
+        setIsDataLoaded(true);
+        setIsDataLoading(false);
     }
     React.useEffect(() => { if (update) { updateDispatch(endUpdate) } fetchTasks() }, [update])
     let status

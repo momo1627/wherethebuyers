@@ -2,17 +2,17 @@ import * as React from 'react'
 import { hideModal } from '../../actions/showModalAction'
 import { SignInStatus, ToggleModal } from '../../context/context'
 import './style.css'
-import WhatAndHowMuch from './WhatAndHowMuch'
-import WhenAndWhere from './WhenAndWhere'
+import WhenAndHowMuch from './WhenAndHowMuch'
+import WhatAndWhere from './WhatAndWhere'
 import ReviewAndSubmit from './ReviewAndSubmit'
 type Step = number
 
 const PostAtask: React.FunctionComponent = () => {
     const { modalStatus, modalDispatch } = React.useContext(ToggleModal)
     const [what, setWhat] = React.useState<string>('');
-    const [price, setPrice] = React.useState<number>(0)
+    const [price, setPrice] = React.useState<number>(2)
     const [where, setWhere] = React.useState<string>('')
-    const [when, setWhen] = React.useState<string>('')
+    const [when, setWhen] = React.useState<Date>(new Date())
     const [step, setStep] = React.useState<Step>(0)
     const [alert, setAlert] = React.useState(false)
 
@@ -32,8 +32,8 @@ const PostAtask: React.FunctionComponent = () => {
                 {step === 2 && <span className='text-center flex-grow-1'>Check and Post!</span>}
                 <button className='btn' type='button' onClick={(e) => { e.preventDefault(); setAlert(true) }}><span className='h4'>&times;</span></button>
             </div>
-            {step === 0 && <WhatAndHowMuch what={what} price={price} handleStep={(i) => { setStep(i) }} handleWhat={(i) => { setWhat(i) }} handlePrice={(i) => { setPrice(i) }} />}
-            {step === 1 && <WhenAndWhere when={when} where={where} handleStep={(i) => { setStep(i) }} handleWhen={(i) => { setWhen(i) }} handleWhere={(i) => { setWhere(i) }} />}
+            {step === 0 && <WhatAndWhere what={what} where={where} handleStep={(i) => { setStep(i) }} handleWhat={(i) => { setWhat(i) }} handleWhere={(i) => { setWhere(i) }} />}
+            {step === 1 && <WhenAndHowMuch when={when}  price={price} handleStep={(i) => { setStep(i) }} handleWhen={(i) => { setWhen(i) }} handlePrice={(i) => { setPrice(i) }} />}
             {step === 2 && <ReviewAndSubmit task={task} handleStep={(i) => { setStep(i) }} />}
             {alert &&
                 <div className='task-alert-container small'>

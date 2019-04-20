@@ -72,7 +72,6 @@
     left: 0;
     bottom: 0;
     width: 100%;
-    background-color: #fff;
     z-index: 1002;
     transition-delay: .1s;
     transition: left .5s ease-out;
