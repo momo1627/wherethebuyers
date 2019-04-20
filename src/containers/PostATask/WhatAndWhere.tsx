@@ -15,9 +15,9 @@ const schema = yup.object().shape({
     where: yup.string().required()
 })
 const WhatAndHowMuch = (props: Iprops) => {
-    const [what,setWhat] = React.useState(props.what);
-    const [where,setWhere] = React.useState(props.where)
-    const [validation, validate, setValidation] = useValidation({what,where}, schema)
+    const [what, setWhat] = React.useState(props.what);
+    const [where, setWhere] = React.useState(props.where)
+    const [validation, validate, setValidation] = useValidation({ what, where }, schema)
     const handleNext = async () => {
         const result = await validate()
         if (!result) return
@@ -32,13 +32,15 @@ const WhatAndHowMuch = (props: Iprops) => {
             </div>
             <form action="" className='d-flex flex-column' >
                 <label htmlFor="what" className="small font-weight-bold mt-2">What do you need to buy?</label>
-                <input type="text" id='what' name='what' className={`p-0 form-control form-control-sm`} value={what} onChange={(e)=>{setWhat(e.target.value)}} />
+                <input type="text" id='what' name='what' className={`p-0 form-control form-control-sm`} value={what} onChange={(e) => { setWhat(e.target.value) }} />
                 <label htmlFor="where" className="small font-weight-bold mt-2">Where will it be send?</label>
-                <Autocompleted input={where} setInput={(i:string)=>{setWhere(i)}}/>
+                <div>
+                    <Autocompleted input={where} setInput={(i: string) => { setWhere(i) }} />
+                </div>
                 <small className='text-muted'>suggest surburb only</small>
                 <button className='btn btn-sm btn-success mt-2' type="button" onClick={handleNext}>Next</button>
             </form>
-            {validation.error && <AlertModal message={validation.message[0]} confirm={() => { setValidation({ error: false, message: '' }); }} clear={() => { setValidation({ error: false, message: '' }); setWhat(''),setWhere('')  }} />}
+            {validation.error && <AlertModal message={validation.message[0]} confirm={() => { setValidation({ error: false, message: '' }); }} clear={() => { setValidation({ error: false, message: '' }); setWhat(''), setWhere('') }} />}
 
         </div>
 

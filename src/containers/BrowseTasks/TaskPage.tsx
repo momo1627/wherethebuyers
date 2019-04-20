@@ -150,7 +150,7 @@ const Tasks = (props: IProp) => {
                     </div>
                 </div>
                 <div className='task-nav px-1'>
-                    {newTaskNumber > 0 && <button className='alert alert-info tasks-new' onClick={addNewTasks}>{newTaskNumber} NEW TASKS</button>}
+                    {newTaskNumber > 0 && <button className='text-white bg-info tasks-new' onClick={addNewTasks}>{newTaskNumber} NEW TASKS</button>}
                     <div className="task-item-container" id="task-item-container">
                         {isScrolled > 0 && <button className='btn btn-sm btn-primary tasks-top' onClick={backToTop}>Top</button>}
                         {isDataLoading && !isDataLoaded && <Loading />}

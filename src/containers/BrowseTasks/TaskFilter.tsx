@@ -14,11 +14,11 @@ const TaskFilter = (props: IProps) => {
     }
     const handleApply = () => {
         const status = openOnly ? '&status=OPEN' : ''
-        const where = location.length>0 ? `&where=${location}` : ''
+        const where = location.length > 0 ? `&where=${location}` : ''
         props.handleFilter(status.concat(where));
         setIsShow(false)
     }
-    const handleClear = ()=>{
+    const handleReset = () => {
         props.handleFilter('');
         setOpenOnly(false);
         setLocation('');
@@ -37,10 +37,10 @@ const TaskFilter = (props: IProps) => {
                         <Autocompleted input={location} setInput={(l: string) => { setLocation(l) }} />
                     </div >
                     <div className='btn-group w-100'>
-                    <button className="btn btn-info   p-0" onClick={handleApply}>Apply</button>
-                    <button className="btn btn-danger   p-0" onClick={handleClear}>Clear</button>
+                        <button className="btn btn-info   p-0" onClick={handleApply}>Apply</button>
+                        <button className="btn btn-danger   p-0" onClick={handleReset}>Reset</button>
                     </div>
-                    
+
                 </div>
             </div>
             }

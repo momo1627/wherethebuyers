@@ -29,10 +29,18 @@ const Autocompleted = (props) => {
         props.setInput(e.target.textContent)
         setPredictions([])
     }
+    const handleClear = () =>{
+        setInput('')
+        props.setInput('')
+        setPredictions([])
+    }
     return (
         <>
-            <input className={`p-0 form-control form-control-sm`} type="text" ref={searchBox} value={input} placeholder={'Enter a Suburb'} onChange={(e) => {setPredictions([]); setInput(e.target.value) }} />
-            <div className="list-group position-absolute" style={{zIndex:1050}}>
+            <div className='input-group'>
+                <input className={`p-0 form-control form-control-sm`} type="text" ref={searchBox} value={input} placeholder={'Enter a Suburb'} onChange={(e) => { setPredictions([]); setInput(e.target.value) }} />
+                <button className='input-group-append btn btn-sm btn-secondary' type="button" onClick={handleClear} >Clear</button>
+            </div>
+            <div className="list-group position-absolute" style={{ zIndex: 1050 }}>
                 {predictions && predictions.map((p) => {
                     return (
                         <span key={p.id} className='list-group-item p-1 small' onClick={handleSelect} >{p.description}</span>
