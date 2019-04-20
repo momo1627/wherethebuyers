@@ -1,7 +1,6 @@
 import * as React from 'react'
 import * as yup from 'yup'
 import useValidation from '../../hooks/useValidation'
-import useChangeInput from '../../hooks/useChangeInput'
 import AlertModal from '../../components/Modal/AlertModal'
 import Autocompleted from '../../components/GoogleMap/Autocompleted'
 interface Iprops {
@@ -10,10 +9,6 @@ interface Iprops {
     handleStep: (t: number) => void;
     handleWhat: (t: string) => void;
     handleWhere: (t: string) => void;
-}
-interface IInput {
-    what: string;
-    // where: string;
 }
 const schema = yup.object().shape({
     what: yup.string().required().min(6),

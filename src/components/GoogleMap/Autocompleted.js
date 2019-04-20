@@ -18,6 +18,7 @@ const Autocompleted = (props) => {
                 (predictions, status) => {
                     if (props.input !== input) {
                         setPredictions(predictions)
+                        console.log(predictions)
                     }
                 }
             )
@@ -30,8 +31,8 @@ const Autocompleted = (props) => {
     }
     return (
         <>
-            <input className={`p-0 form-control form-control-sm`} type="text" ref={searchBox} value={input} placeholder={'Enter a Suburb'} onChange={(e) => { setInput(e.target.value) }} />
-            <div className="list-group w-50 position-absolute">
+            <input className={`p-0 form-control form-control-sm`} type="text" ref={searchBox} value={input} placeholder={'Enter a Suburb'} onChange={(e) => {setPredictions([]); setInput(e.target.value) }} />
+            <div className="list-group position-absolute" style={{zIndex:1050}}>
                 {predictions && predictions.map((p) => {
                     return (
                         <span key={p.id} className='list-group-item p-1 small' onClick={handleSelect} >{p.description}</span>

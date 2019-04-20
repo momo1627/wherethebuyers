@@ -1,6 +1,5 @@
 import * as React from 'react'
 import * as yup from 'yup'
-import moment from 'moment'
 import useValidation from '../../hooks/useValidation'
 import useChangeInput from '../../hooks/useChangeInput'
 import AlertModal from '../../components/Modal/AlertModal'

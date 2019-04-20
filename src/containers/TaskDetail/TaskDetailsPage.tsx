@@ -91,12 +91,13 @@ const TaskDetail = (props: IProp) => {
                                 }
                             </div>
                         </div>
-                        <div className='small border-bottom border-muted mx-auto'>
-                            <TaskContent content={''}>Location &#9962; </TaskContent>
-                            <TaskContent content={data.where}></TaskContent>
-                            <TaskContent content={''}> Due &#128359;</TaskContent>
-                            <TaskContent content={moment(data.when).format('MMMM Do YYYY, h:mm:ss a')}></TaskContent>
-                        </div>
+
+                    </div>
+                    <div className='small border-bottom border-muted mx-auto'>
+                        <TaskContent content={''}>Location &#9962; </TaskContent>
+                        <TaskContent content={data.where}></TaskContent>
+                        <TaskContent content={''}> Due &#128359;</TaskContent>
+                        <TaskContent content={moment(data.when).format('MMMM Do YYYY, h:mm:ss a')}></TaskContent>
                     </div>
                     <div className='mx-auto small border-bottom border-muted'>
                         <TaskContent content={''}>Posted By</TaskContent>

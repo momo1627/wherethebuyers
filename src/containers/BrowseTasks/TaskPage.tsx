@@ -7,6 +7,7 @@ import Loading from '../../components/Loading'
 import { Update } from '../../context/context'
 import { Switch, Route } from 'react-router-dom'
 import TaskDetail from '../TaskDetail/TaskDetailsPage';
+import TaskFilter from './TaskFilter'
 //1.initial fetch get task list and searchBeforeId searchAfterId
 //-- store tasks list, searchBeforeId searchAfterId
 //pass tasklist to taks nav to render
@@ -47,15 +48,8 @@ const Tasks = (props: IProp) => {
     const [newTaskList, setNewTaskList] = React.useState([]);
     const [newTaskNumber, setNewTaskNumber] = React.useState(0);
 
-    const [checked, setChecked] = React.useState(false);
-    const [location, setLocation] = React.useState('')
     const { update, updateDispatch } = React.useContext(Update)
-
-    let filter = '';
-    if (checked) {
-        filter = '&status=OPEN&'
-    }
-    //init datalist 
+    const [filter,setFilter] = React.useState('&')
     const fetchData = async () => {
         setInitTaskList([]);
         setIsDataLoading(true);
@@ -144,24 +138,15 @@ const Tasks = (props: IProp) => {
             document.getElementsByClassName('task-item-container')[0].removeEventListener('scroll', handleScroll);
         }
     })
-    const handleFilter = () => {
-        history.pushState({},'','/tasks')
-        if (!isDataLoading) {
-            updateDispatch(startUpdate)
-            setIsEmpty(true)
-        }
-    }
-    const [isEmpty,setIsEmpty] = React.useState(true);
+   
+    const [isEmpty, setIsEmpty] = React.useState(true);
     return (
         <div>
-            <div className="custom-control custom-checkbox d-flex align-items-center text-center justify-content-around">
-                <input type="checkbox" checked={checked} onChange={() => { setChecked((pre) => !pre); handleFilter(); }} className="custom-control-input" id="customCheck1" />
-                <label className="custom-control-label " htmlFor="customCheck1">Show OPEN Only</label>
-            </div>
+            <TaskFilter filter={filter} handleFilter={setFilter}/>
             <div className='task-container' >
                 <div className='task-right'>
                     <div className={window.location.pathname.length < 10 ? 'task-detail-empty ' : 'task-detail'}>
-                       {window.location.pathname.length > 10 && <Route exact path='/tasks/:id' component={TaskDetail} />}
+                        {window.location.pathname.length > 10 && <Route exact path='/tasks/:id' component={TaskDetail} />}
                     </div>
                 </div>
                 <div className='task-nav px-1'>
@@ -169,7 +154,7 @@ const Tasks = (props: IProp) => {
                     <div className="task-item-container" id="task-item-container">
                         {isScrolled > 0 && <button className='btn btn-sm btn-primary tasks-top' onClick={backToTop}>Top</button>}
                         {isDataLoading && !isDataLoaded && <Loading />}
-                        {response.status && <TaskNav initTasks={initTaskList} click={()=>{setIsEmpty(false);updateDispatch(startUpdate)}}/>}
+                        {response.status && <TaskNav initTasks={initTaskList} click={() => { setIsEmpty(false); updateDispatch(startUpdate) }} />}
                         {isDataLoaded && <div className="tasks-loading border rounded shadow-sm bg-white font-weight-bold text-center mx-2 h6">
                             {hasMoreTask ? <Loading /> : <div>no more tasks</div>}
                         </div>}

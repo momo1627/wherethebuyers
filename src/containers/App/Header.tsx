@@ -14,7 +14,7 @@ const Header = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className='d-md-none nav-list-item '>
-            <ModalButton target={signInStatus.isSignIn ? "postATask" : "signIn"}> <span className='post-button small'>Post A Task</span></ModalButton>
+            <ModalButton target={signInStatus.isSignIn ? "postATask" : "signIn"}> <span className='post-button  py-1 px-2'>Post A Task</span></ModalButton>
           </div>
         </div>
         <div className="d-md-none collapse" id="navbarNav">
