@@ -27,10 +27,7 @@ interface IData {
 const TaskList = (props: IProps) => {
     const element = props.data && props.data.map((item) => {
         return (
-            <NavLink activeClassName='task-link-active' className='text-dark text-decoration-none ' key={item._id} to={`/tasks/${item._id}`} >
-                <TaskLabel  {...item} />
-            </NavLink>
-
+                <TaskLabel  key={item._id} role={props.role}{...item} />
         )
     })
     return (

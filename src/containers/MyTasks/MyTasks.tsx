@@ -30,9 +30,10 @@ const Mytasks = () => {
     const [pagination, setPagination] = React.useState<Pagination>(defaultPagination)
 
     const [page, setPage] = React.useState(1);
-    const [pageSize, setPageSize] = React.useState(4)
+    const [pageSize, setPageSize] = React.useState(5)
     const [role, setRole] = React.useState('poster')
     const [filter, setFilter] = React.useState('ALL')
+    const [sort, setSort] = React.useState('&sort=_id')
 
     const { update, updateDispatch } = React.useContext(Update)
 
@@ -40,7 +41,7 @@ const Mytasks = () => {
         if (update) { updateDispatch(endUpdate) }
         setIsDataLoaded(false);
         setIsDataLoading(true);
-        const result = await fetch(`${API_Url}/profile?role=${role}&status=${filter}&page=${page}&pageSize=${pageSize}`, { method: 'get', credentials: 'include' })
+        const result = await fetch(`${API_Url}/profile?role=${role}&status=${filter}&page=${page}&pageSize=${pageSize}${sort}`, { method: 'get', credentials: 'include' })
         const resultJson = await result.json();
         if (result.ok) {
             setData(resultJson.data.tasks);
@@ -56,35 +57,33 @@ const Mytasks = () => {
     }
     React.useEffect(
         () => { fetchData() }
-        , [filter, role, page, update])
+        , [filter, role, page, update,sort])
     const refresh = () => {
         setResponse({ status: false, message: '' })
         setPage(1);
     }
-    const [sort, setSort] = React.useState('&sort=_id')
     return (
-            <div className='my-tasks'>
-                <nav className='d-flex justify-content-around align-items-center'>
-                    <ul className="nav nav-pills bg-light py-2" id="myTab" role="tablist">
-                        <li className="nav-item">
-                            <a className="nav-link active" id="poster-tab" data-toggle="tab" href="#poster" role="tab" aria-controls="poster" aria-selected="true" onClick={(e) => { e.preventDefault(); refresh(); setRole('poster'); }}>Poster</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" id="tasker-tab" data-toggle="tab" href="#tasker" role="tab" aria-controls="tasker" aria-selected="false" onClick={(e) => { e.preventDefault(); refresh(); setRole('tasker'); }}>Tasker</a>
-                        </li>
-                    </ul>
-                    <select className="w-50 form-control form-control-sm " value={filter} onChange={(e) => { refresh(); setFilter(e.target.value); }}>
-                        <option value="ALL">All Tasks</option>
-                        <option value="PENDING">Pending Tasks</option>
-                        <option value="COMPLETED">Completed Tasks</option>
-                    </select>
+        <div className='my-tasks'>
+            <div className='my-tasks-container'>
+                <nav className='my-2 my-tasks-nav text-center'>
+                    <div className={role === 'poster' ? 'bg-info text-white w-50 d-inline-block' : 'text-info w-50 d-inline-block'} onClick={(e) => { refresh(); setRole('poster'); }}>As Poster</div>
+                    <div className={role === 'tasker' ? 'bg-info text-white w-50 d-inline-block' : 'text-info w-50 d-inline-block'} onClick={(e) => { refresh(); setRole('tasker'); }}>As Tasker</div>
                 </nav>
-                <TaskSorted sort={sort} handleSort={(i: string) => { setSort(i) }} />
-                <Pagination {...pagination} click={(i: number) => { setPage(i) }} />
+                <div className='d-flex justify-content-around'>
+                    <select className="small w-50" value={filter} onChange={(e) => { refresh(); setFilter(e.target.value); }}>
+                        <option className="small" value="ALL">All Tasks</option>
+                        <option className="small" value="PENDING">Pending Tasks</option>
+                        <option className="small" value="COMPLETED">Completed Tasks</option>
+                    </select>
+                    <TaskSorted sort={sort} handleSort={(i: string) => { setSort(i) }} />
+                </div>
                 {isDataLoading && !isDataLoaded && <Loading />}
-                {!isDataLoading && isDataLoaded && response.status && <TaskList data={data} role={role} /> }
-                {!isDataLoading && isDataLoaded && !response.status && <div>not any tasks yet</div> }
+                {!isDataLoading && isDataLoaded && <TaskList data={data} role={role} />}
+                {!isDataLoading && isDataLoaded && !response.status && <div>not any tasks yet</div>}
+
+                <Pagination {...pagination} click={(i: number) => { setPage(i) }} />
             </div>
+        </div>
     )
 }
 export default Mytasks

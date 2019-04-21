@@ -74,7 +74,24 @@ const UserAccount: React.FunctionComponent<Props> = (props) => {
                 </div>
                 {validation.error && <AlertModal message={validation.message[0]} confirm={() => { setValidation({ error: false, message: '' }); }} clear={() => { setValidation({ error: false, message: '' }); setInput(initialResponse.data); }} />}
                 {/* {response.status && <AlertModal message={response.message} confirm={handleResponse} clear={handleResponse} />} */}
-
+                {/* const [review, setReview] = React.useState(false);
+    const createReview = async () => {
+        const result = await fetch(`${API_Url}/review`, {body: JSON.stringify({taskId: props._id }), method: 'post', headers: {'Content-Type': 'application/json' } })
+                await result.json();
+        if (result.ok) {
+                    setReview(true);
+                }
+            }
+{review &&
+                    <div className='modal-container small'>
+                        <div className='confirm-container d-flex flex-column justify-content-around bg-white text-center py-2'>
+                            <h4>Go to TaskDetail to Review</h4>
+                            <div className='d-flex justify-content-around'>
+                                <Link className="btn btn-smbtn-primary btn-sm text-center text-white text-decoration-none" to={`/task/${props._id}`} >Go</Link>
+                                <button className='btn btn-danger btn-sm text-center text-white' onClick={() => { setReview(false) }} >Cancel</button>
+                            </div>
+                        </div>
+                    </div>} */}
             </div>
 
         </div>
