@@ -25,7 +25,7 @@ const TaskFilter = (props: IProps) => {
         setIsShow(false)
     }
     return (
-        <div className={`tasks-filter-container px-2 mt-1 `}>
+        <div className={`tasks-filter-container px-2 mt-1`}>
             <span className="filter-button px-2 dropdown-toggle font-weight-bold" onClick={handleFilter} >Filter tasks</span>
             {isShow && <div className='filter-modal-container'>
                 <div className='tasks-filter-content d-flex flex-column justify-content-around align-items-center p-1 shadow'>

@@ -39,6 +39,7 @@
     flex-direction: row-reverse;
     height: calc(100vh - 80px);
     overflow: hidden;
+    position: relative;
 }
 .task-nav{
     position: relative;
@@ -85,8 +86,6 @@
     line-height: 30px;
     position: relative;
 }
-
-
 .tasks-filter-content{
     width: 320px;
     max-width: 100%;
@@ -96,7 +95,14 @@
     border: 1px solid #17a2b8;
     border-radius: 3px;
     height: 30%;
+    animation-name: filter-show;
+    animation-duration: 1s;
+    animation-fill-mode: forwards
 }
+@keyframes filter-show{
+    from{top:-30px}
+    to{top:0 }
+  }
 @media screen and (min-width:992px){
     .tasks-filter-content{
         left:calc((100vw - 992px)/2);

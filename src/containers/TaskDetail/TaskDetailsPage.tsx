@@ -87,7 +87,7 @@ const TaskDetail = (props: IProp) => {
                             <div className="">
                                 {signInStatus.isSignIn ?
                                     <button className='btn btn-success btn-sm ' disabled={data.status !== "OPEN" || data.poster === signInStatus.username} onClick={() => { setConfirm(true) }}>Take the Task</button>
-                                    : <ModalButton target="signIn">Take the Task</ModalButton>
+                                    : <ModalButton target="signIn"><button className='btn btn-primary btn-sm ' >Take the Task</button></ModalButton>
                                 }
                             </div>
                         </div>

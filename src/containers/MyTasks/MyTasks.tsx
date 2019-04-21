@@ -6,6 +6,8 @@ import './style.css'
 import { startUpdate, endUpdate } from '../../actions/updateAction'
 import Loading from '../../components/Loading'
 import { Update } from '../../context/context'
+import TaskSorted from './TaskSorted'
+
 interface Pagination {
     currentPage: string,
     pageSize: number,
@@ -59,6 +61,7 @@ const Mytasks = () => {
         setResponse({ status: false, message: '' })
         setPage(1);
     }
+    const [sort, setSort] = React.useState('&sort=_id')
     return (
             <div className='my-tasks'>
                 <nav className='d-flex justify-content-around align-items-center'>
@@ -76,6 +79,7 @@ const Mytasks = () => {
                         <option value="COMPLETED">Completed Tasks</option>
                     </select>
                 </nav>
+                <TaskSorted sort={sort} handleSort={(i: string) => { setSort(i) }} />
                 <Pagination {...pagination} click={(i: number) => { setPage(i) }} />
                 {isDataLoading && !isDataLoaded && <Loading />}
                 {!isDataLoading && isDataLoaded && response.status && <TaskList data={data} role={role} /> }

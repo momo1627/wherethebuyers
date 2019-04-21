@@ -1,13 +1,14 @@
 import * as React from 'react'
-import TaskNav from './TaskNav'
-import API_Url from '../../constants/api'
-import './style.css'
-import { startUpdate, endUpdate } from '../../actions/updateAction'
-import Loading from '../../components/Loading'
-import { Update } from '../../context/context'
 import { Switch, Route } from 'react-router-dom'
+import { startUpdate, endUpdate } from '../../actions/updateAction'
+import { Update } from '../../context/context'
+import Loading from '../../components/Loading'
 import TaskDetail from '../TaskDetail/TaskDetailsPage';
 import TaskFilter from './TaskFilter'
+import TaskNav from './TaskNav'
+import './style.css'
+import API_Url from '../../constants/api'
+
 //1.initial fetch get task list and searchBeforeId searchAfterId
 //-- store tasks list, searchBeforeId searchAfterId
 //pass tasklist to taks nav to render
@@ -49,12 +50,12 @@ const Tasks = (props: IProp) => {
     const [newTaskNumber, setNewTaskNumber] = React.useState(0);
 
     const { update, updateDispatch } = React.useContext(Update)
-    const [filter,setFilter] = React.useState('&')
+    const [filter, setFilter] = React.useState('')
     const fetchData = async () => {
         setInitTaskList([]);
         setIsDataLoading(true);
         setIsDataLoaded(false)
-        const result = await fetch(`${API_Url}/tasks?pageSize=5${filter}`, { method: 'get' });
+        const result = await fetch(`${API_Url}/tasks?pageSize=8${filter}`, { method: 'get' });
         const json = await result.json();
         if (result.ok) {
             setInitTaskList(json.data.tasks);
@@ -138,11 +139,12 @@ const Tasks = (props: IProp) => {
             document.getElementsByClassName('task-item-container')[0].removeEventListener('scroll', handleScroll);
         }
     })
-   
-    const [isEmpty, setIsEmpty] = React.useState(true);
     return (
         <div>
-            <TaskFilter filter={filter} handleFilter={setFilter}/>
+            <div className='d-flex justify-content-between align-items-center'>
+                <TaskFilter filter={filter} handleFilter={setFilter} />
+                {window.location.pathname.length > 10 && <button className='d-md-none btn btn-sm py-0 btn-info text-white' onClick={()=>{history.back()}}>&#8678;</button>}
+            </div>
             <div className='task-container' >
                 <div className='task-right'>
                     <div className={window.location.pathname.length < 10 ? 'task-detail-empty ' : 'task-detail'}>
@@ -154,7 +156,7 @@ const Tasks = (props: IProp) => {
                     <div className="task-item-container" id="task-item-container">
                         {isScrolled > 0 && <button className='btn btn-sm btn-primary tasks-top' onClick={backToTop}>Top</button>}
                         {isDataLoading && !isDataLoaded && <Loading />}
-                        {response.status && <TaskNav initTasks={initTaskList} click={() => { setIsEmpty(false); updateDispatch(startUpdate) }} />}
+                        {response.status && <TaskNav initTasks={initTaskList} click={() => {  updateDispatch(startUpdate) }} />}
                         {isDataLoaded && <div className="tasks-loading border rounded shadow-sm bg-white font-weight-bold text-center mx-2 h6">
                             {hasMoreTask ? <Loading /> : <div>no more tasks</div>}
                         </div>}

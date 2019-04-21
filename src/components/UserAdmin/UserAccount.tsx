@@ -64,7 +64,6 @@ const UserAccount: React.FunctionComponent<Props> = (props) => {
     }
     return (
         <div className='post-content mx-auto bg-white px-3 d-flex flex-column justify-content-around'>
-            <div className=''>
                 <h5 className="text-center m-0 py-1">{props.title}</h5>
                 <form action="">
                     <FormGroup input={input.username} change={handleChange}  content="username" type='text' title='Username'>username at least 6</FormGroup>
@@ -77,13 +76,11 @@ const UserAccount: React.FunctionComponent<Props> = (props) => {
                 <hr className='m-0' />
                 <div className='d-flex justify-content-between align-items-center py-1'>
                     <small>{props.target === 'signIn' ? "Don't have an account?" : "Already have an account"}</small>
-                    <ModalButton target={props.target === 'signIn' ? "signUp" : "signIn"}>{props.target === 'signIn' ? "Sign Up" : "Sign In"}</ModalButton>
+                    <ModalButton target={props.target === 'signIn' ? "signUp" : "signIn"}><button className='btn btn-primary btn-sm ' >{props.target === 'signIn' ? "Sign Up" : "Sign In"}</button></ModalButton>
                 </div>
                 {response.status && <AlertModal message={response.message} confirm={handleResponse} clear={handleResponse} />}
                 {validation.error && <AlertModal message={validation.message[0]} confirm={() => { setValidation({ error: false, message: '' }); }}  clear={() => { setValidation({ error: false, message: '' }); setInput({ username: '', password: '' }); }} />}
-            </div>
         </div>
-
     )
 }
 export default UserAccount
