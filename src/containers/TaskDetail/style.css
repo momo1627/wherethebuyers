@@ -1,3 +1,8 @@
+.task-detail{
+    overflow-y: scroll;
+    height: 100%;
+    
+}
 .rating-input{
     opacity: 0;
 }

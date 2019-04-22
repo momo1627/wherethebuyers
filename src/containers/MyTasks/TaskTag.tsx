@@ -9,7 +9,6 @@ interface IProp {
     role: string;
     hide: () => void
 }
-
 const TaskTag = (props: IProp) => {
     let action;
     let method;
@@ -57,8 +56,7 @@ const TaskTag = (props: IProp) => {
                     <span>Wait poster to confirm</span>)}
                 {props.status === 'COMPLETED' && <span >To review the Task</span>}
                 <Link className="text-center text-info rounded my-2" to={`/task/${props._id}`} >Go to Task Detail</Link>
-                {confirm &&
-                    <ConfirmModal url={`${API_Url}/task/${props._id}`} input={input} title={`${action} the task`} click={click} cancel={cancel} />}
+                {confirm && <ConfirmModal url={`${API_Url}/task/${props._id}`} input={input} title={`${action} the task`} click={click} cancel={cancel} />}
             </div>
         </div>
 

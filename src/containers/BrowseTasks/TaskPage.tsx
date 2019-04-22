@@ -147,7 +147,7 @@ const Tasks = (props: IProp) => {
             </div>
             <div className='task-container' >
                 <div className='task-right'>
-                    <div className={window.location.pathname.length < 10 ? 'task-detail-empty ' : 'task-detail'}>
+                    <div className={window.location.pathname.length < 10 ? 'task-detail-container-empty ' : 'task-detail-container'}>
                         {window.location.pathname.length > 10 && <Route exact path='/tasks/:id' component={TaskDetail} />}
                     </div>
                 </div>
