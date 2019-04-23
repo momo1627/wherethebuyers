@@ -5,6 +5,7 @@ import { Update } from '../../context/context'
 import Loading from '../../components/Loading'
 import TaskDetail from '../TaskDetail/TaskDetailsPage';
 import TaskFilter from './TaskFilter'
+import Home from '../HomePage/HomePage'
 import TaskNav from './TaskNav'
 import './style.css'
 import API_Url from '../../constants/api'
@@ -143,12 +144,12 @@ const Tasks = (props: IProp) => {
         <div>
             <div className='d-flex justify-content-between align-items-center'>
                 <TaskFilter filter={filter} handleFilter={setFilter} />
-                {window.location.pathname.length > 10 && <button className='d-md-none btn btn-sm py-0 btn-info text-white' onClick={()=>{history.back()}}>&#8678;</button>}
+                {window.location.pathname.length > 10 && <button className='d-md-none btn btn-sm py-0 btn-info text-white' onClick={() => { history.back() }}>&#8678;</button>}
             </div>
             <div className='task-container' >
                 <div className='task-right'>
                     <div className={window.location.pathname.length < 10 ? 'task-detail-container-empty ' : 'task-detail-container'}>
-                        {window.location.pathname.length > 10 && <Route exact path='/tasks/:id' component={TaskDetail} />}
+                        {window.location.pathname.length > 10 ? <Route exact path='/tasks/:id' component={TaskDetail} /> : <div className='d-none d-md-block'><Home /></div>}
                     </div>
                 </div>
                 <div className='task-nav px-1'>
@@ -156,7 +157,7 @@ const Tasks = (props: IProp) => {
                     <div className="task-item-container" id="task-item-container">
                         {isScrolled > 0 && <button className='btn btn-sm btn-primary tasks-top' onClick={backToTop}>Top</button>}
                         {isDataLoading && !isDataLoaded && <Loading />}
-                        {response.status && <TaskNav initTasks={initTaskList} click={() => {  updateDispatch(startUpdate) }} />}
+                        {response.status && <TaskNav initTasks={initTaskList} click={() => { updateDispatch(startUpdate) }} />}
                         {isDataLoaded && <div className="tasks-loading border rounded shadow-sm bg-white font-weight-bold text-center mx-2 h6">
                             {hasMoreTask ? <Loading /> : <div>no more tasks</div>}
                         </div>}

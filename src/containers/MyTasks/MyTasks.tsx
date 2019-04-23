@@ -1,12 +1,12 @@
 import * as React from 'react'
 import TaskList from './TaskList'
-import API_Url from '../../constants/api'
 import Pagination from './Pagination'
-import './style.css'
 import { startUpdate, endUpdate } from '../../actions/updateAction'
 import Loading from '../../components/Loading'
 import { Update } from '../../context/context'
 import TaskSorted from './TaskSorted'
+import './style.css'
+import API_Url from '../../constants/api'
 
 interface Pagination {
     currentPage: string,

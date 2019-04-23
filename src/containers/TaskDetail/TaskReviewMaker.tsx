@@ -1,6 +1,5 @@
 import * as React from 'react'
 import * as yup from 'yup'
-import useChangeInput from '../../hooks/useChangeInput'
 import AlertModal from '../../components/Modal/AlertModal'
 import useValidation from '../../hooks/useValidation'
 import API_Url from '../../constants/api'
@@ -17,6 +16,8 @@ const initialResponse = {
 }
 
 type Props = {
+    username: string;
+    userId:string;
     reviewId: string;
     cancel: () => void;
     role: string;
@@ -28,10 +29,9 @@ const TaskReviewMaker: React.FunctionComponent<Props> = (props) => {
     const [message,setMessage] = React.useState('');
     const [validation, validate, setValidation] = useValidation({rating:rating,message:message}, schema)
     const SubmitReview = async () => {
-        console.log({rating:rating,message:message})
         const validation = await validate();
         if (!validation) return
-        const result = await fetch(`${API_Url}/review/${props.reviewId}`, { body: JSON.stringify({rating:rating,message:message, role: props.role }), method: 'put', headers: { 'Content-Type': 'application/json' } })
+        const result = await fetch(`${API_Url}/review/${props.reviewId}`, { body: JSON.stringify({username:props.username,userId:props.userId,rating:rating,message:message, role: props.role }), method: 'put', headers: { 'Content-Type': 'application/json' } })
         const response = await result.json();
         setResponse({ status: result.ok, message: response.message as string })
     }

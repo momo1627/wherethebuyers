@@ -17,9 +17,8 @@ const Nav = () => {
       <div className='d-none d-md-block nav-list-item'>
         <ModalButton target={signInStatus.isSignIn ? "postATask" : "signIn"}><span className='post-button py-1 px-2'>Post A Task</span></ModalButton>
       </div>
-      {signInStatus.isSignIn && <div className="nav-list-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        {signInStatus.username}
-      </div>}
+      {signInStatus.isSignIn && <NavLink activeClassName='nav-link-active' className="nav-list-item text-decoration-none" to={`/profile/${signInStatus.userId}`}>{signInStatus.username}</NavLink> }
+        
       {signInStatus.isSignIn && <div className="nav-list-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <SignOut />
       </div>}

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {Link} from 'react-router-dom'
 import moment from 'moment'
 import { startUpdate, endUpdate } from '../../actions/updateAction';
 import { SignInStatus, Update } from '../../context/context'
@@ -7,7 +8,8 @@ import ModalButton from '../../components/Modal/ModalButton'
 import ConfirmModal from '../../components/Modal/ConfirmModal'
 import Loading from '../../components/Loading'
 import API_Url from '../../constants/api'
-import TaskReview from './TaskReview';
+import TaskReviewContainer from './TaskReviewContainer';
+
 interface IData {
   poster: string,
   posterId: string,
@@ -31,6 +33,8 @@ interface IProp {
     }
   }
 }
+
+
 const TaskDetail = (props: IProp) => {
   const [isDataLoaded, setIsDataLoaded] = React.useState(false);
   const [isDataLoading, setIsDataLoading] = React.useState(false);
@@ -56,7 +60,10 @@ const TaskDetail = (props: IProp) => {
     setIsDataLoaded(true);
     setIsDataLoading(false);
   }
-  React.useEffect(() => { if (update) { updateDispatch(endUpdate) } fetchTasks() }, [update])
+  React.useEffect(() => { 
+    if (update) { updateDispatch(endUpdate) } 
+    fetchTasks();
+  }, [update])
   let status
   switch (data && data.status) {
     case 'COMPLETED':
@@ -99,13 +106,13 @@ const TaskDetail = (props: IProp) => {
           </div>
           <div className='mx-auto small border-bottom border-muted'>
             <TaskContent content={''}>Posted By</TaskContent>
-            <a><TaskContent content={data.poster}></TaskContent></a>
+            <Link to={`/profile/${data.posterId}`}>{data.poster}</Link>
             <TaskContent content={''}>Posted Time &#128359; </TaskContent>
             <TaskContent content={moment(data.postedTime).format('MMMM Do YYYY, h:mm:ss a')}></TaskContent>
           </div>
           <div className='mx-auto small border-bottom border-muted'>
             <TaskContent content={''}>Assigned To</TaskContent>
-            <a><TaskContent content={data.tasker}></TaskContent></a>
+            <Link to={`/profile/${data.taskerId}`}>{data.tasker}</Link>
             <TaskContent content={''}>Assigned Time &#128359; </TaskContent>
             <TaskContent content={data.assignedTime && moment(data.assignedTime).format('MMMM Do YYYY, h:mm:ss a')}></TaskContent>
           </div>
@@ -113,7 +120,7 @@ const TaskDetail = (props: IProp) => {
             <TaskContent content={''}>Completed Time &#128359; </TaskContent>
             <TaskContent content={data.completedTime && moment(data.completedTime).format('MMMM Do YYYY, h:mm:ss a')}></TaskContent>
           </div>}
-          {data.status === "COMPLETED" && <TaskReview {...data.reviews} tasker={data.tasker} poster={data.poster} taskId={data._id} />}
+          {data.status === "COMPLETED" && <TaskReviewContainer {...data.reviews} taskerId={data.taskerId} tasker={data.tasker} posterId={data.posterId} poster={data.poster} taskId={data._id} />}
         </div>
       }
       {confirm && <ConfirmModal url={`${API_Url}/task/${props.match.params.id}`} input={input} title='take the task' click={click} cancel={cancel} />}
