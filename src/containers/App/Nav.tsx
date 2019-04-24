@@ -1,51 +1,51 @@
 import * as React from 'react'
 import { NavLink } from 'react-router-dom'
 import ModalButton from '../../components/Modal/ModalButton'
-import SignOut from '../../components/UserAdmin/SignOut'
 import { SignInStatus } from '../../context/context'
+import SignOut from '../../components/UserAdmin/SignOut'
+interface Iprop {
+  showUser:()=>void;
+  hideUser:()=>void;
+  user:boolean;
+}
 
-const Nav = () => {
-    const { signInStatus } = React.useContext(SignInStatus)
-    return (
-        <nav className="fixed-top bg-dark navbar-expand-sm navbar-dark">
-            <div className='header-container navbar flex-sm-row-reverse'>
-                <div className='d-sm-none'>
-                    <ModalButton target={signInStatus.isSignIn ? "postATask" : "signIn"}>Post A Task</ModalButton>
+const Nav = (props: Iprop) => {
+  const { signInStatus } = React.useContext(SignInStatus);
+  const user = props.user
+  const showUser = ()=>{
+    props.showUser();
+  }
+  const hideUser = ()=>{
+    props.hideUser();
+  }
+  return (
+    <>
+      <NavLink activeClassName='nav-link-active' className="px-2 nav-list-item text-decoration-none" to='/tasks' onClick={hideUser} >Browse Tasks</NavLink>
+      {signInStatus.isSignIn ?
+        <>
+          <div className="nav-list-item px-2 d-none d-sm-block" onClick={showUser} >{signInStatus.username}</div>
+          <div className='d-flex flex-column d-sm-none'>
+            <NavLink activeClassName='' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to={`/profile/${signInStatus.userId}`}>View Profile</NavLink>
+            <NavLink activeClassName='nav-link-active' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to='/mytasks'>MyTasks</NavLink>
+            <SignOut />
+          </div>
+        </>
+        :
+        <div>
+          <ModalButton target="signIn"><span className="nav-list-item px-2" onClick={hideUser}>Sign In</span></ModalButton>
+          <ModalButton target="signUp"><span className="nav-list-item px-2" onClick={hideUser}>Sign Up</span></ModalButton>
+        </div>
+      }
+      {signInStatus.isSignIn && user &&
+        <div className='nav-user-container d-flex flex-column'>
+          <NavLink activeClassName='' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to={`/profile/${signInStatus.userId}`}>View Profile</NavLink>
+          <NavLink activeClassName='nav-link-active' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to='/mytasks'>MyTasks</NavLink>
+          <SignOut />
+        </div>
+      }
 
-                </div>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav justify-content-between">
-                        <div className="nav-item nav-link " data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <NavLink activeClassName='nav-link-active' className="text-white text-decoration-none" to='/tasks' >Browse Tasks</NavLink>
-                        </div>
-                        <div className="nav-item nav-link" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            {signInStatus.isSignIn && <NavLink activeClassName='nav-link-active' className="text-white text-decoration-none" to='/mytasks'>MyTasks</NavLink>}
-                        </div>
-                        <div className='d-none d-sm-block nav-item nav-link'>
-                            <ModalButton target={"postATask"}>Post A Task</ModalButton>
+    </>
 
-                            {/* <ModalButton target={signInStatus.isSignIn ? "postATask" : "signIn"}>Post A Task</ModalButton> */}
-                        </div>
-                        <div className="nav-item nav-link" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            {
-                                signInStatus.isSignIn
-                                    ? <SignOut />
-                                    :
-                                    <div style={{ "maxWidth": "240px" }} className="mx-auto btn-group px-1">
-                                        <ModalButton target="signIn">Sign In</ModalButton>
-                                        <ModalButton target="signUp">Sign Up</ModalButton>
-                                    </div>
-                            }
-                        </div>
-                    </ul>
-
-                </div>
-            </div>
-
-        </nav>
-    )
+  )
 }
 export default Nav

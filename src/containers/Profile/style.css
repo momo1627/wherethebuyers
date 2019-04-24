@@ -1,0 +1,21 @@
+.profile-container{
+    width: 100%;
+    max-width:768px;
+    margin: 0 auto;
+    overflow-y: scroll;
+    height: 100%;
+}
+.profile-user{
+    width: 100%;
+    max-width:576px;
+    margin: 0 auto;
+}
+.profile-count{
+    width: 100%;
+    max-width:400px;
+    margin: 0 auto;
+    box-sizing: border-box
+}
+.profile-nav{
+    cursor: pointer;
+}

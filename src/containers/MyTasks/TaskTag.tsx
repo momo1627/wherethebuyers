@@ -1,14 +1,14 @@
 import * as React from 'react';
 import ConfirmModal from '../../components/Modal/ConfirmModal'
 import { SignInStatus } from '../../context/context'
-import ReviewMaker from '../TaskDetail/ReviewMaker'
+import API_Url from '../../constants/api'
 import { Link } from 'react-router-dom'
 interface IProp {
     status: string;
     _id: string;
     role: string;
+    hide: () => void
 }
-
 const TaskTag = (props: IProp) => {
     let action;
     let method;
@@ -17,21 +17,21 @@ const TaskTag = (props: IProp) => {
         case 'OPEN':
             action = 'CANCEL';
             method = 'delete';
-            status = 'bg-success'
+            status = 'success'
             break
         case 'ASSIGNED':
             action = 'DONE';
             method = 'put';
-            status = 'bg-warning';
+            status = 'warning';
             break
         case 'DONE':
             action = 'COMPLETED';
             method = 'put'
-            status = 'bg-danger'
+            status = 'danger'
             break
         case 'COMPLETED':
             action = 'REVIEW'
-            status = 'bg-dark'
+            status = 'dark'
             break
     }
     const { signInStatus, } = React.useContext(SignInStatus)
@@ -43,37 +43,23 @@ const TaskTag = (props: IProp) => {
     const cancel = () => {
         setConfirm(false);
     }
-    const [review, setReview] = React.useState(false);
-    const createReview = async () => {
-        const result = await fetch(`http://localhost:5000/review`, { body: JSON.stringify({ taskId: props._id }), method: 'post', headers: { 'Content-Type': 'application/json' } })
-        await result.json();
-        if (result.ok) {
-            setReview(true);
-        }
-    }
 
     return (
-        <div className='d-flex justify-content-between px-2'>
-            <div className={`${status} btn btn-sm text-white font-weight-bold`}>{props.status}</div>
-            <div className=''>
-                {props.status === 'OPEN' && <button className={`${status} btn btn-sm text-white font-weight-bold`} onClick={() => { setConfirm(true); }}>{action}</button>}
-                {props.status === 'ASSIGNED' && props.role === 'tasker' && <button className={`${status} btn btn-sm text-white font-weight-bold`} onClick={() => { setConfirm(true); }}>{action}</button>}
-                {props.status === 'DONE' && props.role === 'poster' && <button className={`${status} btn btn-sm text-white font-weight-bold`} onClick={() => { setConfirm(true); }}>{action}</button>}
-                {props.status === 'COMPLETED' && <button className={`${status} btn btn-sm text-white font-weight-bold`} onClick={createReview}>{action}</button>}
+        <div className='bg-white '>
+            <button className='btn position-absolute' type='button' onClick={() => { props.hide() }}><span className='h4'>&times;</span></button>
+            <div className='d-flex flex-column justify-content-around align-items-center p-2'>
+                <h5 >Task is <span className={`text-${status}`}>{props.status}</span></h5>
+                {props.status === 'OPEN' && <a className={`text-white bg-${status} btn btn-sm`} onClick={() => { setConfirm(true); }}>{action} the task</a>}
+                {props.status === 'ASSIGNED' && (props.role === 'tasker' ? <span className={`text-white bg-${status} btn btn-sm`} onClick={() => { setConfirm(true); }}>{action} the task</span> :
+                    <span>Wait tasker to deliver</span>)}
+                {props.status === 'DONE' && (props.role === 'poster' ? <span className={`text-white bg-${status} btn btn-sm`} onClick={() => { setConfirm(true); }}>{action} the task</span> :
+                    <span>Wait poster to confirm</span>)}
+                {props.status === 'COMPLETED' && <span >To review the Task</span>}
+                <Link className="text-center text-info rounded my-2" to={`/task/${props._id}`} >Go to Task Detail</Link>
+                {confirm && <ConfirmModal url={`${API_Url}/task/${props._id}`} input={input} title={`${action} the task`} click={click} cancel={cancel} />}
             </div>
-            {review &&
-                <div className='modal-container small'>
-                    <div className='confirm-container d-flex flex-column justify-content-around bg-white text-center py-2'>
-                        <h4>Go to TaskDetail to Review</h4>
-                        <div className='d-flex justify-content-around'>
-                            <Link className="btn btn-primary btn-sm text-center text-white text-decoration-none" to={`/task/${props._id}`} >Go</Link>
-                            <button className='btn btn-danger btn-sm text-center text-white' onClick={() => { setReview(false) }} >Cancel</button>
-                        </div>
-                    </div>
-                </div>}
-            {confirm &&
-                <ConfirmModal url={`http://localhost:5000/task/${props._id}`} input={input} title={`${action} the task`} click={click} cancel={cancel} />}
         </div>
+
     )
 }
 export default TaskTag

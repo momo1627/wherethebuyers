@@ -1,6 +1,6 @@
 import * as React from 'react';
+import { Route, NavLink } from 'react-router-dom'
 import TaskLabel from './TaskLabel'
-import TaskTag from './TaskTag'
 
 interface IProps {
     data: IData[]
@@ -27,10 +27,7 @@ interface IData {
 const TaskList = (props: IProps) => {
     const element = props.data && props.data.map((item) => {
         return (
-            <div className='py-1 mt-1  mytask-list-item  bg-light border ' key={item._id}>
-                <TaskLabel  {...item} />
-                <TaskTag _id={item._id} status={item.status} role={props.role} />
-            </div>
+                <TaskLabel  key={item._id} role={props.role}{...item} />
         )
     })
     return (

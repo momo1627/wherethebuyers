@@ -10,7 +10,7 @@ interface Iprops {
         what: string;
         price: number;
         where: string;
-        when: string;
+        when: Date;
     }
 }
 const initialResponse = {
@@ -47,8 +47,8 @@ const ReviewAndSubmit = (props: Iprops) => {
             <div>
                 <ul className="list-group">
                     <li className="list-group-item small "><span className='font-weight-bold'>What</span> {props.task.what}</li>
-                    <li className="list-group-item small "><span className='font-weight-bold'>Price</span> {props.task.price}</li>
                     <li className="list-group-item small "><span className='font-weight-bold'>Where</span> {props.task.where}</li>
+                    <li className="list-group-item small "><span className='font-weight-bold'>Price</span> {props.task.price}</li>
                     <li className="list-group-item small "><span className='font-weight-bold'>When</span> {props.task.when}</li>
                 </ul>
             </div>
