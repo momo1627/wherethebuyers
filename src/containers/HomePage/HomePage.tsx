@@ -7,12 +7,11 @@ const Home: React.FunctionComponent = () => {
     const { signInStatus } = React.useContext(SignInStatus);
     const [role, setRole] = React.useState('poster')
     return (
-        <div className='home'>
-            <div className='text-center mt-2 '>
+            <div className='home d-flex flex-column justify-content-center align-items-center text-center '>
+            <div className='text-center m-2 '>
                 <span className={role === "poster" ? `profile-nav text-white bg-info rounded p-1 m-1` : 'profile-nav text-info bg-white border-info border rounded p-1 m-1'} onClick={() => { setRole('poster') }}>As Poster</span>
                 <span className={role === "tasker" ? `profile-nav text-white bg-info rounded p-1 m-1` : 'profile-nav text-info bg-white border-info border rounded p-1 m-1'} onClick={() => { setRole('tasker') }}>As Tasker</span>
             </div>
-            <div className='p-2 description-container text-center '>
                 {role === 'poster' && <div className={'description-active d-flex flex-column align-items-center justify-content-around'}>
                     <div className=''>
                         <div className='bg-white shadow-sm rounded-pill p-1 font-weight-bold '>When you need something but cannot go to buy</div>
@@ -65,7 +64,6 @@ const Home: React.FunctionComponent = () => {
 
                 </div>}
             </div>
-        </div>
     )
 }
 export default Home
