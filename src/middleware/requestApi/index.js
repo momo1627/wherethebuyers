@@ -1,2 +1,0 @@
-export {getTaskList}  from "./reqTasks";
-

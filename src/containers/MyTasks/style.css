@@ -1,0 +1,53 @@
+.my-tasks{
+    width:100%;
+   max-width: 992px; 
+   margin:0 auto;
+   height: 100%;
+  overflow-y: scroll;
+  position: relative;
+}
+.my-tasks-container{
+  max-width: 768px;
+  margin: 0 auto;
+  position: relative;
+}
+.my-tasks-nav{
+  cursor: pointer;
+}
+.mytask-label{
+  border-left:4px solid;
+  border-bottom:1px solid;
+  border-top:1px solid;
+  border-right:1px solid;
+}
+.mytask-list-item{
+  color: #17a2b8;
+ }
+ 
+
+ .mytask-list-item:hover{
+   text-decoration: underline;
+   cursor: pointer;
+ }
+ .mytask-container{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 1025;
+  animation-name: wrap-show;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+.mytask-content{
+  position: relative;
+  left: 50%;
+  top: 50%;
+  right: auto;
+  bottom: auto; 
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 576px;
+  border-radius: 5px;
+}

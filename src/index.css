@@ -7,94 +7,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f6f8fd;
+
 }
 
-.app-header{
-  transition: .4s 0ms;
-  background: #fff;
-  border-bottom: 1px solid #ccc;
-  height: 60px;
-  left: 0;
-  position: fixed;
-  top: 0;
-  white-space: nowrap;
-  width: 100%;
-  z-index: 1000;
-  box-shadow: 0 1px 0 0 rgba(0,0,0,.1);
-  font-weight: 300;
-}
-.app-task-screen{
+
+.mytasks {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
   position: relative;
-  display: flex;
-  flex-direction: row-reverse;
-  height: calc(100vh - 60px);
-  overflow: hidden;
-}
-.app-content{
-  margin-top:60px;
-}
-.post-task-container{
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  z-index: 1003;
-  animation-name: wrap-show;
-  animation-duration: 1s;
-  animation-fill-mode: forwards
-}
-@keyframes wrap-show{
-  from{background:none}
-  to{background-color: rgba(0,0,0,0.5);}
-}
-@keyframes wrap-content-show{
-  from{display: none}
-  to{display: block}
-}
-.post-task-content{
-  position: absolute;
-    left: 50%;
-    top: 50%;
-    right: auto;
-    bottom: auto;
-    transform: translate(-50%, -50%);
-    max-width: 500px;
-    height: auto;
-    min-height: 530px;
-    max-height: 90%;
-    width: 100%;
-    box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 10px;
-    border-radius: 5px;
-}
-
-.task-list{
-  width: 35%;
-  overflow-x: hidden;
-  overflow-y:scroll;
-  height: calc(100vh - 60px);
-}
-.task-list-item{
-  box-shadow: 0 1px rgba(187,194,220,.6);
-  border-radius:4px;
-  box-sizing: border-box;
-  transition: box-shadow .1s ease-out;
-  cursor: pointer;
-  border:1px solid transparent;
-  border-left:2px solid rgba(2,165,209,.29)
-}
-.task-link-active>.task-list-item-active {
-  border: 2px solid rgba(2,165,209,.5);
-  box-shadow: 0 0 1px 1px rgba(2,165,209,.29);
-}
-.task-list-item:hover{
-  box-shadow: 0 0 3px 3px rgba(187,194,220,.6);  
-}
-
-.task-right{
-  width: 100%;
-  height: calc(100vh - 60px);
-}
-.task-right-content{
-  height: 100vh
 }

@@ -1,2 +1,2 @@
-const API_KEY = "AIzaSyC0W_7Xof88qi51CnXgWEJVSOxyJFeKzME ";
-export default API_KEY;
+const API_Url = 'http://localhost:5000'
+export default API_Url

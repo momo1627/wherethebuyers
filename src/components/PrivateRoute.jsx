@@ -1,9 +1,9 @@
-import React,{useContext} from 'react'
+import * as React from 'react'
 import {Route,Redirect} from 'react-router-dom'
-import {SignInStatus} from '../middleware/context'
+import {SignInStatus} from '../context/context'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const [signInStatus] = useContext(SignInStatus);
+    const {signInStatus} = React.useContext(SignInStatus);
     return(
     <Route
       {...rest}
@@ -13,7 +13,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/signin",
+              pathname: "/",
               state: { from: props.location }
             }}
           />

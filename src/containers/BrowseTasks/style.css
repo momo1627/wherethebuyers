@@ -1,0 +1,130 @@
+.task-item-container{
+    overflow-y : scroll;
+    height:calc(100vh - 80px)
+}
+.tasks-new{
+    position: absolute;
+    top:10px;
+    left:5%;
+    min-width: 260px;
+    z-index: 10;
+}
+.tasks-top{
+    position: absolute;
+    min-width: 50px;
+    bottom:50px;
+    right:25px;
+    z-index: 10;
+}
+.task-list-item{
+    box-shadow: 0 1px rgba(187,194,220,.6);
+    border-radius:4px;
+    box-sizing: border-box;
+    border:1px solid transparent;
+    border-left:2px solid rgba(2,165,209,.29);
+    cursor: pointer;
+  }
+
+.task-link-active > .task-list-item-active{
+    border: 2px solid rgba(2,165,209,.29);
+    box-shadow: 0 0 1px 1px rgba(2,165,209,.29);
+}
+.task-list-item:hover{
+    box-shadow: 0 0 3px 3px rgba(187,194,220,.6)
+} 
+.task-container{
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row-reverse;
+    flex-direction: row-reverse;
+    height: calc(100vh - 80px);
+    overflow: hidden;
+    position: relative;
+}
+.task-nav{
+    position: relative;
+    width: 300px;
+}
+.task-right{
+    position: relative;
+    transition: left .5s ease-in;
+    flex: 1;
+}
+@media screen and (max-width:767.99px){
+    .task-nav{
+        width: 100%;
+    }
+    .task-container{
+        display: block
+    }
+    .task-right{
+        left: 0;
+        right: 0;
+        top: 0px;
+        bottom: 0;
+        position: absolute;
+    }
+}
+.task-detail-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 1002;
+    transition-delay: .1s;
+    transition: left .5s ease-out;
+}
+
+.task-detail-container-empty{
+    left:100vw;
+}
+.tasks-filter-container{
+    height:30px;
+    line-height: 30px;
+    position: relative;
+}
+.tasks-filter-content{
+    width: 320px;
+    max-width: 100%;
+    position: absolute;
+    z-index: 1060;
+    background: #fff;
+    border: 1px solid #17a2b8;
+    border-radius: 3px;
+    height: 30%;
+    animation-name: filter-show;
+    animation-duration: 1s;
+    animation-fill-mode: forwards
+}
+@keyframes filter-show{
+    from{top:-30px}
+    to{top:0 }
+  }
+@media screen and (min-width:992px){
+    .tasks-filter-content{
+        left:calc((100vw - 992px)/2);
+        margin-left: 0.5rem;
+    }
+}
+.filter-modal-container{
+    position: fixed;
+    top: 80px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 1025;
+    overflow: scroll;
+    animation-name: wrap-show;
+    animation-duration: 1s;
+    animation-fill-mode: forwards
+  }
+.filter-button{
+    cursor: pointer;
+    color:#17a2b8;
+}
+.filter-button:hover{
+    background-color: #17a2b8;
+    color:white;
+    border-radius: 3px
+}
