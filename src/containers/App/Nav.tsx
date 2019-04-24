@@ -3,31 +3,46 @@ import { NavLink } from 'react-router-dom'
 import ModalButton from '../../components/Modal/ModalButton'
 import { SignInStatus } from '../../context/context'
 import SignOut from '../../components/UserAdmin/SignOut'
-
-const Nav = () => {
-  const { signInStatus } = React.useContext(SignInStatus)
+interface Iprop {
+  hideNav: () => void
+}
+const Nav = (props: Iprop) => {
+  const { signInStatus } = React.useContext(SignInStatus);
+  const [user, setUser] = React.useState(false)
+  const showUser = () => {
+    setUser(prev => !prev);
+  }
+  const hideUser = () => {
+    setUser(false);
+    props.hideNav();
+  }
   return (
     <>
-      <div className="" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <NavLink activeClassName='nav-link-active' className="nav-list-item text-decoration-none" to='/tasks' >Browse Tasks</NavLink>
-      </div>
-      <div className="" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        {signInStatus.isSignIn && <NavLink activeClassName='nav-link-active' className="nav-list-item text-decoration-none" to='/mytasks'>MyTasks</NavLink> }
-      </div>
-      <div className='d-none d-md-block nav-list-item'>
-        <ModalButton target={signInStatus.isSignIn ? "postATask" : "signIn"}><span className='post-button py-1 px-2'>Post A Task</span></ModalButton>
-      </div>
-      {signInStatus.isSignIn && <NavLink activeClassName='nav-link-active' className="nav-list-item text-decoration-none" to={`/profile/${signInStatus.userId}`}>{signInStatus.username}</NavLink> }
-        
-      {signInStatus.isSignIn && <div className="nav-list-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <SignOut />
-      </div>}
-      {!signInStatus.isSignIn && <div className="nav-list-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <ModalButton target="signIn">Sign In</ModalButton>
-      </div>}
-      {!signInStatus.isSignIn && <div className="nav-list-item" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <ModalButton target="signUp">Sign Up</ModalButton>
-      </div>}
+      <NavLink activeClassName='nav-link-active' className="px-2 nav-list-item text-decoration-none" to='/tasks' onClick={hideUser} >Browse Tasks</NavLink>
+      {signInStatus.isSignIn ?
+        <>
+          <div className="nav-list-item px-2 d-none d-sm-block" onClick={showUser}>{signInStatus.username}</div>
+          <div className="nav-list-item px-2  d-sm-none">{signInStatus.username}</div>
+          <div className='d-flex flex-column d-sm-none'>
+            <NavLink activeClassName='' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to={`/profile/${signInStatus.userId}`}>View Profile</NavLink>
+            <NavLink activeClassName='nav-link-active' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to='/mytasks'>MyTasks</NavLink>
+            <SignOut />
+          </div>
+        </>
+        :
+        <div>
+          <ModalButton target="signIn"><span className="nav-list-item px-2" onClick={hideUser}>Sign In</span></ModalButton>
+          <ModalButton target="signUp"><span className="nav-list-item px-2" onClick={hideUser}>Sign Up</span></ModalButton>
+        </div>
+      }
+      {signInStatus.isSignIn && user &&
+        <div className='nav-user-container d-flex flex-column'>
+          <NavLink activeClassName='' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to={`/profile/${signInStatus.userId}`}>View Profile</NavLink>
+          <NavLink activeClassName='nav-link-active' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to='/mytasks'>MyTasks</NavLink>
+          <SignOut />
+        </div>
+      }
+
     </>
 
   )

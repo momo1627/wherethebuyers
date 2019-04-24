@@ -1,5 +1,5 @@
 .header-container{
-    max-width: 992px;
+    max-width: 768px;
     width:100%;
     margin: 0 auto;
 }
@@ -31,21 +31,39 @@
     margin: 0 auto;
     overflow: hidden;
 }
-
+.nav-container{
+    background:#f6f8fd;
+    position: absolute;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    padding: 2px 10px;
+}
+.nav-user-container{
+    background:#fff;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    padding: 2px 10px;
+}
 .nav-list-item{
     height: 50px;
     line-height: 50px;
-    color:#000
+    color:#000;
+    position: relative;
 }
 .nav-list-item:hover, .nav-link-active{
     cursor: pointer;
     color:#17a2b8
 }
 .post-button{
+    height: 50px;
+    line-height: 50px;
     border:1px solid #17a2b8;
     background-color: #17a2b8;
     border-radius: 25px;
     color: white;
+    cursor: pointer;
 }
 .nav-list-brand{
     font-size: 30px;

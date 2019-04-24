@@ -1,32 +1,35 @@
 import * as React from 'react'
+import { Link } from 'react-router-dom'
 import Nav from './Nav'
 import ModalButton from '../../components/Modal/ModalButton'
 import { SignInStatus } from '../../context/context'
 
 import './style.css'
 const Header = () => {
-  const { signInStatus } = React.useContext(SignInStatus)
+  const { signInStatus } = React.useContext(SignInStatus);
+  const [nav, setNav] = React.useState(false)
+  const ShowNav = () => {
+    setNav((prev) => !prev)
+  }
+  const hideNav = ()=>{
+    setNav(false)
+  }
   return (
     <div className='fixed-top bg-white border-bottom border-muted'>
-      <nav className="header-container navbar-light px-2">
-        <div className='d-md-none d-flex justify-content-between'>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className='d-md-none nav-list-item '>
-            <ModalButton target={signInStatus.isSignIn ? "postATask" : "signIn"}> <span className='post-button  py-1 px-2'>Post A Task</span></ModalButton>
-          </div>
+      <nav className="header-container navbar-light px-2 d-flex justify-content-between align-items-center">
+        <div className='col-10 col-sm-4 d-flex justify-content-between align-items-center'>
+          <Link to='/' className=' text-info text-decoration-none'>WTB</Link>
+          <ModalButton target={signInStatus.isSignIn ? "postATask" : "signIn"}><span className=' post-button p-1'>Post A Task</span></ModalButton>
         </div>
-        <div className="d-md-none collapse" id="navbarNav">
-            <ul className="navbar-nav justify-content-between">
-              <Nav />
-            </ul>
-          </div>
-        <div className='d-none w-100 d-md-flex justify-content-between'>
-          <div className="nav-list-item nav-list-brand" >WTB</div>
-          <Nav />
+        <div className='d-sm-none'>
+          <button className="border rounded  navbar-toggler-icon" onClick={ShowNav}></button>
         </div>
-
+        {nav && <div className='nav-container d-sm-none'>
+          <Nav hideNav={hideNav}/>
+        </div>}
+        <div className='d-none d-sm-flex col justify-content-between position-relative'>
+          <Nav hideNav={hideNav}/>
+        </div>
       </nav>
     </div>
 

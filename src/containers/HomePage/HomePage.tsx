@@ -20,8 +20,8 @@ const Home: React.FunctionComponent = () => {
                             <div className='p-1 btn btn-info btn-sm rounded-pill mt-2'><ModalButton target="postATask">Post A Task</ModalButton></div>
                             :
                             <div className="btn-group py-2">
-                                <ModalButton target="signIn">Sign In</ModalButton>
-                                <ModalButton target="signUp">Sign Up</ModalButton>
+                               <div className='p-1 btn btn-info btn-sm mt-2'> <ModalButton target="signIn">Sign In</ModalButton></div>
+                               <div className='p-1 btn btn-info btn-sm mt-2'><ModalButton target="signUp">Sign Up</ModalButton></div>
                             </div>
                         }
                     </div>
