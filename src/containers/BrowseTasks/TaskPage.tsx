@@ -1,10 +1,15 @@
 import * as React from 'react'
-import TaskNav from './TaskNav'
-import API_Url from '../../constants/api'
-import './style.css'
+import { Switch, Route } from 'react-router-dom'
 import { startUpdate, endUpdate } from '../../actions/updateAction'
-import Loading from '../../components/Loading'
 import { Update } from '../../context/context'
+import Loading from '../../components/Loading'
+import TaskDetail from '../TaskDetail/TaskDetailsPage';
+import TaskFilter from './TaskFilter'
+import Home from '../HomePage/HomePage'
+import TaskNav from './TaskNav'
+import './style.css'
+import API_Url from '../../constants/api'
+
 //1.initial fetch get task list and searchBeforeId searchAfterId
 //-- store tasks list, searchBeforeId searchAfterId
 //pass tasklist to taks nav to render
@@ -16,7 +21,18 @@ import { Update } from '../../context/context'
 //2.1.1 if click to get load new re-render task nav pass new , clear data here
 //2.2 2 if not click to get new task, 
 //2.2 if no task, wait to init new tasks
-const Tasks = () => {
+interface IProp {
+    match: {
+        params: {
+            id: string
+        }
+    }
+    history: {}
+    location: {
+        pathname: string
+    }
+}
+const Tasks = (props: IProp) => {
     const [initTaskList, setInitTaskList] = React.useState();
     const [response, setResponse] = React.useState({ status: false, message: '' })
 
@@ -34,20 +50,13 @@ const Tasks = () => {
     const [newTaskList, setNewTaskList] = React.useState([]);
     const [newTaskNumber, setNewTaskNumber] = React.useState(0);
 
-    const [checked, setChecked] = React.useState(false);
-    const [location, setLocation] = React.useState('')
     const { update, updateDispatch } = React.useContext(Update)
-
-    let filter = '';
-    if (checked) {
-        filter = '&status=OPEN&'
-    }
-    //init datalist 
+    const [filter, setFilter] = React.useState('')
     const fetchData = async () => {
         setInitTaskList([]);
         setIsDataLoading(true);
         setIsDataLoaded(false)
-        const result = await fetch(`${API_Url}/tasks?pageSize=5${filter}`, { method: 'get' });
+        const result = await fetch(`${API_Url}/tasks?pageSize=8${filter}`, { method: 'get' });
         const json = await result.json();
         if (result.ok) {
             setInitTaskList(json.data.tasks);
@@ -65,11 +74,8 @@ const Tasks = () => {
         }
     }
     React.useEffect(() => {
-        if (update) {
-            updateDispatch(endUpdate)
-        }
         fetchData();
-    }, [update])
+    }, [filter])
     const fetchNewData = async (searchAfterId: string) => {
         if (!searchAfterId) { return }
         const result = await fetch(`${API_Url}/tasks?searchAfterId=${searchAfterId}${filter}`, { method: 'get' });
@@ -112,13 +118,11 @@ const Tasks = () => {
             setIsMoreDataLoading(false);
         }
     }
-
-
     const elem = document.getElementsByClassName('task-item-container')[0]
     const handleScroll = () => {
         setIsScrolled(elem.scrollTop);
         if (!isMoreDataLoading) {
-            if (elem.scrollTop + elem.clientHeight > elem.scrollHeight - 1) {
+            if (elem.scrollTop + elem.clientHeight > elem.scrollHeight - 10) {
                 if (hasMoreTask) {
                     fetchMoreData(searchBeforeId);
                 }
@@ -136,27 +140,32 @@ const Tasks = () => {
             document.getElementsByClassName('task-item-container')[0].removeEventListener('scroll', handleScroll);
         }
     })
-    const handleFilter = () => {
-        
-        updateDispatch(startUpdate)
-    }
     return (
-        <>
-            <div className="custom-control custom-checkbox d-flex align-items-center text-center justify-content-around">
-                <input type="checkbox" checked={checked} onChange={() => { setChecked((pre) => !pre); handleFilter(); }} className="custom-control-input" id="customCheck1" />
-                <label className="custom-control-label " htmlFor="customCheck1">Show OPEN Only</label>
+        <div>
+            <div className='d-flex justify-content-between align-items-center'>
+                <TaskFilter filter={filter} handleFilter={setFilter} />
+                {window.location.pathname.length > 10 && <button className='d-md-none btn btn-sm py-0 btn-info text-white' onClick={() => { history.back() }}>&#8678;</button>}
             </div>
-            {newTaskNumber > 0 && <button className='alert alert-info tasks-new' onClick={addNewTasks}>{newTaskNumber} NEW TASKS</button>}
-            <div className="task-item-container" id="task-item-container">
-                {isScrolled > 0 && <button className='btn btn-sm btn-primary tasks-top' onClick={backToTop}>Top</button>}
-                {isDataLoading && !isDataLoaded && <Loading />}
-                {response.status && <TaskNav initTasks={initTaskList} />}
-                {isDataLoaded && <div className="tasks-loading border rounded shadow-sm bg-white font-weight-bold text-center mx-2 h6">
-                    {hasMoreTask ? <Loading /> : <div>no more tasks</div>}
-                </div>}
-            </div>
+            <div className='task-container' >
+                <div className='task-right'>
+                    <div className={window.location.pathname.length < 10 ? 'task-detail-container-empty ' : 'task-detail-container'}>
+                        {window.location.pathname.length > 10 ? <Route exact path='/tasks/:id' component={TaskDetail} /> : <div className='d-none d-md-block'><Home /></div>}
+                    </div>
+                </div>
+                <div className='task-nav px-1'>
+                    {newTaskNumber > 0 && <button className='text-white bg-info tasks-new' onClick={addNewTasks}>{newTaskNumber} NEW TASKS</button>}
+                    <div className="task-item-container" id="task-item-container">
+                        {isScrolled > 0 && <button className='btn btn-sm btn-primary tasks-top' onClick={backToTop}>Top</button>}
+                        {isDataLoading && !isDataLoaded && <Loading />}
+                        {response.status && <TaskNav initTasks={initTaskList} click={() => { updateDispatch(startUpdate) }} />}
+                        {isDataLoaded && <div className="tasks-loading border rounded shadow-sm bg-white font-weight-bold text-center mx-2 h6">
+                            {hasMoreTask ? <Loading /> : <div>no more tasks</div>}
+                        </div>}
+                    </div>
+                </div>
 
-        </>
+            </div>
+        </div>
     )
 }
 export default Tasks
