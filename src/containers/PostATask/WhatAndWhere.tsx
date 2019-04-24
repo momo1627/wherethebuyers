@@ -31,9 +31,9 @@ const WhatAndHowMuch = (props: Iprops) => {
                 <div className="progress-bar bg-success" role="progressbar" style={{ "width": "33%" }} aria-valuenow={33} aria-valuemin={0} aria-valuemax={100}></div>
             </div>
             <form action="" className='d-flex flex-column' >
-                <label htmlFor="what" className="small font-weight-bold mt-2">What do you need to buy?</label>
+                <label htmlFor="what" className="font-weight-bold mt-2">What do you need to buy?</label>
                 <input type="text" id='what' name='what' className={`p-0 form-control form-control-sm`} value={what} onChange={(e) => { setWhat(e.target.value) }} />
-                <label htmlFor="where" className="small font-weight-bold mt-2">Where will it be send?</label>
+                <label htmlFor="where" className="font-weight-bold mt-2">Where will it be send?</label>
                 <div>
                     <Autocompleted input={where} setInput={(i: string) => { setWhere(i) }} />
                 </div>

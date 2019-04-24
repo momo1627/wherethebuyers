@@ -46,10 +46,10 @@ const ReviewAndSubmit = (props: Iprops) => {
             </div>
             <div>
                 <ul className="list-group">
-                    <li className="list-group-item small "><span className='font-weight-bold'>What</span> {props.task.what}</li>
-                    <li className="list-group-item small "><span className='font-weight-bold'>Where</span> {props.task.where}</li>
-                    <li className="list-group-item small "><span className='font-weight-bold'>Price</span> {props.task.price}</li>
-                    <li className="list-group-item small "><span className='font-weight-bold'>When</span> {props.task.when}</li>
+                    <li className="list-group-item "><span className='font-weight-bold'>What</span> {props.task.what}</li>
+                    <li className="list-group-item "><span className='font-weight-bold'>Where</span> {props.task.where}</li>
+                    <li className="list-group-item "><span className='font-weight-bold'>Price</span> {props.task.price}</li>
+                    <li className="list-group-item "><span className='font-weight-bold'>When</span> {props.task.when}</li>
                 </ul>
             </div>
             <div className='d-flex mt-2 justify-content-around'>

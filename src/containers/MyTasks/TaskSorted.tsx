@@ -10,10 +10,10 @@ const TaskSorted = (props: IProps) => {
         props.handleSort(`&sort=${e.target.value}`)
     }
     return (
-        <select id='select' className="small w-50" value={sort} onChange={handleChange}>
-            <option value={`_id`} className='small'>Posted Time (Newest)</option>
-            <option value={`when`} className='small'>Due Time (Nearest)</option>
-            <option value={`price`} className='small'>Price (Highest)</option>
+        <select id='select' className=" w-50" value={sort} onChange={handleChange}>
+            <option value={`_id`} className=''>Posted Time (Newest)</option>
+            <option value={`when`} className=''>Due Time (Nearest)</option>
+            <option value={`price`} className=''>Price (Highest)</option>
         </select>
     )
 }

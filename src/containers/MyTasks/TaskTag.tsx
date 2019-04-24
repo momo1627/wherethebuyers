@@ -45,9 +45,9 @@ const TaskTag = (props: IProp) => {
     }
 
     return (
-        <div className='bg-white '>
+        <>
             <button className='btn position-absolute' type='button' onClick={() => { props.hide() }}><span className='h4'>&times;</span></button>
-            <div className='d-flex flex-column justify-content-around align-items-center p-2'>
+            <div className='mytask-tag d-flex flex-column justify-content-around align-items-center p-2'>
                 <h5 >Task is <span className={`text-${status}`}>{props.status}</span></h5>
                 {props.status === 'OPEN' && <a className={`text-white bg-${status} btn btn-sm`} onClick={() => { setConfirm(true); }}>{action} the task</a>}
                 {props.status === 'ASSIGNED' && (props.role === 'tasker' ? <span className={`text-white bg-${status} btn btn-sm`} onClick={() => { setConfirm(true); }}>{action} the task</span> :
@@ -58,7 +58,7 @@ const TaskTag = (props: IProp) => {
                 <Link className="text-center text-info rounded my-2" to={`/task/${props._id}`} >Go to Task Detail</Link>
                 {confirm && <ConfirmModal url={`${API_Url}/task/${props._id}`} input={input} title={`${action} the task`} click={click} cancel={cancel} />}
             </div>
-        </div>
+        </>
 
     )
 }

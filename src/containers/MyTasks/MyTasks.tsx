@@ -64,16 +64,15 @@ const Mytasks = () => {
     }
     return (
         <div className='my-tasks'>
-            <div className='my-tasks-container'>
                 <nav className='my-2 my-tasks-nav text-center'>
                     <div className={role === 'poster' ? 'bg-info text-white w-50 d-inline-block' : 'text-info w-50 d-inline-block'} onClick={(e) => { refresh(); setRole('poster'); }}>As Poster</div>
                     <div className={role === 'tasker' ? 'bg-info text-white w-50 d-inline-block' : 'text-info w-50 d-inline-block'} onClick={(e) => { refresh(); setRole('tasker'); }}>As Tasker</div>
                 </nav>
                 <div className='d-flex justify-content-around'>
-                    <select className="small w-50" value={filter} onChange={(e) => { refresh(); setFilter(e.target.value); }}>
-                        <option className="small" value="ALL">All Tasks</option>
-                        <option className="small" value="PENDING">Pending Tasks</option>
-                        <option className="small" value="COMPLETED">Completed Tasks</option>
+                    <select className=" w-50" value={filter} onChange={(e) => { refresh(); setFilter(e.target.value); }}>
+                        <option className="" value="ALL">All Tasks</option>
+                        <option className="" value="PENDING">Pending Tasks</option>
+                        <option className="" value="COMPLETED">Completed Tasks</option>
                     </select>
                     <TaskSorted sort={sort} handleSort={(i: string) => { setSort(i) }} />
                 </div>
@@ -82,7 +81,6 @@ const Mytasks = () => {
                 {!isDataLoading && isDataLoaded && !response.status && <div>not any tasks yet</div>}
 
                 <Pagination {...pagination} click={(i: number) => { setPage(i) }} />
-            </div>
         </div>
     )
 }

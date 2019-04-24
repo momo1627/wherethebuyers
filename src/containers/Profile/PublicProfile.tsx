@@ -102,8 +102,8 @@ const Profile = (props: IProp) => {
               <div className=''>
                 {profile.reviews.postedReviews.map((re, index) => {
                   return (
-                  <div className='d-flex flex-column small align-items-start col-12 col-sm-6 mx-auto mt-1 border border-info' key={re.reviewToPoster.username + index}>
-                    <Link to={`/task/${re.taskId}`}>{re.taskContent}</Link>
+                  <div className='d-flex flex-column align-items-start col-12 col-sm-6 mx-auto mt-1 border border-info' key={re.reviewToPoster.username + index}>
+                    <Link to={`/task/${re.taskId}`} className='text-info'>{re.taskContent}</Link>
                     <TaskReview key={re.reviewToPoster.username + index} username={re.reviewToPoster.username} userId={re.reviewToPoster.userId} rating={re.reviewToPoster.rating} message={re.reviewToPoster.message} />
                   </div>
                   )
@@ -115,8 +115,8 @@ const Profile = (props: IProp) => {
               <div className=''>
                 {profile.reviews.assignedReviews.map((re, index) => {
                   return (
-                    <div className='d-flex flex-column small align-items-start col-12 col-sm-6 mx-auto mt-1 border border-info' key={re.reviewToTasker.username + index}>
-                      <Link to={`/task/${re.taskId}`}>{re.taskContent}</Link>
+                    <div className='d-flex flex-column align-items-start col-12 col-sm-6 mx-auto mt-1 border border-info' key={re.reviewToTasker.username + index}>
+                      <Link to={`/task/${re.taskId}`} className='text-info'>{re.taskContent}</Link>
                       <TaskReview username={re.reviewToTasker.username} userId={re.reviewToTasker.userId} rating={re.reviewToTasker.rating} message={re.reviewToTasker.message} />
                     </div>
                   )

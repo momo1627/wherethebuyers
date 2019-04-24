@@ -17,10 +17,10 @@ const Review = (props: Iprops) => {
     }
     return (
         <>
-            <Link to={`/profile/${props.userId}`}>{props.username}</Link>
+            <Link to={`/profile/${props.userId}`} className='text-info'>{props.username}</Link>
             <div className='ml-2'>
                 {props.rating && rating(props.rating)}
-                <div className='small '>{props.message && props.message}</div>
+                <div className=''>{props.message && props.message}</div>
             </div>
         </>
     )

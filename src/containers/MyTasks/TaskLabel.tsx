@@ -46,8 +46,8 @@ const TaskLabel: React.FunctionComponent<Props> = (props) => {
                 <span className='mytask-list-item' onClick={handleTask}>Buy {props.what}</span>
                 <span className=''>${props.price}</span>
             </div>
-            <div className={`small text-muted text-left border-top border-muted `}>Posted: {moment(props.postedTime).format('MMMM Do YYYY, h:mm:ss a')}</div>
-            <div className={`small text-muted text-left border-top border-muted `}>Due: {moment(props.when).format('MMMM Do YYYY, h:mm:ss a')}</div>
+            <div className={`text-muted text-left border-top border-muted `}>Posted: {moment(props.postedTime).format('MMMM Do YYYY, h:mm:ss a')}</div>
+            <div className={`text-muted text-left border-top border-muted `}>Due: {moment(props.when).format('MMMM Do YYYY, h:mm:ss a')}</div>
             {showTask && <div className='mytask-container'><div className='mytask-content'><TaskTag hide={()=>{setShowTask(false)}} {...props}/></div></div>}
         </div>
     )

@@ -46,10 +46,10 @@ const WhenAndWhere = (props: IProps) => {
                 <div className="progress-bar bg-success" role="progressbar" style={{ "width": "66%" }} aria-valuenow={66} aria-valuemin={0} aria-valuemax={100}></div>
             </div>
             <form action="" className='px-3 d-flex flex-column' >
-                <label htmlFor="when" className="small font-weight-bold mt-2">When do you need it?</label>
+                <label htmlFor="when" className="font-weight-bold mt-2">When do you need it?</label>
                 <input type="datetime-local" id='when' name='when' className={`p-0 form-control form-control-sm`} value={input.when.toString()} onChange={handleChange} />
-                <label htmlFor="price" className="small font-weight-bold mt-2">How much do you pay?</label>
-                <input type="number" min="2" id='price' name='price' className={`small w-25 p-0 form-inline form-control form-control-sm`} value={input.price} onChange={handleChange} />
+                <label htmlFor="price" className="font-weight-bold mt-2">How much do you pay?</label>
+                <input type="number" min="2" id='price' name='price' className={`w-25 p-0 form-inline form-control form-control-sm`} value={input.price} onChange={handleChange} />
                 <div className='d-flex mt-2 justify-content-around'>
                     <button className='btn btn-sm btn-secondary' type="button" onClick={handleBack}>Back</button>
                     <button className='btn btn-sm btn-success' type="button" onClick={handleNext}>Next</button>

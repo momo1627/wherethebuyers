@@ -44,11 +44,11 @@ const TaskReviewContainer: React.FunctionComponent<Props> = (props) => {
             </div>
             {props.reviewToTasker &&
                 <div className='d-flex justify-content-start border-bottom align-items-center border-muted'>
-                    <TaskReview userId={signInStatus.userId} rating={props.reviewToTasker.rating} message={props.reviewToTasker.message} username={props.poster} />
+                    <TaskReview userId={props.posterId} rating={props.reviewToTasker.rating} message={props.reviewToTasker.message} username={props.poster} />
                 </div>}
             {props.reviewToPoster &&
                 <div className='d-flex justify-content-start border-bottom align-items-center border-muted'>
-                    <TaskReview userId={signInStatus.userId} rating={props.reviewToPoster.rating} message={props.reviewToPoster.message} username={props.tasker} />
+                    <TaskReview userId={props.taskerId} rating={props.reviewToPoster.rating} message={props.reviewToPoster.message} username={props.tasker} />
                 </div>}
             {reviewMaker && <TaskReviewMaker username={signInStatus.username} userId={signInStatus.userId} reviewId={reviewId} role={role} cancel={handleReviewMaker} />}
         </div>

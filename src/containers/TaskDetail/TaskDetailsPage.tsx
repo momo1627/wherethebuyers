@@ -98,25 +98,25 @@ const TaskDetail = (props: IProp) => {
               </div>
             </div>
           </div>
-          <div className='small border-bottom border-muted mx-auto'>
+          <div className='border-bottom border-muted mx-auto'>
             <TaskContent content={''}>Location &#9962; </TaskContent>
             <TaskContent content={data.where}></TaskContent>
             <TaskContent content={''}> Due &#128359;</TaskContent>
             <TaskContent content={moment(data.when).format('MMMM Do YYYY, h:mm:ss a')}></TaskContent>
           </div>
-          <div className='mx-auto small border-bottom border-muted'>
+          <div className='mx-auto border-bottom border-muted'>
             <TaskContent content={''}>Posted By</TaskContent>
-            <Link to={`/profile/${data.posterId}`}>{data.poster}</Link>
+            <Link to={`/profile/${data.posterId}`} className='text-info'>{data.poster}</Link>
             <TaskContent content={''}>Posted Time &#128359; </TaskContent>
             <TaskContent content={moment(data.postedTime).format('MMMM Do YYYY, h:mm:ss a')}></TaskContent>
           </div>
-          <div className='mx-auto small border-bottom border-muted'>
+          <div className='mx-auto border-bottom border-muted'>
             <TaskContent content={''}>Assigned To</TaskContent>
-            <Link to={`/profile/${data.taskerId}`}>{data.tasker}</Link>
+            <Link to={`/profile/${data.taskerId}`} className='text-info'>{data.tasker}</Link>
             <TaskContent content={''}>Assigned Time &#128359; </TaskContent>
             <TaskContent content={data.assignedTime && moment(data.assignedTime).format('MMMM Do YYYY, h:mm:ss a')}></TaskContent>
           </div>
-          {data.completedTime && <div className='mx-auto small border-bottom border-muted'>
+          {data.completedTime && <div className='mx-auto border-bottom border-muted'>
             <TaskContent content={''}>Completed Time &#128359; </TaskContent>
             <TaskContent content={data.completedTime && moment(data.completedTime).format('MMMM Do YYYY, h:mm:ss a')}></TaskContent>
           </div>}
