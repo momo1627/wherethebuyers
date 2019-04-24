@@ -25,7 +25,7 @@ const Nav = (props: Iprop) => {
         <>
           <div className="nav-list-item px-2 d-none d-sm-block" onClick={showUser} >{signInStatus.username}</div>
           <div className='d-flex flex-column d-sm-none'>
-            <NavLink activeClassName='' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to={`/profile/${signInStatus.userId}`}>View Profile</NavLink>
+            <NavLink activeClassName='nav-link-active' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to={`/profile/${signInStatus.userId}`}>View Profile</NavLink>
             <NavLink activeClassName='nav-link-active' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to='/mytasks'>MyTasks</NavLink>
             <SignOut />
           </div>
@@ -37,8 +37,8 @@ const Nav = (props: Iprop) => {
         </div>
       }
       {signInStatus.isSignIn && user &&
-        <div className='nav-user-container d-flex flex-column'>
-          <NavLink activeClassName='' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to={`/profile/${signInStatus.userId}`}>View Profile</NavLink>
+        <div className='nav-user-container border-top-0 border-muted shadow-sm d-none d-sm-flex flex-column '>
+          <NavLink activeClassName='nav-link-active' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to={`/profile/${signInStatus.userId}`}>View Profile</NavLink>
           <NavLink activeClassName='nav-link-active' className="px-2 nav-list-item text-decoration-none" onClick={hideUser} to='/mytasks'>MyTasks</NavLink>
           <SignOut />
         </div>

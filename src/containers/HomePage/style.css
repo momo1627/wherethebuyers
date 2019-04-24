@@ -6,12 +6,11 @@
     margin: 0 auto;
 }
 
-.description-active>  div{
+.description-active>  div {
     max-width: 600px;
     width: 100%;
     margin: 0 auto;
 }
-
 .description-active>  div:nth-of-type(2){
     animation-name: description-show;
     animation-duration: 2s;

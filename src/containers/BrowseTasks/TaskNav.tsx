@@ -22,9 +22,6 @@ interface IData {
 interface IProps {
     initTasks: IData[],
     click:()=>void
-    // isLoadingMoreData: boolean
-    // hasMoreTasks: boolean
-    // isLoadedMoreData:boolean
 }
 const TaskList = (props: IProps) => {
     const { update, updateDispatch } = React.useContext(Update)

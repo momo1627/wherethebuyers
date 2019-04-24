@@ -23,7 +23,7 @@ const TaskDetail: React.FunctionComponent<IData> = (props) => {
   let status
   switch (props.status) {
     case 'COMPLETED':
-      status = 'dark'
+      status = 'info'
       break
     case 'ASSIGNED':
       status = 'warning'

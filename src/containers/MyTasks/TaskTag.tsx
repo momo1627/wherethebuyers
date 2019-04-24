@@ -7,17 +7,24 @@ interface IProp {
     status: string;
     _id: string;
     role: string;
+    when:string;
     hide: () => void
 }
 const TaskTag = (props: IProp) => {
     let action;
     let method;
     let status;
+    const expiry = (new Date(props.when).getTime() - new Date().getTime()) < 0;
+
     switch (props.status) {
         case 'OPEN':
             action = 'CANCEL';
             method = 'delete';
-            status = 'success'
+            if(expiry){
+                status = 'dark'
+            } else{
+                status = 'success'
+            }
             break
         case 'ASSIGNED':
             action = 'DONE';
@@ -34,6 +41,7 @@ const TaskTag = (props: IProp) => {
             status = 'dark'
             break
     }
+    
     const { signInStatus, } = React.useContext(SignInStatus)
     const input = { method: method, body: JSON.stringify({ status: action, userId: signInStatus.userId }), headers: { 'Content-Type': 'application/json' } }
     const [confirm, setConfirm] = React.useState(false);
@@ -49,6 +57,7 @@ const TaskTag = (props: IProp) => {
             <button className='btn position-absolute' type='button' onClick={() => { props.hide() }}><span className='h4'>&times;</span></button>
             <div className='mytask-tag d-flex flex-column justify-content-around align-items-center p-2'>
                 <h5 >Task is <span className={`text-${status}`}>{props.status}</span></h5>
+                {expiry && <span className={`text-dark small `}>Task is EXPIRIED</span>}
                 {props.status === 'OPEN' && <a className={`text-white bg-${status} btn btn-sm`} onClick={() => { setConfirm(true); }}>{action} the task</a>}
                 {props.status === 'ASSIGNED' && (props.role === 'tasker' ? <span className={`text-white bg-${status} btn btn-sm`} onClick={() => { setConfirm(true); }}>{action} the task</span> :
                     <span>Wait tasker to deliver</span>)}

@@ -52,9 +52,14 @@
     color:#000;
     position: relative;
 }
-.nav-list-item:hover, .nav-link-active{
+.nav-list-item:hover{
     cursor: pointer;
-    color:#17a2b8
+    background-color:#17a2b8;
+    color: #fff;
+}
+.nav-link-active{
+    cursor: pointer;
+    color:#17a2b8;
 }
 .post-button{
     height: 50px;

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { startUpdate, endUpdate } from '../../actions/updateAction';
 import { SignInStatus, Update } from '../../context/context'
@@ -60,8 +60,8 @@ const TaskDetail = (props: IProp) => {
     setIsDataLoaded(true);
     setIsDataLoading(false);
   }
-  React.useEffect(() => { 
-    if (update) { updateDispatch(endUpdate) } 
+  React.useEffect(() => {
+    if (update) { updateDispatch(endUpdate) }
     fetchTasks();
   }, [update])
   let status
@@ -85,17 +85,17 @@ const TaskDetail = (props: IProp) => {
         <div className='p-2'>
           <div className={`alert bg-${status} p-0 text-white text-center`}>{data.status}</div>
           <div className="h4 text-center  font-weight-normal">{data.what}</div>
-          <div className='d-md-flex'>
-            <div className="border-bottom border-muted  mx-auto text-center d-flex flex-column justify-content-center">
+          <div className='d-md-flex border-bottom border-muted py-1 '>
+            <div className="mx-auto text-center d-flex flex-column justify-content-center">
               <div>
                 <h6 className='py-1'>Task Budget</h6>
                 <div className='h2'>${data.price}</div>
               </div>
-              <div className="">
+              {data.status === "OPEN" && <div>
                 {signInStatus.isSignIn ?
-                  <button className='btn btn-success btn-sm ' disabled={data.status !== "OPEN" || data.poster === signInStatus.username} onClick={() => { setConfirm(true) }}>Take the Task</button>
+                  <button className='btn btn-success btn-sm ' disabled={data.poster === signInStatus.username} onClick={() => { setConfirm(true) }}>Take the Task</button>
                   : <ModalButton target="signIn"><button className='btn btn-primary btn-sm ' >Take the Task</button></ModalButton>}
-              </div>
+              </div>}
             </div>
           </div>
           <div className='border-bottom border-muted mx-auto'>
