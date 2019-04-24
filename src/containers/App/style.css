@@ -32,19 +32,32 @@
     overflow: hidden;
 }
 .nav-container{
-    background:#f6f8fd;
+    display: flex;
+    flex-direction: column;
     position: absolute;
     top: 50px;
-    left: 0;
-    width: 100%;
-    padding: 2px 10px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 1055;
+    color: #17a2b8;
+    background: #fff;
+    height: calc(100vh - 50px)
 }
-.nav-user-container{
+
+.nav-user-dropdown{
+    display: none;
     background:#fff;
     position: absolute;
     top: 50px;
     right: 0;
     padding: 2px 10px;
+}
+.nav-user-container:hover .nav-user-dropdown{
+    display: block;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
 }
 .nav-list-item{
     height: 50px;

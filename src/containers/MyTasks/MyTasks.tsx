@@ -69,7 +69,7 @@ const Mytasks = () => {
                     <div className={role === 'tasker' ? 'bg-info text-white w-50 d-inline-block' : 'text-info w-50 d-inline-block'} onClick={(e) => { refresh(); setRole('tasker'); }}>As Tasker</div>
                 </nav>
                 <div className='d-flex justify-content-around'>
-                    <select className=" w-50" value={filter} onChange={(e) => { refresh(); setFilter(e.target.value); }}>
+                    <select className="custom-select w-50" value={filter} onChange={(e) => { refresh(); setFilter(e.target.value); }}>
                         <option className="" value="ALL">All Tasks</option>
                         <option className="" value="PENDING">Pending Tasks</option>
                         <option className="" value="COMPLETED">Completed Tasks</option>

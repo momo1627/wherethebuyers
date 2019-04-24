@@ -79,6 +79,9 @@
 .task-detail-container-empty{
     left:100vw;
 }
+.home-container{
+    height: calc(100vh - 80px);
+}
 .tasks-filter-container{
     height:30px;
     line-height: 30px;

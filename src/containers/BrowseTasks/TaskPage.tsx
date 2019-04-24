@@ -149,7 +149,7 @@ const Tasks = (props: IProp) => {
             <div className='task-container' >
                 <div className='task-right'>
                     <div className={window.location.pathname.length < 10 ? 'task-detail-container-empty ' : 'task-detail-container'}>
-                        {window.location.pathname.length > 10 ? <Route exact path='/tasks/:id' component={TaskDetail} /> : <div className='d-none d-md-block'><Home /></div>}
+                        {window.location.pathname.length > 10 ? <Route exact path='/tasks/:id' component={TaskDetail} /> : <div className='home-container d-none d-md-block'><Home /></div>}
                     </div>
                 </div>
                 <div className='task-nav px-1'>

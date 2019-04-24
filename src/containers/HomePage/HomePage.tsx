@@ -7,7 +7,8 @@ const Home: React.FunctionComponent = () => {
     const { signInStatus } = React.useContext(SignInStatus);
     const [role, setRole] = React.useState('poster')
     return (
-            <div className='home d-flex flex-column justify-content-center align-items-center text-center '>
+        <div className='home'>
+            <div className=' d-flex flex-column justify-content-center align-items-center text-center '>
             <div className='text-center m-2 '>
                 <span className={role === "poster" ? `profile-nav text-white bg-info rounded p-1 m-1` : 'profile-nav text-info bg-white border-info border rounded p-1 m-1'} onClick={() => { setRole('poster') }}>As Poster</span>
                 <span className={role === "tasker" ? `profile-nav text-white bg-info rounded p-1 m-1` : 'profile-nav text-info bg-white border-info border rounded p-1 m-1'} onClick={() => { setRole('tasker') }}>As Tasker</span>
@@ -63,7 +64,7 @@ const Home: React.FunctionComponent = () => {
 
 
                 </div>}
-            </div>
+            </div></div>
     )
 }
 export default Home
