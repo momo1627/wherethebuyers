@@ -35,8 +35,6 @@ const Nav = (props: Iprop) => {
         <div>
           <div className='nav-list-item ' onClick={hideNav}>
             <ModalButton target="signIn"><span className="px-2" >Sign In</span></ModalButton>
-          </div>
-          <div className='nav-list-item ' onClick={hideNav}>
             <ModalButton target="signUp"><span className="px-2" >Sign Up</span></ModalButton>
           </div>
         </div>
