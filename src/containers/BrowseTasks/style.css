@@ -1,6 +1,16 @@
+.task-container{
+    position: relative;
+    max-width: 768px;
+    margin: 0 auto;
+    padding: 5px;
+}
 .task-item-container{
     overflow-y : scroll;
     height:calc(100vh - 80px)
+}
+.task-detail-button{
+    cursor: pointer;
+    color:#17a2b8;
 }
 .tasks-new{
     position: absolute;
@@ -22,70 +32,22 @@
     box-sizing: border-box;
     border:1px solid transparent;
     border-left:2px solid rgba(2,165,209,.29);
-    cursor: pointer;
+    background: #fff;
+    padding:0 0.25rem;
+    margin: 0.25rem 0;
   }
 
-.task-link-active > .task-list-item-active{
-    border: 2px solid rgba(2,165,209,.29);
-    box-shadow: 0 0 1px 1px rgba(2,165,209,.29);
-}
-.task-list-item:hover{
-    box-shadow: 0 0 3px 3px rgba(187,194,220,.6)
-} 
-.task-container{
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: row-reverse;
-    flex-direction: row-reverse;
-    height: calc(100vh - 80px);
-    overflow: hidden;
-    position: relative;
-}
 .task-nav{
     position: relative;
     width: 360px;
 }
-.task-right{
-    position: relative;
-    transition: left .5s ease-in;
-    flex: 1;
-}
-@media screen and (max-width:767.99px){
-    .task-nav{
-        width: 100%;
-    }
-    .task-container{
-        display: block
-    }
-    .task-right{
-        left: 0;
-        right: 0;
-        top: 0px;
-        bottom: 0;
-        position: absolute;
-    }
-}
-.task-detail-container{
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    z-index: 1002;
-    transition-delay: .1s;
-    transition: left .5s ease-out;
-}
 
-.task-detail-container-empty{
-    left:100vw;
-}
-.home-container{
-    height: calc(100vh - 80px);
-}
 .tasks-filter-container{
     height:30px;
     line-height: 30px;
     position: relative;
+    max-width: 768px;
+    margin: 0 auto;
 }
 .tasks-filter-content{
     width: 320px;
@@ -104,10 +66,11 @@
     from{top:-30px}
     to{top:0 }
   }
-@media screen and (min-width:992px){
+@media screen and (min-width:768px){
     .tasks-filter-content{
-        left:calc((100vw - 992px)/2);
+        left:calc((100vw - 768px)/2);
         margin-left: 0.5rem;
+        margin-top: 5px
     }
 }
 .filter-modal-container{
